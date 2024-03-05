@@ -10,7 +10,7 @@
 composer --version
 ```
 <br>
-<h4>Laravel Version: 10.45.1<br>Laravel Realese: 2024-02-21</h4>
+<h4>Laravel Version: 10.46.0<br>Laravel Realese: 2024-02-27</h4>
 <h5>Para verificar a versão do laravel existem duas maneiras:</h5>
 
 <h6>Primeira maneira, a mais básica (não exibe a realease):</h6>
