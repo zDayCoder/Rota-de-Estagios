@@ -64,12 +64,12 @@ git config --global user.email "SEU E-MAIL"
 ```bash
 composer install
 ```
-<br>
+<!-- <br>
 
 **Após a instalação, certifique-se de que o Composer gerou o autoload corretamente. O autoload é responsável por carregar automaticamente as classes do projeto. Execute:**
 ```
 composer dump-autoload
-```
+``` -->
 
 <br><br>
 ## Comandos Git que mais serão utilizados
