@@ -75,7 +75,7 @@ composer dump-autoload
 ## Comandos Git que mais serão utilizados
 ### ATENÇÃO: Comandos não estão na ordem de execução!!!
 
-<h5>Comando para trocar de branch (main neste caso)</h5>
+<h4>Comando para trocar de branch (main neste caso)</h4>
 
 ```bash
 git checkout -b main
