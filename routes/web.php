@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome.index');
 });
 
 Route::middleware([
@@ -28,3 +28,4 @@ Route::middleware([
 });
 
 require_once __DIR__ . '/jetstream.php';
+require_once __DIR__ . '/curricula.php';
