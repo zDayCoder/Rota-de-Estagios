@@ -20,8 +20,10 @@
                         <!-- <li><a href="javascript:void()" data-nav-section="services"><span>Services</span></a></li>
                         <li><a href="javascript:void()" data-nav-section="explore"><span>Portfolio</span></a></li> -->
                         <li><a href="javascript:void()" data-nav-section="vagas"><span>Vagas</span></a></li>
+                        @guest
                         <li><a href="javascript:void()" data-nav-section="testimony"><span>Relatos e
                                     Feedbacks</span></a></li>
+                        @endguest
                         <li><a href="javascript:void()" data-nav-section="about"><span>Sobre</span></a></li>
                         <li>
                             <a href="{{ route('dashboard') }}" data-nav-section="dashboard"
@@ -33,6 +35,7 @@
                                 @endauth
                             </a>
                         </li>
+                        <!-- <li><a href="javascript:void()" style="user-select:none">{{ auth()->user()->name }}</a></li> -->
                     </ul>
                 </div>
             </nav>
