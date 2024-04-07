@@ -34,36 +34,62 @@ class CurriculumController extends Controller
      */
     public function store(Request $request)
     {
+        // Validação dos dados do formulário
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'summary' => 'required|string|max:1000',
+            'positions.*' => 'required|string|max:255', // Validação para campos múltiplos
+            'locations.*' => 'required|string|max:255',
+            'skills.*' => 'required|string|max:255',
+            'languages.*' => 'required|string|max:255',
+            'certifications.*' => 'required|string|max:255',
+        ]);
 
-        try {
-            $data = $request->validate([
-                'full_name' => 'required|string|max:255',
-                'address' => 'required|string|max:255',
-                'cep' => 'required|string|max:9',
-                'email' => 'required|email|max:255',
-                'phone_number' => 'required|string|max:20',
-                'professional_objective' => 'nullable|string',
-                'academic_course' => 'nullable|string|max:255',
-                'institution' => 'nullable|string|max:255',
-                'start_year' => 'nullable|integer|min:1900|max:' . date('Y'),
-                'expected_completion_year' => 'nullable|integer|min:' . date('Y') . '|max:' . (date('Y') + 10),
-                'skills' => 'nullable|string',
-                'languages' => 'nullable|string|max:255',
-                'projects' => 'nullable|string',
-                'certifications' => 'nullable|string',
-                'extracurricular_activities' => 'nullable|string',
-            ]);
+        // Cria um novo currículo com base nos dados recebidos
+        $curriculum = new Curriculum();
+        $curriculum->name = $validatedData['name'];
+        $curriculum->email = $validatedData['email'];
+        $curriculum->phone = $validatedData['phone'];
+        $curriculum->summary = $validatedData['summary'];
 
-            Curriculum::create($data);
+        // Salva o currículo no banco de dados
+        $curriculum->save();
 
-            return redirect()->route('curricula.index')->with('success', 'Currículo adicionado com sucesso');
-        } catch (\Exception $e) {
-            return back()->withInput()->with('error', 'Erro ao salvar o currículo: ' . $e->getMessage());
+        // Adiciona as experiências ao currículo
+        $experiences = [];
+        foreach ($validatedData['positions'] as $key => $position) {
+            $experiences[] = [
+                'position' => $position,
+                'location' => $validatedData['locations'][$key],
+            ];
         }
+        $curriculum->experiences()->createMany($experiences);
+
+        // Adiciona as habilidades ao currículo
+        $skills = [];
+        foreach ($validatedData['skills'] as $skill) {
+            $skills[] = ['name' => $skill];
+        }
+        $curriculum->skills()->createMany($skills);
+
+        // Adiciona os idiomas ao currículo
+        $languages = [];
+        foreach ($validatedData['languages'] as $language) {
+            $languages[] = ['name' => $language];
+        }
+        $curriculum->languages()->createMany($languages);
+
+        // Adiciona as certificações ao currículo
+        $certifications = [];
+        foreach ($validatedData['certifications'] as $certification) {
+            $certifications[] = ['name' => $certification];
+        }
+        $curriculum->certifications()->createMany($certifications);
+        // Redireciona para a página de exibição do currículo recém-criado
+        return redirect()->route('curricula.show', $curriculum->id);
     }
-
-
-
 
 
     /**

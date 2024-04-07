@@ -35,7 +35,6 @@
                                 @endauth
                             </a>
                         </li>
-                        <!-- <li><a href="javascript:void()" style="user-select:none">{{ auth()->user()->name }}</a></li> -->
                     </ul>
                 </div>
             </nav>

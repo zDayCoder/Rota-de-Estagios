@@ -8,21 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class Curriculum extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'full_name',
-        'address',
-        'cep',
-        'email',
-        'phone_number',
-        'professional_objective',
-        'academic_course',
-        'institution',
-        'start_year',
-        'expected_completion_year',
-        'skills',
-        'languages',
-        'projects',
-        'certifications',
-        'extracurricular_activities',
-    ];
+    protected $fillable = ['name', 'email', 'phone', 'summary'];
+
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
+    public function skills()
+    {
+        return $this->hasMany(Skill::class);
+    }
+
+    public function languages()
+    {
+        return $this->hasMany(Language::class);
+    }
+
+    public function certifications()
+    {
+        return $this->hasMany(Certification::class);
+    }
 }
