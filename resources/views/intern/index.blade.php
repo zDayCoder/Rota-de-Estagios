@@ -33,8 +33,51 @@
 </head>
 
 <body>
-    @include('welcome/navigation-menu')
-    @yield('navbar')
+<header role="banner" id="rest-header">
+    <div class="container">
+        <div class="row">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="navbar-header">
+                    <!-- Mobile Toggle Menu Button -->
+                    <a href="javascript:void()" class="js-rest-nav-toggle rest-nav-toggle" data-toggle="collapse"
+                        data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+
+
+                        <x-rest-title />
+
+                </div>
+                <x-navigation-bar>
+                    <li class="active"><a href="javascript:void()" data-nav-section="home"><span>Início</span></a></li>
+                    <li><a href="javascript:void()" data-nav-section="vagas"><span>Vagas</span></a></li>
+                    @guest
+                    <li><a href="javascript:void()" data-nav-section="testimony"><span>Relatos e Feedbacks</span></a>
+                    </li>
+                    @endguest
+                    @guest
+                    <li><a href="javascript:void()" data-nav-section="objective"><span>Nosso Objetivo</span></a></li>
+                    @endguest
+                    <li><a href="javascript:void()" data-nav-section="about"><span>Sobre</span></a></li>
+                    @guest
+                    <li><a href="javascript:void()"
+                            onclick="window.location.href = '{{ route('enterprise.index') }}'"><span>Sou
+                                Recrutador</span></a></li>
+                    @endguest
+                    <li>
+                        <a href="{{ route('dashboard') }}" data-nav-section="dashboard"
+                            style="color: #a3130d; text-decoration: none; font-weight: 800;">
+                            @auth
+                            <span>Dashboard</span>
+                            @else
+                            <span>Entrar</span>
+                            @endauth
+                        </a>
+                    </li>
+                </x-navigation-bar>
+
+            </nav>
+        </div>
+    </div>
+</header>
 
     <section id="rest-home" data-section="home"
         style="background-image: url('{{ asset('assets/img/enterprise.avif') }}');" data-stellar-background-ratio="0.5">
@@ -44,10 +87,10 @@
                 <div class="text-inner">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2 text-center">
-                            <h1 class="animate-box"><span class="big">Encontre</span> <br><span>o estágio dos seus
+                            <h1 class="animate-box"><span class="big">Encontre</span> <br><span>o emprego dos seus
                                     sonhos</span> <br><span class="medium" style="text-transform: uppercase;">e construa
                                     um futuro</span><br><span>repleto de possibilidades</span></h1>
-                            <div class="call-to-action" id="ancora">
+                            <div class="call-to-action">
                                 <a href="javascript:void()" class="search animate-box"
                                     onclick="$('[data-nav-section=\'vagas\']').click();"><i class="icon-search"></i>
                                     Vagas</a>
@@ -594,6 +637,7 @@
         </div>
     </section>
 
+    @guest
     <section id="rest-testimony" data-section="testimony">
         <div class="container">
             <div class="row">
@@ -646,6 +690,7 @@
             </div>
         </div>
     </section>
+    @endguest
     <!-- 
     <section id="rest-about" data-section="about">
         <div class="rest-about">
@@ -770,6 +815,31 @@
             </div>
         </div>
     </section> -->
+    @guest
+    <section id="rest-objective" data-section="objective">
+        <div class="rest-objective">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 section-heading text-center">
+                        <!-- Título da Seção: Um Pouquinho Sobre Nós -->
+                        <h2 class="animate-box"><span>Qual nosso objetivo?</span></h2>
+                        <!-- Descrição da Seção: Breve história da empresa -->
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 subtext">
+                                <h3 class="animate-box">Como sabemos a área de tecnologia, é uma das que mais cresce no Brasil e no
+                                    mundo. Porém, grande parte das vagas são para nível Pleno e Sênior, para pessoas
+                                    com uma vasta experiência na área. A entrada de novos talentos é impossibilitada por
+                                    diversos fatores, por isso, sem perca de tempo, queremos unir através da nossa
+                                    plataforma, estagiários e empresas que buscam sangues novos e futuros brilhantes.</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    @endguest
 
     <section id="rest-about" data-section="about">
         <div class="rest-about">

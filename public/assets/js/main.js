@@ -113,35 +113,6 @@
     };
 
 
-    var navActiveAncora = function(section) {
-        var $el = $('#ancora > a[data-nav-section="' + section + '"]');
-        console.log($el);
-        console.log($el);
-        $el.filter('a[data-nav-section="' + section + '"]');
-        console.log($el.filter('a[data-nav-section="' + section + '"]'));
-    };
-
-    var navigationSectionGlobal = function() {
-        var $section = $('section[data-section]');
-
-        $section.waypoint(function(direction) {
-            if (direction === 'down') {
-                navActiveAncora($(this.element).data('section'));
-            }
-        }, {
-            offset: '150px'
-        });
-
-        $section.waypoint(function(direction) {
-            if (direction === 'up') {
-                navActiveAncora($(this.element).data('section'));
-            }
-        }, {
-            offset: function() { return -$(this.element).height() + 155; }
-        });
-    };
-
-
 
 
     // Window Scroll
@@ -231,7 +202,6 @@
         clickMenu();
         windowScroll();
         navigationSection();
-        navigationSectionGlobal();
         counterWayPoint();
         contentWayPoint();
 

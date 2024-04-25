@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('curricula.index') }}" >
-                        {{ __('Meu Currículo') }}
+                        {{ __('Currículo') }}
                     </x-nav-link>
                     <x-nav-link href="/" >
                         {{ __('Inicio') }}

@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome.index');
-});
 
 Route::middleware([
     'auth:sanctum',
@@ -29,3 +26,5 @@ Route::middleware([
 
 require_once __DIR__ . '/jetstream.php';
 require_once __DIR__ . '/curricula.php';
+require_once __DIR__ . '/enterprise.php';
+require_once __DIR__ . '/intern.php';

@@ -36,7 +36,7 @@ h6 {
                     <div class="w3-container">
                         <h2>Criar Novo Currículo</h2>
                         <!-- Formulário de Criação -->
-                        <form action="{{ route('curricula.store') }}" method="POST">
+                        <form action="{{ route('curriculo.store') }}" method="POST">
                             @csrf
                             <!-- Informações Pessoais -->
                             <h3>Informações Pessoais</h3>

@@ -575,6 +575,7 @@ h6 {
 #rest-counters,
 #rest-pricing,
 #rest-vagas,
+#rest-objective,
 #rest-about {
     padding: 8em 0;
 }
@@ -588,6 +589,7 @@ h6 {
     #rest-counters,
     #rest-pricing,
     #rest-vagas,
+    #rest-objective,
     #rest-about {
         padding: 3em 0;
     }
@@ -823,6 +825,79 @@ h6 {
 }
 
 .rest-about .entry:hover .desc {
+    opacity: 1;
+}
+
+.rest-objective .objective {
+    margin-bottom: 40px;
+}
+
+.rest-objective .entry {
+    width: 100%;
+    text-decoration: none;
+}
+
+.rest-objective .entry .desc-grid h3 {
+    padding: 2px 0 0 0;
+    margin: 0;
+    font-size: 20px;
+}
+
+.rest-objective .entry .objective-bg {
+    height: 350px;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.rest-objective .entry .objective-bg .date {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    z-index: 2;
+    text-align: center;
+    padding: 5px 10px;
+    background: #b5423d;
+}
+
+.rest-objective .entry .objective-bg .date span,
+.rest-objective .entry .objective-bg .date small {
+    display: block;
+    color: #fff;
+}
+
+.rest-objective .entry .objective-bg .date span {
+    font-size: 20px;
+}
+
+.rest-objective .entry .objective-bg .date small {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.rest-objective .entry .objective-bg .desc {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px 60px;
+    opacity: 0;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.rest-objective .entry .objective-bg .desc p {
+    color: #8f989f;
+}
+
+.rest-objective .entry:hover .desc {
     opacity: 1;
 }
 
