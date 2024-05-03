@@ -25,21 +25,23 @@ class AddressController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'zip_code' => 'required|string|max:255',
-            'street_address' => 'required|string|max:255',
-            'complement' => 'nullable|string|max:255',
-            'neighborhood' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
-            'number' => 'required|string|max:255',
-        ]);
+{
+    $user = auth()->user();
+    $request->validate([
+        'zip_code' => 'required|string|max:255',
+        'street_address' => 'required|string|max:255',
+        'complement' => 'nullable|string|max:255',
+        'neighborhood' => 'required|string|max:255',
+        'city' => 'required|string|max:255',
+        'state' => 'required|string|max:255',
+        'number' => 'required|string|max:255',
+    ]);
 
-        Address::create($request->all());
+    // $address = $user->address()->create($request->all());
+    $user->address()->create($request->all());
 
+    return redirect()->route('login')
+        ->with('success', 'Address created successfully.');
+}
 
-        return redirect()->route('login')
-            ->with('success', 'Address created successfully.');
-    }
 }

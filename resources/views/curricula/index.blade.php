@@ -29,7 +29,7 @@ h6 {
 
         <!-- The Grid -->
         <div class="w3-row-padding">
-
+        @if ($curriculum)
             <!-- Left Column -->
             <div class="w3-third">
 
@@ -151,7 +151,9 @@ h6 {
 
                 <!-- End Right Column -->
             </div>
-
+            @else
+            <h1> Sem Curriculo </h1>
+            @endif
             <!-- End Grid -->
         </div>
 
