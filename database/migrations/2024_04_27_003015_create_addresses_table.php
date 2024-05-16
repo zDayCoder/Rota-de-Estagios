@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('state', 2);
             $table->string('number', 10);
             $table->timestamps();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
         });
     }
 
@@ -29,6 +31,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('addresses');
+        // Schema::dropIfExists('addresses');
+        Schema::table('usaddressesers', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
+        });
     }
 };
