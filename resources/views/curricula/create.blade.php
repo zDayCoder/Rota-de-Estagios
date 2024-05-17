@@ -41,9 +41,9 @@ h6 {
                             <!-- Informações Pessoais -->
                             <h3>Informações Pessoais</h3>
                             <label for="name">Nome:</label>
-                            <input type="text" id="name" name="name" class="w3-input w3-border">
+                            <input type="text" id="name" name="name" disabled value="{{ $user->name }}" class="w3-input w3-border">
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" class="w3-input w3-border">
+                            <input type="email" id="email" name="email" disabled value="{{ $user->email }}" class="w3-input w3-border">
                             <label for="phone">Telefone:</label>
                             <input type="tel" id="phone" name="phone" class="w3-input w3-border">
 

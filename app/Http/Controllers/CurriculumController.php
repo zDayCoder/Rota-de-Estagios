@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curriculum;
+use Illuminate\Support\Facades\Auth;
 
 class CurriculumController extends Controller
 {
@@ -16,7 +17,6 @@ class CurriculumController extends Controller
         // $curriculum = Curriculum::latest()->first(); // Obtém o primeiro currículo do banco de dados
 
         // return view('curricula.index', compact('curriculum'));
-
 
         $curriculum = Curriculum::latest()->first();
 
@@ -35,7 +35,15 @@ class CurriculumController extends Controller
      */
     public function create()
     {
-        return view('curricula.create');
+
+        // Verifica se o usuário está autenticado
+        if (Auth::check()) {
+            // Acessa todos os dados do usuário autenticado
+            $user = Auth::user();
+
+            // Faça o que precisar com o $user, como passar para a view
+            return view('curricula.create', ['user' => $user]);
+        }
     }
 
     /**
@@ -97,7 +105,8 @@ class CurriculumController extends Controller
         }
         $curriculum->certifications()->createMany($certifications);
         // Redireciona para a página de exibição do currículo recém-criado
-        return redirect()->route('curricula.index', $curriculum->id);
+        // return redirect()->route('curricula.index', $curriculum->id);
+        return redirect()->route('curricula.index');
     }
 
 

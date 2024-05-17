@@ -68,7 +68,7 @@
                         @endguest
                         <li>
                             <a href="{{ route('dashboard') }}" data-nav-section="dashboard"
-                                style="color: #a3130d; text-decoration: none; font-weight: 800;">
+                                style="color: #9D1221; text-decoration: none; font-weight: 800;">
                                 @auth
                                 <span>Dashboard</span>
                                 @else
