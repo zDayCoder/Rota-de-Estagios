@@ -71,3 +71,4 @@ require_once __DIR__ . '/curricula.php';
 require_once __DIR__ . '/enterprise.php';
 require_once __DIR__ . '/intern.php';
 require_once __DIR__ . '/address.php';
+require_once __DIR__ . '/register.php';

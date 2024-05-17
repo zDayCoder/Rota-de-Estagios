@@ -1,7 +1,7 @@
 <style>
     @keyframes pulseAnimation {
         0% {
-            color: #a3130d;
+            color: #9D1221;
         }
 
         50% {
@@ -9,7 +9,7 @@
         }
 
         100% {
-            color: #a3130d;
+            color: #9D1221;
         }
     }
 
