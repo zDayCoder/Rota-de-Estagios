@@ -5,7 +5,7 @@
         </x-slot>
 
         <x-validation-errors class="mb-4" />
-
+        <h1>User Type: {{ $tipoUser }}</h1>
         <form method="POST" action="{{ route('register.intern') }}"> 
         <!-- register -->
             @csrf
