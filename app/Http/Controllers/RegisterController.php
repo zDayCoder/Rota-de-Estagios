@@ -12,8 +12,33 @@ class RegisterController extends Controller
     //
 
     public function index(){
-        $tipoUser = Session::get('tipo_user', 'coordinator'); // 'default_value' caso não exista 'tipo_user'
+        $tipoUser = Session::get('tipo_user');
+
+        if (!in_array($tipoUser, ['Intern', 'Enterprise', 'Coordinator'])) {
+            // Tipo de usuário não está definido ou é inválido, redireciona para a página inicial
+            return redirect()->route('intern.index')->with('error', 'Invalid user type.');
+        }
         return view('auth.register',compact('tipoUser'));
+    }
+
+
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'user_type' => 'required|integer'
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'user_type' => $request->user_type,
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Usuário criado com sucesso!');
     }
 
     public function registerIntern(Request $request){
