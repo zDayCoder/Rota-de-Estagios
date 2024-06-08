@@ -1,4 +1,4 @@
-<!-- @exteasnds('curricula.app') {{-- Se você estiver utilizando um layout padrão --}} -->
+@extends('curricula.app')
 
 @section('content')
 <!DOCTYPE html>
@@ -32,7 +32,6 @@ h6 {
             @if ($curriculum)
             <!-- Left Column -->
             <div class="w3-third">
-
                 <div class="w3-white w3-text-grey w3-card-4">
                     <div class="w3-display-container">
                         <div style="min-height:333px;background:#EEEDEB">
@@ -47,15 +46,9 @@ h6 {
                         <!--Resumo/Objetivo -->
                         <p>{{ $curriculum->summary }}</p>
                         <hr>
-
-                        <!-- <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Designer</p> -->
-                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Praia Grande</p>
-                        <p><i
-                                class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ $curriculum->email }}
-                        </p>
-                        <p><i
-                                class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ $curriculum->phone }}
-                        </p>
+                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ $curriculum->city }} - {{ $curriculum->state }}</p>
+                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ $curriculum->email }}</p>
+                        <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ $curriculum->phone }}</p>
                         <hr>
 
                         <!-- Habilidades -->
@@ -63,20 +56,17 @@ h6 {
                         @foreach($curriculum->skills as $skill)
                         <p>{{ $skill->name }}</p>
                         <div class="w3-light-grey w3-round-xlarge w3-small">
-                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 90%">90%</div>
-                            <!-- style="width: {{ $skill->percentage }}%">{{ $skill->percentage }}%</div> -->
+                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: {{ $skill->level * 20 }}%">{{ $skill->level * 20 }}%</div>
                         </div>
                         @endforeach
                         <br>
 
                         <!-- Idiomas -->
-                        <p class="w3-large w3-text-theme"><b><i
-                                    class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Idiomas</b></p>
+                        <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Idiomas</b></p>
                         @foreach($curriculum->languages as $language)
                         <p>{{ $language->name }}</p>
                         <div class="w3-light-grey w3-round-xlarge">
-                            <div class="w3-round-xlarge w3-teal"
-                                style="height:24px; width: {{ $language->proficiency }}%"></div>
+                            <div class="w3-round-xlarge w3-teal" style="height:24px; width: {{ $language->level * 20 }}%"></div>
                         </div>
                         @endforeach
 
@@ -89,22 +79,14 @@ h6 {
 
             <!-- Right Column -->
             <div class="w3-twothird">
-
-
                 <div class="w3-container w3-card w3-white w3-margin-bottom">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Experiência
-                        Profissional</h2>
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Experiência Profissional</h2>
                     @foreach($curriculum->experiences as $experience)
                     <div class="w3-container">
                         <h5 class="w3-opacity"><b>{{ $experience->position }}</b></h5>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-building fa-fw w3-margin-right"></i>{{ $experience->employer }}</h6>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-map-marker fa-fw w3-margin-right"></i>{{ $experience->location }}</h6>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $experience->start_date }} -
-                            @if($experience->currently_working) Atual @else {{ $experience->end_date }} @endif</h6>
+                        <h6 class="w3-text-teal"><i class="fa fa-building fa-fw w3-margin-right"></i>{{ $experience->employer }}</h6>
+                        <h6 class="w3-text-teal"><i class="fa fa-map-marker fa-fw w3-margin-right"></i>{{ $experience->location }}</h6>
+                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $experience->start_date }} - @if($experience->is_current) Atual @else {{ $experience->end_date }} @endif</h6>
                         <p>{{ $experience->description }}</p>
                         <hr>
                     </div>
@@ -112,49 +94,33 @@ h6 {
                 </div>
 
                 <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Certificações
-                    </h2>
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Certificações</h2>
                     @foreach($curriculum->certifications as $certification)
                     <div class="w3-container">
                         <h5 class="w3-opacity"><b>{{ $certification->name }}</b></h5>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $certification->date }}</h6>
+                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $certification->end_date }}</h6>
                         <p>{{ $certification->description }}</p>
                         <hr>
                     </div>
                     @endforeach
                 </div>
 
-
                 <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Educação</h2>
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-graduation-cap fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Educação</h2>
+                    @foreach($curriculum->educations as $education)
                     <div class="w3-container">
-                        <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
-                        <p>Web Development! All I need to know in one place</p>
+                        <h5 class="w3-opacity"><b>{{ $education->name }}</b></h5>
+                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $education->start_date }} - {{ $education->end_date }}</h6>
                         <hr>
                     </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>London Business School</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
-                        <p>Master Degree</p>
-                        <hr>
-                    </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>School of Coding</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2010 - 2013</h6>
-                        <p>Bachelor Degree</p><br>
-                    </div>
+                    @endforeach
                 </div>
 
                 <!-- End Right Column -->
             </div>
             @else
-            <h1> Sem Curriculo </h1>
-            <button type="button" class="btn btn-primary"
-                onclick="window.location='{{ route('curricula.create') }}'">Crie um agora mesmo</button>
+            <h1> Sem Currículo </h1>
+            <button type="button" class="btn btn-primary" onclick="window.location='{{ route('curricula.create') }}'">Crie um agora mesmo</button>
             @endif
             <!-- End Grid -->
         </div>
@@ -163,5 +129,5 @@ h6 {
     </div>
 
 </body>
-
 </html>
+@endsection

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
+
 
 class RegisterController extends Controller
 {
@@ -47,49 +50,70 @@ class RegisterController extends Controller
         //     // Adicione validações para outros campos conforme necessário
         // ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'user_type' => 0,
-            //'intern_field' => $request->intern_field,
-            // Adicione outros campos específicos para internos conforme necessário
-        ]);
-
-        // Redireciona para a rota desejada após o registro
-        return redirect()->route('dashboard');
+        try {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_type' => 0,
+                // Adicione outros campos específicos para internos conforme necessário
+            ]);        
+        
+            // Redireciona para a rota desejada após o registro
+            return redirect()->route('dashboard')->with('success', 'Usuário registrado com sucesso.');
+        } catch (Exception $e) {
+            if ($e->errorInfo[1] == 1062) { // Código específico para duplicação de chave única
+                return redirect()->route('register')->withErrors(['error' => 'O endereço de e-mail já está sendo usado.']);
+            } else {
+                return redirect()->route('register')->withErrors(['error' => 'Ocorreu um erro ao registrar o usuário.']);
+            }
+        }
     }
 
 
     public function registerEnterprise(Request $request){
         
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'type' => 'enterprise',
-            // 'enterprise_field' => $request->enterprise_field,
-            // Adicione outros campos específicos para empresas conforme necessário
-        ]);
-
-        // Redireciona para a rota desejada após o registro
-        return redirect()->route('dashboard');
+        try {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_type' => 1,
+                // Adicione outros campos específicos para internos conforme necessário
+            ]);        
+        
+            // Redireciona para a rota desejada após o registro
+            return redirect()->route('dashboard')->with('success', 'Usuário registrado com sucesso.');
+        } catch (Exception $e) {
+            if ($e->errorInfo[1] == 1062) { // Código específico para duplicação de chave única
+                return redirect()->route('register')->withErrors(['error' => 'O endereço de e-mail já está sendo usado.']);
+            } else {
+                return redirect()->route('register')->withErrors(['error' => 'Ocorreu um erro ao registrar o usuário.']);
+            }
+        }
     }
 
     public function registerCordinator(Request $request){
         
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'type' => 'enterprise',
-            // 'enterprise_field' => $request->enterprise_field,
-            // Adicione outros campos específicos para empresas conforme necessário
-        ]);
-
-        // Redireciona para a rota desejada após o registro
-        return redirect()->route('dashboard');
+        try {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_type' => 2,
+                // Adicione outros campos específicos para internos conforme necessário
+            ]);        
+        
+            // Redireciona para a rota desejada após o registro
+            return redirect()->route('dashboard')->with('success', 'Usuário registrado com sucesso.');
+        } catch (Exception $e) {
+            if ($e->errorInfo[1] == 1062) { // Código específico para duplicação de chave única
+                return redirect()->route('register')->withErrors(['error' => 'O endereço de e-mail já está sendo usado.']);
+            } else {
+                return redirect()->route('register')->withErrors(['error' => 'Ocorreu um erro ao registrar o usuário.']);
+            }
+        }
+        
     }
 }
