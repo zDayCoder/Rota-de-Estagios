@@ -92,11 +92,11 @@
                             <h1 class="animate-box"><span class="big">Guie</span> <br><span>os futuros
                                     profissionais</span> <br><span class="medium" style="text-transform: uppercase;">e
                                     inspire</span><br><span>um amanhã cheio de potencial</span></h1>
-                            <div class="call-to-action">
+                            <!-- <div class="call-to-action">
                                 <a href="javascript:void()" class="search animate-box"
                                     onclick="$('[data-nav-section=\'vagas\']').click();"><i class="icon-search"></i>
                                     Integrantes</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
