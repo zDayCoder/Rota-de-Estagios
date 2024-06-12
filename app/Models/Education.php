@@ -1,21 +1,18 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Experience extends Model
+class Education extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'position',
-        'employer',
-        'location',
+        'name',
         'start_date',
         'end_date',
-        'is_current',
-        'description',
         'curriculum_id',
     ];
 

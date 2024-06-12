@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Curriculum extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'email', 'phone', 'summary'];
+    protected $fillable = ['name', 'email', 'phone', 'summary', 'city', 'state'];
 
     public function experiences()
     {
@@ -30,5 +30,10 @@ class Curriculum extends Model
         return $this->hasMany(Certification::class);
 
         
+    }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
     }
 }

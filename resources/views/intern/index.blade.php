@@ -59,7 +59,7 @@
                     <li><a href="javascript:void()" data-nav-section="about"><span>Sobre</span></a></li>
                     @guest
                     <li><a href="javascript:void()"
-                            onclick="window.location.href = '{{ route('enterprise.index') }}'"><span>Sou
+                            onclick="window.location.href = '{{ route('enterprise.index') }}'"><span style="font-weight: 900;">Sou
                                 Recrutador</span></a></li>
                     @endguest
                     <li>
