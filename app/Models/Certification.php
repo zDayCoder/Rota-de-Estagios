@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Certification extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'curriculum_id'];
+    protected $fillable = [
+        'name',
+        'end_date',
+        'description',
+        'curriculum_id',
+    ];
 
     public function curriculum()
     {

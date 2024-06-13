@@ -63,12 +63,12 @@
                         <li><a href="javascript:void()" data-nav-section="about"><span>Sobre</span></a></li>
                         @guest
                         <li><a href="javascript:void()"
-                                onclick="window.location.href = '{{ route('intern.index') }}'"><span>Sou
+                                onclick="window.location.href = '{{ route('intern.index') }}'"><span style="font-weight: 900;">Sou
                                     Estagiário</span></a></li>
                         @endguest
                         <li>
                             <a href="{{ route('dashboard') }}" data-nav-section="dashboard"
-                                style="color: #a3130d; text-decoration: none; font-weight: 800;">
+                                style="color: #9D1221; text-decoration: none; font-weight: 800;">
                                 @auth
                                 <span>Dashboard</span>
                                 @else

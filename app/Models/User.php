@@ -18,6 +18,11 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+
+    const TYPE_INTERN = 0;
+    const TYPE_ENTERPRISE = 1;
+    const TYPE_COORDINATOR = 2;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +33,7 @@ class User extends Authenticatable
         'email',
         'password',
         'address_id',
+        'user_type',
     ];
     public function address()
     {

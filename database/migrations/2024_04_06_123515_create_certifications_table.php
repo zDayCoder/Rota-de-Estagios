@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('curriculum_id')->constrained()->onDelete('cascade');
             $table->string('name');
+            $table->date('end_date'); // Data da certificação
+            $table->string('description');
             $table->timestamps();
         });
     }

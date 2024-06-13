@@ -2,7 +2,7 @@
     .arrow-container {
         width: 50px; /* Largura da div redonda */
         height: 50px; /* Altura da div redonda */
-        background-color: #a3130d; /* Cor de fundo da div redonda */
+        background-color: #9D1221; /* Cor de fundo da div redonda */
         border-radius: 50%; /* Transforma a div em um círculo */
         display: flex;
         justify-content: center;
@@ -26,7 +26,7 @@
    
 
     .arrow-container:hover .arrow-svg {
-        fill: #a3130d; /* Cor do ícone ao passar o mouse na div */
+        fill: #9D1221; /* Cor do ícone ao passar o mouse na div */
     }
 </style>
 
