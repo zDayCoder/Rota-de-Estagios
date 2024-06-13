@@ -29,7 +29,7 @@ h6 {
 
         <!-- The Grid -->
         <div class="w3-row-padding">
-        @if ($curriculum)
+            @if ($curriculum)
             <!-- Left Column -->
             <div class="w3-third">
 
@@ -153,23 +153,14 @@ h6 {
             </div>
             @else
             <h1> Sem Curriculo </h1>
+            <button type="button" class="btn btn-primary"
+                onclick="window.location='{{ route('curricula.create') }}'">Crie um agora mesmo</button>
             @endif
             <!-- End Grid -->
         </div>
 
         <!-- End Page Container -->
     </div>
-
-    <footer class="w3-container w3-teal w3-center w3-margin-top">
-        <p>Find me on social media.</p>
-        <i class="fa fa-facebook-official w3-hover-opacity"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-snapchat w3-hover-opacity"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <i class="fa fa-linkedin w3-hover-opacity"></i>
-        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-    </footer>
 
 </body>
 

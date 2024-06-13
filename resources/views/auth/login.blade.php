@@ -54,7 +54,7 @@
             <div class="flex flex-col items-center mt-4">
                 <a class="underline mt-4 text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     href="{{ route('register') }}">
-                    {{ __('Ainda não tem cadastro?') }} <span style="color: #28a745;">{{ __('Clique Aqui.') }}</span>
+                    {{ __('Ainda não tem cadastro?') }} <span style="color: #28a745;">{{ __('Cadastre-se aqui.') }}</span>
                 </a>
             </div>
 

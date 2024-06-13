@@ -12,13 +12,22 @@ class CurriculumController extends Controller
      */
     public function index()
     {
-        // $curricula = Curriculum::orderBy('created_at', 'DESC')->get();
 
-        // return view('curricula.index', compact('curricula'));
+        // $curriculum = Curriculum::latest()->first(); // Obtém o primeiro currículo do banco de dados
 
-        $curriculum = Curriculum::latest()->first(); // Obtém o primeiro currículo do banco de dados
+        // return view('curricula.index', compact('curriculum'));
 
+
+        $curriculum = Curriculum::latest()->first();
+
+        if (!$curriculum) {
+            // Se não existir currículo, redirecione para a rota de criação
+            return redirect()->route('curricula.create');
+        }
+        
+        // Se existir currículo, carregue a view de index com o currículo
         return view('curricula.index', compact('curriculum'));
+
     }
 
     /**
@@ -88,7 +97,7 @@ class CurriculumController extends Controller
         }
         $curriculum->certifications()->createMany($certifications);
         // Redireciona para a página de exibição do currículo recém-criado
-        return redirect()->route('curricula.show', $curriculum->id);
+        return redirect()->route('curricula.index', $curriculum->id);
     }
 
 
