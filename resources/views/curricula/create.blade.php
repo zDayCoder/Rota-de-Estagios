@@ -8,7 +8,7 @@
                         <!-- Formulário de Criação -->
                         <form action="{{ route('curricula.store') }}" method="POST">
                             @csrf
-                            <div class=" dados-basicos ">
+                            <div class="dados-basicos">
                                 <div class="row">
                                     <div class="col-xl-3 image-user" id="view_photo">
                                         <div class="img-thumbnail">
@@ -47,83 +47,80 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                    <div class="dados-pessoais p-3">
-                        <h3>Resumo</h3>
-                        <textarea id="summary" name="summary" rows="4" class="w3-input w3-border"></textarea>
-                    </div>
-                    <div class="dados-pessoais p-3">
-                        <!-- Experiência -->
-                        <div class="d-flex justify-content-between align-items-center conteudo-card" id="addExperience">
-                            <h3>Experiência</h3>
+                                <div class="dados-pessoais p-3">
+                                    <h3>Resumo</h3>
+                                    <textarea id="summary" name="summary" rows="4" class="w3-input w3-border"></textarea>
+                                </div>
+                                <div class="dados-pessoais p-3">
+                                    <!-- Experiência -->
+                                    <div class="d-flex justify-content-between align-items-center conteudo-card" id="addExperience">
+                                        <h3>Experiência</h3>
 
-                            <button type="button" id="addExperience" class="rounded-circle"><span
-                                    class="material-symbols-outlined ">
-                                    add
-                                </span></button>
-                        </div>
-                    </div>
-                    <div id="experiences"></div>
-                    <!-- Habilidades -->
-                    <div class="dados-pessoais p-3">
-                        <div class="d-flex justify-content-between align-items-center conteudo-card" id="addSkill">
-                            <h3>Habilidades</h3>
-                            <button type="button" id="addSkill" class="rounded-circle"><span
-                                    class="material-symbols-outlined ">
-                                    add
-                                </span>
-                            </button>
-                        </div>
-                        <div id="skills"></div>
+                                        <button type="button" id="addExperience" class="rounded-circle"><span
+                                                class="material-symbols-outlined ">
+                                                add
+                                            </span></button>
+                                    </div>
+                                </div>
+                                <div id="experiences"></div>
+                                <!-- Habilidades -->
+                                <div class="dados-pessoais p-3">
+                                    <div class="d-flex justify-content-between align-items-center conteudo-card" id="addSkill">
+                                        <h3>Habilidades</h3>
+                                        <button type="button" id="addSkill" class="rounded-circle"><span
+                                                class="material-symbols-outlined ">
+                                                add
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div id="skills"></div>
 
-                    </div>
-                    <!-- Idiomas -->
-                    <div class="dados-pessoais p-3">
-                        <div class="d-flex justify-content-between align-items-center conteudo-card" id="addLanguage">
-                            <h3>Idiomas</h3>
+                                </div>
+                                <!-- Idiomas -->
+                                <div class="dados-pessoais p-3">
+                                    <div class="d-flex justify-content-between align-items-center conteudo-card" id="addLanguage">
+                                        <h3>Idiomas</h3>
 
-                            <button type="button" id="addLanguage" class="rounded-circle"><span
-                                    class="material-symbols-outlined ">
-                                    add
-                                </span></button>
-                        </div>
-                        <div id="languages"></div>
-                    </div>
+                                        <button type="button" id="addLanguage" class="rounded-circle"><span
+                                                class="material-symbols-outlined ">
+                                                add
+                                            </span></button>
+                                    </div>
+                                    <div id="languages"></div>
+                                </div>
 
-                    <!-- Certificações -->
-                    <h3>Certificações</h3>
-                    <div id="certifications"></div>
-                    <button type="button" id="addCertification">Adicionar Certificação</button>
+                                <!-- Certificações -->
+                                <h3>Certificações</h3>
+                                <div id="certifications"></div>
+                                <button type="button" id="addCertification">Adicionar Certificação</button>
 
-                    <!-- Escolaridade/Formações -->
-                    <h3>Escolaridade/Formações</h3>
-                    <div id="educations"></div>
-                    <button type="button" id="addEducation">Adicionar Formação</button>
+                                <!-- Escolaridade/Formações -->
+                                <h3>Escolaridade/Formações</h3>
+                                <div id="educations"></div>
+                                <button type="button" id="addEducation">Adicionar Formação</button>
 
-                    @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                    @endif
+                                @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
 
-                    @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                    @endif
+                                @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                                @endif
 
-                    <!-- Botão de Envio -->
-                    <div class="submit">
-                        <button type="submit">Salvar</button>
-                    </div>
+                                <!-- Botão de Envio -->
+                                <div class="submit">
+                                    <button type="submit">Salvar</button>
+                                </div>
                     </form>
 
                 </div>
             </div><br>
 
         </div>
-
-    </div>
 
     </div>
 

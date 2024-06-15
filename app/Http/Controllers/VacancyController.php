@@ -6,6 +6,8 @@ use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Models\Skill;
 use App\Models\VacancySkill;
+use App\Models\Address;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class VacancyController extends Controller
@@ -67,6 +69,18 @@ class VacancyController extends Controller
             'model' => $validatedData['model'],
             'address_id' => $validatedData['addreess_id'],
             'statys'=> "Aberta"
+        ]);
+        $user = Auth::user();
+
+        $address = Address::create([
+            'zip_code' => $request->zip_code,
+            'street_address' => $request->street_address,
+            'complement' => $request->complement,
+            'neighborhood' => $request->neighborhood,
+            'city' => $request->city,
+            'state' => $request->state,
+            'number' => $request->number,
+            'user_id' => $user->id,
         ]);
 
         if (!empty($validatedData['skills'])) {
