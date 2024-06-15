@@ -1,9 +1,7 @@
 <x-app-layout>
     <h2 class="titulo-curriculo">Criando Currículo</h2>
     <div class="container-curriculo">
-        <!-- The Grid -->
         <div class="w3-row-padding">
-            <!-- Left Column -->
             <div class="w3-third">
                 <div class="w3-white w3-text-grey w3-card-4" style="border-radius:20px;padding:4px">
                     <div class="w3-container">
@@ -123,20 +121,12 @@
                 </div>
             </div><br>
 
-            <!-- End Left Column -->
         </div>
 
-        <!-- End Page Container -->
-        <!-- End Grid -->
     </div>
 
-    <!-- End Page Container -->
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
-    <script src="{{ asset('assets/js/curriculum.js') }}"></script>
     <script>
     var files = document.querySelector('input[name="files"]');
 
