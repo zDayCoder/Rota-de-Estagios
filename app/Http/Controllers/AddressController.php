@@ -38,7 +38,7 @@ class AddressController extends Controller
     ]);
 
     // $address = $user->address()->create($request->all());
-    $user->address()->create($request->all());
+    //$user->address()->create($request->all());
 
     return redirect()->route('login')
         ->with('success', 'Address created successfully.');

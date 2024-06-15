@@ -68,7 +68,9 @@ $(document).ready(function() {
                 <label for="currently_working_yes_${experienceIndex}">Sim</label><br>
                 <label for="description_${experienceIndex}">Descrição:</label>
                 <textarea id="description_${experienceIndex}" name="descriptions[]" rows="2" class="w3-input w3-border"></textarea>
-                <button type="button" class="removeButton" data-index="${experienceIndex}" data-section="experience">Remover Experiência</button>
+                <button type="button" class="removeButton rounded-full" data-index="${experienceIndex}" data-section="experience"><span class="material-symbols-outlined">
+delete
+</span></button>
             </div>`
         );
         $('.datepicker').datepicker({
@@ -93,7 +95,9 @@ $(document).ready(function() {
                 <label for="skill_level_${skillIndex}">Nível:</label>
                 <span id="skill_level_text_${skillIndex}">Iniciante</span>
                 <input type="range" id="skill_level_${skillIndex}" name="skill_levels[]" min="1" max="5" step="1" value="1" class="w3-input w3-border">
-                <button type="button" class="removeButton" data-index="${skillIndex}" data-section="skill">Remover Habilidade</button>
+                <button type="button" class="removeButton rounded-full" data-index="${skillIndex}" data-section="skill"><span class="material-symbols-outlined">
+delete
+</span></button>
             </div>`
         );
         $(`#skill_level_${skillIndex}`).on('input', function() {
@@ -111,7 +115,9 @@ $(document).ready(function() {
                 <label for="language_level_${languageIndex}">Nível:</label>
                 <span id="language_level_text_${languageIndex}">Iniciante</span>
                 <input type="range" id="language_level_${languageIndex}" name="language_levels[]" min="1" max="5" step="1" value="1" class="w3-input w3-border">
-                <button type="button" class="removeButton" data-index="${languageIndex}" data-section="language">Remover Idioma</button>
+                <button type="button" class="removeButton rounded-full" data-index="${languageIndex}" data-section="language"><span class="material-symbols-outlined">
+delete
+</span></button>
             </div>`
         );
         $(`#language_level_${languageIndex}`).on('input', function() {
