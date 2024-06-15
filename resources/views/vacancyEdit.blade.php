@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        <form action="{{ route('vacancy.update', $vacancy->vaga_id) }}" method="POST">
+        <form action="{{ route('vacancy.update', $vacancy->id) }}" method="POST">
             @csrf
             @method('PUT') <!-- Usar método PUT para envio do formulário de edição -->
 
@@ -64,7 +64,7 @@
                         <div class="skill">
                             <input type="text" class="form-control" name="skills[{{ $index }}][name]" placeholder="Skill Name" value="{{ $skill->name }}">
                             <input type="text" class="form-control" name="skills[{{ $index }}][level]" placeholder="Skill Level" value="{{ $skill->level }}">
-                            <input type="text" class="form-control" name="skills[{{ $index }}][curriculum_id]" placeholder="Curriculum ID" value="{{ $skill->curriculum_id }}">
+                            <input type="text" class="form-control" name="skills[{{ $index }}][curriculum_id]" placeholder="Curriculum ID" value="{{ $skill->vacancy_id }}">
                         </div>
                     @endforeach
                 </div>
