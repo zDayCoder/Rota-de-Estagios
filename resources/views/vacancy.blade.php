@@ -32,8 +32,30 @@
                         <td>{{ $vacancy->model }}</td>
                         <td>{{ $vacancy->addreess_id }}</td>
                         <td>
-                            
+                         <a href="{{ url("/vacancy/$vacancy->vaga_id/edit")}}"> Editar Vaga</a>                        
                         </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <h1>Skills List</h1>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Vaga ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($skills as $skill)
+                    <tr>
+                        <td>{{ $skill->id }}</td>
+                        <td>{{ $skill->name }}</td>
+                        <td>{{ $skill->level }}</td>
+                        <td>{{ $skill->vacancy_id }}</td>
                     </tr>
                 @endforeach
             </tbody>

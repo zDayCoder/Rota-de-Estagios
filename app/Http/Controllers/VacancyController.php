@@ -4,37 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use App\Models\Skill;
+use App\Models\VacancySkill;
+use Illuminate\Support\Facades\DB;
 
 class VacancyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $vacancies = Vacancy::all();
-        return view(view: 'vacancy', data: compact('vacancies'));
+        $skills = VacancySkill::all();
+
+        return view(view: 'vacancy', data: compact('vacancies','skills'));
         //return response()->json($vacancy);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('vacancyCreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -42,64 +33,103 @@ class VacancyController extends Controller
             'name' => 'required|string|max:35',
             'description' => 'required|string|max:100',
             'salary' => 'required|numeric',
-            'model' => 'required|in:presencial,hibrido,homeoffice',
-            'addreess_id' => 'required|integer',
+            'model' => 'required|string|in:presencial,hibrido,homeoffice',
+            'addreess_id' => 'nullable|integer', 
+            'skills' => 'nullable|array', 
+            'skills.*.name' => 'required_with:skills|string|max:255',
+            'skills.*.level' => 'required_with:skills|string|max:255',
+            'skills.*.curriculum_id' => 'required_with:skills|integer',
         ]);
 
-        $vacancy = Vacancy::create($validatedData);
-        return view('vacancy');
+
+        $validatedData['addreess_id'] = $validatedData['addreess_id'] ?? 1;
+
+        $vacancy = Vacancy::create([
+            'company_id' => $validatedData['company_id'],
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'salary' => $validatedData['salary'],
+            'model' => $validatedData['model'],
+            'address_id' => $validatedData['addreess_id'],
+        ]);
+
+        if (!empty($validatedData['skills'])) {
+            foreach ($validatedData['skills'] as $skillData) {
+        
+                $vacancySkill = VacancySkill::create([
+                    'name' => $skillData['name'],
+                    'level' => $skillData['level'],
+                    'vacancy_id' => $vacancy->id, 
+                ]);
+
+        
+            }
+        }
+
+        return redirect('vacancy')->with('success', 'Vacancy created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Vacancy  $vacancy
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Vacancy $vacancy)
     {
         return response()->json($vacancy);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Vacancy  $vacancy
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Vacancy $vacancy)
+    public function edit($vacancy_id)
     {
-        //
+        
+        $vacancy = DB::table('Vacancy')->where('$vacancy.vaga_id', '=', $vacancy_id);
+        $skills = DB::table('VacancySkill')->where('$VacancySkill.vacancy_id', '=', $vacancy_id);
+
+        return view('vacancyEdit', data: compact('vacancy', 'skills'));
+      
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Vacancy  $vacancy
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Vacancy $vacancy)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'company_id' => 'required|integer',
             'name' => 'required|string|max:35',
             'description' => 'required|string|max:100',
             'salary' => 'required|numeric',
-            'model' => 'required|in:presencial,hibrido,homeoffice',
-            'addreess_id' => 'required|integer',
+            'model' => 'required|string|in:presencial,hibrido,homeoffice',
+            'addreess_id' => 'nullable|integer',
+            'skills' => 'nullable|array',
+            'skills.*.name' => 'required_with:skills|string|max:255',
+            'skills.*.level' => 'required_with:skills|string|max:255',
+            'skills.*.curriculum_id' => 'required_with:skills|integer',
         ]);
 
-        $vacancy->update($validatedData);
-        return response()->json($vacancy);
+        $vacancy = Vacancy::findOrFail($id);
+
+
+        $vacancy->company_id = $validatedData['company_id'];
+        $vacancy->name = $validatedData['name'];
+        $vacancy->description = $validatedData['description'];
+        $vacancy->salary = $validatedData['salary'];
+        $vacancy->model = $validatedData['model'];
+        $vacancy->addreess_id = $validatedData['addreess_id'] ?? 1; 
+        $vacancy->save();
+
+ 
+        if (!empty($validatedData['skills'])) {
+       
+            $vacancy->skills()->detach();
+
+            foreach ($validatedData['skills'] as $skillData) {
+                $skill = VacancySkill::updateOrCreate(
+                    ['vacancy_id' => $vacancy->id, 'name' => $skillData['name']],
+                    ['level' => $skillData['level'], 'curriculum_id' => $skillData['curriculum_id']]
+                );
+                $vacancy->skills()->attach($skill->id);
+            }
+        }
+
+        return redirect('vacancy')->with('success', 'Vacancy editaded successfully.');
+    
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Vacancy  $vacancy
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Vacancy $vacancy)
     {
         $vacancy->delete();

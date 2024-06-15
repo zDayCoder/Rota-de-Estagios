@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('name', 35);
             $table->string('description', 100);
             $table->decimal('salary', 8, 2); // Adjust precision and scale as needed
+            $table->integer('skills_id');
             $table->enum('model', ['presencial', 'hibrido', 'homeoffice']);
-            $table->integer('addreess_id');
+            $table->integer('address_id');
             $table->timestamps();
         });
     }
