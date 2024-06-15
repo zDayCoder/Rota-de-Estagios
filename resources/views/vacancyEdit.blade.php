@@ -53,6 +53,15 @@
             </div>
 
             <div class="form-group">
+                <label for="model">Model:</label>
+                <select class="form-control" id="model" name="model">
+                    <option value="Aberta" {{ $vacancy->status === 'Aberta' ? 'selected' : '' }}>Aberta</option>
+                    <option value="Fechada" {{ $vacancy->status === 'Fechada' ? 'selected' : '' }}>Fechada</option>
+                    <option value="Cancelada" {{ $vacancy->status === 'Cancelada' ? 'selected' : '' }}>Cancelada</option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label for="addreess_id">Address ID:</label>
                 <input type="text" class="form-control" id="addreess_id" name="addreess_id" value="{{ $vacancy->addreess_id }}">
             </div>

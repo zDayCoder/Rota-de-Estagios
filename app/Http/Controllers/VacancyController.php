@@ -11,10 +11,22 @@ use Illuminate\Support\Facades\DB;
 class VacancyController extends Controller
 {
 
-    public function index()
+    public function indexIntern()
     {
         $vacancies = Vacancy::all();
         $skills = VacancySkill::all();
+
+        return view(view: 'vacancy', data: compact('vacancies','skills'));
+        //return response()->json($vacancy);
+    }
+
+    public function indexRecruiter()
+    {
+        //$vacancies = Vacancy::all();
+
+        //$vacancy = Vacancy::findOrFail($vacancy_id);
+        //$vacancy = DB::table('Vacancy')->where('company_id', '=', $vacancy_id)->get();
+        //$skills = VacancySkill::all();
 
         return view(view: 'vacancy', data: compact('vacancies','skills'));
         //return response()->json($vacancy);

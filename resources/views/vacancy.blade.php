@@ -32,7 +32,7 @@
                         <td>{{ $vacancy->model }}</td>
                         <td>{{ $vacancy->addreess_id }}</td>
                         <td>
-                         <a href="{{ url("/vacancy/$vacancy->id/edit")}}"> Editar Vaga</a>                        
+                         <a href="{{ url("/vacancy/recruiter/$vacancy->id/edit")}}"> Editar Vaga</a>                        
                         </td>
                     </tr>
                 @endforeach
