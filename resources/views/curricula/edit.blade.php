@@ -1,82 +1,392 @@
 @extends('curricula.app')
 
-
 @section('content')
-    <div class="container">
-        <h2>Editar Currículo</h2>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <form action="{{ route('curricula.update', $curriculum->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label for="full_name">Nome Completo:</label>
-                <input type="text" class="form-control" id="full_name" name="full_name" value="{{ old('full_name', $curriculum->full_name) }}">
-            </div>
-            <div class="form-group">
-                <label for="address">Endereço:</label>
-                <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $curriculum->address) }}">
-            </div>
-            <div class="form-group">
-                <label for="cep">CEP:</label>
-                <input type="text" class="form-control" id="cep" name="cep" value="{{ old('cep', $curriculum->cep) }}">
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $curriculum->email) }}">
-            </div>
-            <div class="form-group">
-                <label for="phone_number">Telefone:</label>
-                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ old('phone_number', $curriculum->phone_number) }}">
-            </div>
-            <div class="form-group">
-                <label for="professional_objective">Objetivo Profissional:</label>
-                <textarea class="form-control" id="professional_objective" name="professional_objective">{{ old('professional_objective', $curriculum->professional_objective) }}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="academic_course">Curso Acadêmico:</label>
-                <input type="text" class="form-control" id="academic_course" name="academic_course" value="{{ old('academic_course', $curriculum->academic_course) }}">
-            </div>
-            <div class="form-group">
-                <label for="institution">Instituição:</label>
-                <input type="text" class="form-control" id="institution" name="institution" value="{{ old('institution', $curriculum->institution) }}">
-            </div>
-            <div class="form-group">
-                <label for="start_year">Ano de Início:</label>
-                <input type="number" class="form-control" id="start_year" name="start_year" value="{{ old('start_year', $curriculum->start_year) }}">
-            </div>
-            <div class="form-group">
-                <label for="expected_completion_year">Ano de Conclusão Previsto:</label>
-                <input type="number" class="form-control" id="expected_completion_year" name="expected_completion_year" value="{{ old('expected_completion_year', $curriculum->expected_completion_year) }}">
-            </div>
-            <div class="form-group">
-                <label for="skills">Habilidades:</label>
-                <textarea class="form-control" id="skills" name="skills">{{ old('skills', $curriculum->skills) }}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="languages">Idiomas:</label>
-                <input type="text" class="form-control" id="languages" name="languages" value="{{ old('languages', $curriculum->languages) }}">
-            </div>
-            <div class="form-group">
-                <label for="projects">Projetos:</label>
-                <textarea class="form-control" id="projects" name="projects">{{ old('projects', $curriculum->projects) }}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="certifications">Certificações:</label>
-                <textarea class="form-control" id="certifications" name="certifications">{{ old('certifications', $curriculum->certifications) }}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="extracurricular_activities">Atividades Extracurriculares:</label>
-                <textarea class="form-control" id="extracurricular_activities" name="extracurricular_activities">{{ old('extracurricular_activities', $curriculum->extracurricular_activities) }}</textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Atualizar</button>
-        </form>
+
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+    <div class="w3-row-padding">
+
+        <div class="w3-third">
+            <div class="w3-white w3-text-grey w3-card-4" style="border-radius:20px;padding:4px">
+                <div class="w3-container">
+                    <h2>Editando Currículo</h2>
+                    <!-- Formulário de Edição -->
+                    <form id="curriculumForm" action="{{ route('curricula.update', $curriculum->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <label for="name">Nome:</label>
+                        <input type="text" id="name" name="name" value="{{ $curriculum->name }}"
+                            class="w3-input w3-border">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="{{ $curriculum->email }}"
+                            class="w3-input w3-border">
+                        <label for="phone">Telefone:</label>
+                        <input type="tel" id="phone" name="phone" value="{{ $curriculum->phone }}"
+                            class="w3-input w3-border" placeholder="(XX) XXXXX-XXXX">
+
+                        <!-- Resumo -->
+                        <h3>Resumo</h3>
+                        <label for="summary">Resumo:</label>
+                        <textarea id="summary" name="summary" rows="4"
+                            class="w3-input w3-border">{{ $curriculum->summary }}</textarea>
+
+                        <!-- Experiência -->
+                        <h3>Experiência</h3>
+                        <div id="experiences">
+                            @foreach ($curriculum->experiences as $index => $experience)
+                            <div class="section" id="experience_{{ $index }}">
+                                <div class="form-group">
+                                    <label for="positions_{{ $index }}">Posição</label>
+                                    <input type="text" class="form-control" id="positions_{{ $index }}"
+                                        name="positions[]" value="{{ $experience->position }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="employers_{{ $index }}">Empregador</label>
+                                    <input type="text" class="form-control" id="employers_{{ $index }}"
+                                        name="employers[]" value="{{ $experience->employer }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location_{{ $index }}">Localização</label>
+                                    <input type="text" class="form-control" id="location_{{ $index }}"
+                                        name="locations[]" value="{{ $experience->location }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="start_date_{{ $index }}">Data de Início</label>
+                                    <input type="text" class="form-control datepicker" id="start_date_{{ $index }}"
+                                        name="start_dates[]" value="{{ $experience->start_date }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="end_date_{{ $index }}">Data de Término</label>
+                                    <input type="text" class="form-control datepicker" id="end_date_{{ $index }}"
+                                        name="end_dates[]" value="{{ $experience->end_date }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="currently_working_{{ $index }}">
+                                        <input type="checkbox" id="currently_working_{{ $index }}"
+                                            name="currently_working[]" value="1"
+                                            {{ $experience->currently_working ? 'checked' : '' }}
+                                            onclick="toggleEndDate(this, {{ $index }})"> Atualmente Trabalhando Aqui
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description_{{ $index }}">Descrição</label>
+                                    <textarea id="description_{{ $index }}" name="descriptions[]" rows="2"
+                                        class="form-control">{{ $experience->description }}</textarea>
+                                </div>
+                                <button type="button" class="btn btn-danger removeButton" data-index="{{ $index }}"
+                                    data-section="experience">Remover Experiência</button>
+                            </div>
+                            @endforeach
+                        </div>
+                        <button type="button" id="addExperience" class="btn btn-success">Adicionar Experiência</button>
+
+                        <!-- Habilidades -->
+                        <h3>Habilidades</h3>
+                        <div id="skills">
+                            @foreach ($curriculum->skills as $index => $skill)
+                            <div class="section" id="skill_{{ $index }}">
+                                <div class="form-group">
+                                    <label for="skills_{{ $index }}">Habilidade</label>
+                                    <input type="text" class="form-control" id="skills_{{ $index }}" name="skills[]"
+                                        value="{{ $skill->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="skill_level_{{ $index }}">Nível</label>
+                                    <span id="skill_level_text_{{ $index }}">{{ $skill->level }}</span>
+                                    <input type="range" class="form-control" id="skill_level_{{ $index }}"
+                                        name="skill_levels[]" min="1" max="5" step="1" value="{{ $skill->level }}">
+                                </div>
+                                <button type="button" class="btn btn-danger removeButton" data-index="{{ $index }}"
+                                    data-section="skill">Remover Habilidade</button>
+                            </div>
+                            @endforeach
+                        </div>
+                        <button type="button" id="addSkill" class="btn btn-success">Adicionar Habilidade</button>
+
+                        <!-- Idiomas -->
+                        <h3>Idiomas</h3>
+                        <div id="languages">
+                            @foreach ($curriculum->languages as $index => $language)
+                            <div class="section" id="language_{{ $index }}">
+                                <div class="form-group">
+                                    <label for="languages_{{ $index }}">Idioma</label>
+                                    <input type="text" class="form-control" id="languages_{{ $index }}"
+                                        name="languages[]" value="{{ $language->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="language_level_{{ $index }}">Nível</label>
+                                    <span id="language_level_text_{{ $index }}">{{ $language->level }}</span>
+                                    <input type="range" class="form-control" id="language_level_{{ $index }}"
+                                        name="language_levels[]" min="1" max="5" step="1"
+                                        value="{{ $language->level }}">
+                                </div>
+                                <button type="button" class="btn btn-danger removeButton" data-index="{{ $index }}"
+                                    data-section="language">Remover Idioma</button>
+                            </div>
+                            @endforeach
+                        </div>
+                        <button type="button" id="addLanguage" class="btn btn-success">Adicionar Idioma</button>
+
+                        <!-- Certificações -->
+                        <h3>Certificações</h3>
+                        <div id="certifications">
+                            @foreach ($curriculum->certifications as $index => $certification)
+                            <div class="section" id="certification_{{ $index }}">
+                                <div class="form-group">
+                                    <label for="certifications_{{ $index }}">Certificação</label>
+                                    <input type="text" class="form-control" id="certifications_{{ $index }}"
+                                        name="certifications[]" value="{{ $certification->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="certification_end_date_{{ $index }}">Data de Conclusão</label>
+                                    <input type="text" class="form-control datepicker"
+                                        id="certification_end_date_{{ $index }}" name="certification_end_dates[]"
+                                        value="{{ $certification->end_date }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="certification_description_{{ $index }}">Descrição</label>
+                                    <textarea id="certification_description_{{ $index }}"
+                                        name="certification_descriptions[]" rows="2"
+                                        class="form-control">{{ $certification->description }}</textarea>
+                                </div>
+                                <button type="button" class="btn btn-danger removeButton" data-index="{{ $index }}"
+                                    data-section="certification">Remover Certificação</button>
+                            </div>
+                            @endforeach
+                        </div>
+                        <button type="button" id="addCertification" class="btn btn-success">Adicionar
+                            Certificação</button>
+
+                        <!-- Escolaridade/Formações -->
+                        <h3>Escolaridade/Formações</h3>
+                        <div id="educations">
+                            @foreach ($curriculum->educations as $index => $education)
+                            <div class="section" id="education_{{ $index }}">
+                                <div class="form-group">
+                                    <label for="educations_{{ $index }}">Formação</label>
+                                    <input type="text" class="form-control" id="educations_{{ $index }}"
+                                        name="educations[]" value="{{ $education->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="education_start_date_{{ $index }}">Data de Início</label>
+                                    <input type="text" class="form-control datepicker"
+                                        id="education_start_date_{{ $index }}" name="education_start_dates[]"
+                                        value="{{ $education->start_date }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="education_end_date_{{ $index }}">Data de Término</label>
+                                    <input type="text" class="form-control datepicker"
+                                        id="education_end_date_{{ $index }}" name="education_end_dates[]"
+                                        value="{{ $education->end_date }}">
+                                </div>
+                                <button type="button" class="btn btn-danger removeButton" data-index="{{ $index }}"
+                                    data-section="education">Remover Formação</button>
+                            </div>
+                            @endforeach
+                        </div>
+                        <button type="button" id="addEducation" class="btn btn-success">Adicionar Formação</button>
+
+
+                        <!-- Botão de Envio -->
+                        <div class="submit">
+                            @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+
+                            @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+                            <button type="submit">Atualizar</button>
+                        </div>
+
+                        <style>
+                        .submit>button {
+                            --color: #560bad;
+                            font-family: inherit;
+                            display: inline-block;
+                            cursor: pointer;
+                            width: 8em;
+                            height: 2.6em;
+                            line-height: 2.5em;
+                            margin: 20px;
+                            position: relative;
+                            overflow: hidden;
+                            border: 2px solid var(--color);
+                            transition: color .5s;
+                            z-index: 1;
+                            font-size: 17px;
+                            border-radius: 8px;
+                            font-weight: 500;
+                            color: var(--color);
+                        }
+
+                        .submit>button:before {
+                            content: "";
+                            position: absolute;
+                            z-index: -1;
+                            background: var(--color);
+                            height: 150px;
+                            width: 200px;
+                            border-radius: 50%;
+                        }
+
+                        .submit>button:hover {
+                            color: #fff;
+                        }
+
+                        .submit>button:before {
+                            top: 100%;
+                            left: 100%;
+                            transition: all .7s;
+                        }
+
+                        .submit>button:hover:before {
+                            top: -30px;
+                            left: -30px;
+                        }
+
+                        .submit>button:active:before {
+                            background: #3a0ca3;
+                            transition: background 0s;
+                        }
+                        </style>
+                    </form>
+
+                </div>
+            </div><br>
+
+        </div>
+
     </div>
+
+</div>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Função para adicionar nova experiência
+        function addExperience() {
+            $('#experiences').append(`
+                <div class="experience-item">
+                    <div class="form-group">
+                        <label for="positions">Posição</label>
+                        <input type="text" class="form-control" name="positions[]" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="employers">Empregador</label>
+                        <input type="text" class="form-control" name="employers[]" value="">
+                    </div>
+                    <button type="button" class="btn btn-danger removeExperience">Remover Experiência</button>
+                </div>
+            `);
+        }
+
+        // Função para adicionar nova habilidade
+        function addSkill() {
+            $('#skills').append(`
+                <div class="skill-item">
+                    <div class="form-group">
+                        <label for="skills">Habilidade</label>
+                        <input type="text" class="form-control" name="skills[]" value="">
+                    </div>
+                    <button type="button" class="btn btn-danger removeSkill">Remover Habilidade</button>
+                </div>
+            `);
+        }
+
+        // Função para adicionar novo idioma
+        function addLanguage() {
+            $('#languages').append(`
+                <div class="language-item">
+                    <div class="form-group">
+                        <label for="languages">Idioma</label>
+                        <input type="text" class="form-control" name="languages[]" value="">
+                    </div>
+                    <button type="button" class="btn btn-danger removeLanguage">Remover Idioma</button>
+                </div>
+            `);
+        }
+
+        // Função para adicionar nova certificação
+        function addCertification() {
+            $('#certifications').append(`
+                <div class="certification-item">
+                    <div class="form-group">
+                        <label for="certifications">Certificação</label>
+                        <input type="text" class="form-control" name="certifications[]" value="">
+                    </div>
+                    <button type="button" class="btn btn-danger removeCertification">Remover Certificação</button>
+                </div>
+            `);
+        }
+
+        // Função para adicionar nova formação
+        function addEducation() {
+            $('#educations').append(`
+                <div class="education-item">
+                    <div class="form-group">
+                        <label for="educations">Formação</label>
+                        <input type="text" class="form-control" name="educations[]" value="">
+                    </div>
+                    <button type="button" class="btn btn-danger removeEducation">Remover Formação</button>
+                </div>
+            `);
+        }
+
+        // Adicionar nova experiência
+        $('#addExperience').click(function() {
+            addExperience();
+        });
+
+        // Adicionar nova habilidade
+        $('#addSkill').click(function() {
+            addSkill();
+        });
+
+        // Adicionar novo idioma
+        $('#addLanguage').click(function() {
+            addLanguage();
+        });
+
+        // Adicionar nova certificação
+        $('#addCertification').click(function() {
+            addCertification();
+        });
+
+        // Adicionar nova formação
+        $('#addEducation').click(function() {
+            addEducation();
+        });
+
+        // Remover experiência
+        $(document).on('click', '.removeExperience', function() {
+            $(this).closest('.experience-item').remove();
+        });
+
+        // Remover habilidade
+        $(document).on('click', '.removeSkill', function() {
+            $(this).closest('.skill-item').remove();
+        });
+
+        // Remover idioma
+        $(document).on('click', '.removeLanguage', function() {
+            $(this).closest('.language-item').remove();
+        });
+
+        // Remover certificação
+        $(document).on('click', '.removeCertification', function() {
+            $(this).closest('.certification-item').remove();
+        });
+
+        // Remover formação
+        $(document).on('click', '.removeEducation', function() {
+            $(this).closest('.education-item').remove();
+        });
+    });
+</script> -->
+
 @endsection

@@ -1,16 +1,6 @@
-@extends('curricula.app') {{-- Se você estiver utilizando um layout padrão --}}
+@extends('curricula.app')
 
 @section('content')
-<!DOCTYPE html>
-<html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-<body class="w3-light-grey">
 
     <!-- Page Container -->
     <div class="w3-content w3-margin-top" style="max-width:1400px;">
@@ -66,6 +56,8 @@
                             <div id="educations"></div>
                             <button type="button" id="addEducation">Adicionar Formação</button>
 
+                            <!-- Botão de Envio -->
+                            <div class="submit">
                             @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -77,9 +69,6 @@
                                 {{ session('error') }}
                             </div>
                             @endif
-
-                            <!-- Botão de Envio -->
-                            <div class="submit">
                                 <button type="submit">Salvar</button>
                             </div>
 
@@ -147,13 +136,5 @@
 
         <!-- End Page Container -->
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
-    <script src="{{ asset('assets/js/curriculum.js') }}"></script>
-</body>
-
-</html>
 
 @endsection
