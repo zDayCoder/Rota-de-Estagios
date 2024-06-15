@@ -1,3 +1,27 @@
+function toggleEndDate(radio, index) {
+    if (radio.value == "1") {
+        $(`#label_end_date_${index}`).hide();
+        $(`#end_date_${index}`).hide().prop('disabled', true);
+        $(`input[name="currently_working${index}"]`).prop('disabled', true);
+    } else {
+        $(`#label_end_date_${index}`).show();
+        $(`#end_date_${index}`).show().prop('disabled', false);
+        $(`input[name="currently_working${index}"]`).prop('disabled', false);
+    }
+}
+
+// Função para inicializar a visibilidade correta ao carregar a página
+function initializeEndDate(index) {
+    toggleEndDate(index);
+}
+
+// Inicializa todos os campos de data de término no carregamento da página
+$(document).ready(function() {
+    $('input[name^="currently_working_"]').each(function() {
+        const index = $(this).attr('name').match(/\d+/)[0];
+        initializeEndDate(index);
+    });
+});
 $(document).ready(function() {
     let experienceIndex = 0;
     let skillIndex = 0;
@@ -19,16 +43,6 @@ $(document).ready(function() {
         $(`#language_level_text_${index}`).text(languageLevels[$(`#language_level_${index}`).val() - 1]);
     }
 
-    function toggleEndDate(checkbox, index) {
-        if (checkbox.checked) {
-            $(`#end_date_${index}`).hide();
-            $(`#end_date_${index}`).prop('disabled', true);
-        } else {
-            $(`#end_date_${index}`).show();
-            $(`#end_date_${index}`).prop('disabled', false);
-        }
-    }
-
     // Adicionar Experiência
     $('#addExperience').click(function() {
         experienceIndex++;
@@ -42,14 +56,21 @@ $(document).ready(function() {
                 <input type="text" id="location_${experienceIndex}" name="locations[]" class="w3-input w3-border">
                 <label for="start_date_${experienceIndex}">Data de Início:</label>
                 <input type="text" id="start_date_${experienceIndex}" name="start_dates[]" class="w3-input w3-border datepicker">
-                <label for="end_date_${experienceIndex}">Data de Término:</label>
+                <label id="label_end_date_${experienceIndex}" for="end_date_${experienceIndex}">Data de Término:</label>
                 <input type="text" id="end_date_${experienceIndex}" name="end_dates[]" class="w3-input w3-border datepicker">
-                <label for="currently_working_${experienceIndex}">
+                <!--label for="currently_working_${experienceIndex}">
                     <input type="checkbox" id="currently_working_${experienceIndex}" name="currently_working[]" value="1" onclick="toggleEndDate(this, ${experienceIndex})"> Atualmente Trabalhando Aqui
-                </label>
+                </label><br--!>
+                <label>Atualmente Trabalhando Aqui:</label><br>
+                <input type="radio" id="currently_working_no_${experienceIndex}" name="currently_working_${experienceIndex}" value="0" onclick="toggleEndDate(this, ${experienceIndex}) " checked>
+                <label for="currently_working_no_${experienceIndex}">Não</label>
+                <input type="radio" id="currently_working_yes_${experienceIndex}" name="currently_working_${experienceIndex}" value="1" onclick="toggleEndDate(this, ${experienceIndex})">
+                <label for="currently_working_yes_${experienceIndex}">Sim</label><br>
                 <label for="description_${experienceIndex}">Descrição:</label>
                 <textarea id="description_${experienceIndex}" name="descriptions[]" rows="2" class="w3-input w3-border"></textarea>
-                <button type="button" class="removeButton" data-index="${experienceIndex}" data-section="experience">Remover Experiência</button>
+                <button type="button" class="removeButton rounded-full" data-index="${experienceIndex}" data-section="experience"><span class="material-symbols-outlined">
+delete
+</span></button>
             </div>`
         );
         $('.datepicker').datepicker({
@@ -60,6 +81,8 @@ $(document).ready(function() {
             showMaskOnHover: false,
             showMaskOnFocus: false
         });
+
+
     });
 
     // Adicionar Habilidade
@@ -72,7 +95,9 @@ $(document).ready(function() {
                 <label for="skill_level_${skillIndex}">Nível:</label>
                 <span id="skill_level_text_${skillIndex}">Iniciante</span>
                 <input type="range" id="skill_level_${skillIndex}" name="skill_levels[]" min="1" max="5" step="1" value="1" class="w3-input w3-border">
-                <button type="button" class="removeButton" data-index="${skillIndex}" data-section="skill">Remover Habilidade</button>
+                <button type="button" class="removeButton rounded-full" data-index="${skillIndex}" data-section="skill"><span class="material-symbols-outlined">
+delete
+</span></button>
             </div>`
         );
         $(`#skill_level_${skillIndex}`).on('input', function() {
@@ -90,7 +115,9 @@ $(document).ready(function() {
                 <label for="language_level_${languageIndex}">Nível:</label>
                 <span id="language_level_text_${languageIndex}">Iniciante</span>
                 <input type="range" id="language_level_${languageIndex}" name="language_levels[]" min="1" max="5" step="1" value="1" class="w3-input w3-border">
-                <button type="button" class="removeButton" data-index="${languageIndex}" data-section="language">Remover Idioma</button>
+                <button type="button" class="removeButton rounded-full" data-index="${languageIndex}" data-section="language"><span class="material-symbols-outlined">
+delete
+</span></button>
             </div>`
         );
         $(`#language_level_${languageIndex}`).on('input', function() {
@@ -152,16 +179,6 @@ $(document).ready(function() {
         const section = $(this).data('section');
         $(`#${section}_${index}`).remove();
     });
-
-    function toggleEndDate(checkbox, index) {
-        if (checkbox.checked) {
-            $(`#end_date_${index}`).hide();
-            $(`#end_date_${index}`).prop('disabled', true);
-        } else {
-            $(`#end_date_${index}`).show();
-            $(`#end_date_${index}`).prop('disabled', false);
-        }
-    }
 
     // Inicializar datepicker para campos de data já existentes
     $('.datepicker').datepicker({

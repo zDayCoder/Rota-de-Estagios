@@ -24,7 +24,7 @@
             <tbody>
                 @foreach ($vacancies as $vacancy)
                     <tr>
-                        <td>{{ $vacancy->vaga_id }}</td>
+                        <td>{{ $vacancy->id }}</td>
                         <td>{{ $vacancy->company_id }}</td>
                         <td>{{ $vacancy->name }}</td>
                         <td>{{ $vacancy->description }}</td>
@@ -32,7 +32,7 @@
                         <td>{{ $vacancy->model }}</td>
                         <td>{{ $vacancy->addreess_id }}</td>
                         <td>
-                         <a href="{{ url("/vacancy/$vacancy->vaga_id/edit")}}"> Editar Vaga</a>                        
+                         <a href="{{ url("/vacancy/$vacancy->id/edit")}}"> Editar Vaga</a>                        
                         </td>
                     </tr>
                 @endforeach

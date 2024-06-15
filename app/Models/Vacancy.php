@@ -9,11 +9,12 @@ class Vacancy extends Model
 {
     use HasFactory;
     protected $table = 'vacancy';
-    protected $fillable = ['vaga_id', 'company_id', 'name', 'description', 'salary','skills_id','model', 'address_id',];
+    protected $fillable = ['id', 'company_id', 'name', 'description', 'salary','skills_id','model','status', 'trainee_id', 'address_id',];
 
     protected $attributes = [
         'address_id' => 1,
         'skills_id' => 1,
+        'trainee_id' => 1,
     ];
 
     

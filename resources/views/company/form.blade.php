@@ -1,14 +1,14 @@
-<!-- resources/views/companies/form.blade.php -->
+<!-- resources/views/company/form.blade.php -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ isset($company) ? 'Edit Company' : 'Create Company' }}</title>
+    <title>{{ isset($company->id) ? 'Edit Company' : 'Create Company' }}</title>
 </head>
 <body>
-    <h1>{{ isset($company) ? 'Edit Company' : 'Create a New Company' }}</h1>
+    <h1>{{ isset($company->id) ? 'Edit Company' : 'Create a New Company' }}</h1>
     @if ($errors->any())
         <div>
             <ul>
@@ -18,9 +18,9 @@
             </ul>
         </div>
     @endif
-    <form action="{{ isset($company) ? route('company.update', $company->id) : route('company.store') }}" method="POST">
+    <form action="{{ isset($company->id) ? route('company.update', $company->id) : route('company.store') }}" method="POST">
         @csrf
-        @if(isset($company))
+        @if(isset($company->id))
             @method('PUT')
         @endif
         <div>
@@ -59,11 +59,66 @@
             <label for="branch">Branch:</label>
             <input type="text" id="branch" name="branch" value="{{ old('branch', $company->branch ?? '') }}" required>
         </div>
+
+        <!-- Address fields -->
         <div>
-            <label for="address_id">Address ID:</label>
-            <input type="text" id="address_id" name="address_id" value="{{ old('address_id', $company->address_id ?? '') }}" required>
+            <label for="zip_code">CEP:</label>
+            <input type="text" id="zip_code" name="zip_code" value="{{ old('zip_code', $company->address->zip_code ?? '') }}" required>
         </div>
-        <button type="submit">{{ isset($company) ? 'Update' : 'Create' }}</button>
+        <div>
+            <label for="street_address">Logradouro:</label>
+            <input type="text" id="street_address" name="street_address" value="{{ old('street_address', $company->address->street_address ?? '') }}" required>
+        </div>
+        <div>
+            <label for="complement">Complemento:</label>
+            <input type="text" id="complement" name="complement" value="{{ old('complement', $company->address->complement ?? '') }}">
+        </div>
+        <div>
+            <label for="neighborhood">Bairro:</label>
+            <input type="text" id="neighborhood" name="neighborhood" value="{{ old('neighborhood', $company->address->neighborhood ?? '') }}" required>
+        </div>
+        <div>
+            <label for="city">Localidade:</label>
+            <input type="text" id="city" name="city" value="{{ old('city', $company->address->city ?? '') }}" required>
+        </div>
+        <div>
+            <label for="state">UF:</label>
+            <input type="text" id="state" name="state" value="{{ old('state', $company->address->state ?? '') }}" required>
+        </div>
+        <div>
+            <label for="number">Número:</label>
+            <input type="text" id="number" name="number" value="{{ old('number', $company->address->number ?? '') }}" required>
+        </div>
+        <button type="submit">{{ isset($company->id) ? 'Update' : 'Create' }}</button>
     </form>
+
+    <script>
+        document.getElementById('zip_code').addEventListener('input', function() {
+            const cep = this.value.replace(/\D/g, '');
+            if (cep.length !== 8) {
+                return;
+            }
+
+            fetch('{{ route('address.get-address-by-cep') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ cep: cep })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('street_address').value = data.logradouro || '';
+                document.getElementById('complement').value = data.complemento || '';
+                document.getElementById('neighborhood').value = data.bairro || '';
+                document.getElementById('city').value = data.localidade || '';
+                document.getElementById('state').value = data.uf || '';
+            })
+            .catch(error => {
+                console.error('Erro ao buscar endereço:', error);
+            });
+        });
+    </script>
 </body>
 </html>

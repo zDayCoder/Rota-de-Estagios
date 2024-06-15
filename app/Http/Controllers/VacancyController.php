@@ -39,10 +39,13 @@ class VacancyController extends Controller
             'skills.*.name' => 'required_with:skills|string|max:255',
             'skills.*.level' => 'required_with:skills|string|max:255',
             'skills.*.curriculum_id' => 'required_with:skills|integer',
+            'trainee_id' => 'nullable|integer', 
+            'status' => 'nullable|string|in:Aberta,Fechada,Cancelada',
         ]);
 
 
         $validatedData['addreess_id'] = $validatedData['addreess_id'] ?? 1;
+        $validatedData['trainee_id'] = $validatedData['trainee_id'] ?? 1;
 
         $vacancy = Vacancy::create([
             'company_id' => $validatedData['company_id'],
@@ -51,6 +54,7 @@ class VacancyController extends Controller
             'salary' => $validatedData['salary'],
             'model' => $validatedData['model'],
             'address_id' => $validatedData['addreess_id'],
+            'statys'=> "Aberta"
         ]);
 
         if (!empty($validatedData['skills'])) {
@@ -78,14 +82,15 @@ class VacancyController extends Controller
     public function edit($vacancy_id)
     {
         
-        $vacancy = DB::table('Vacancy')->where('$vacancy.vaga_id', '=', $vacancy_id);
-        $skills = DB::table('VacancySkill')->where('$VacancySkill.vacancy_id', '=', $vacancy_id);
+        $vacancy = Vacancy::findOrFail($vacancy_id);
+        $skills = DB::table('VacancySkill')->where('vacancy_id', '=', $vacancy_id)->get();
+
 
         return view('vacancyEdit', data: compact('vacancy', 'skills'));
       
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)   
     {
         $validatedData = $request->validate([
             'company_id' => 'required|integer',
@@ -108,20 +113,20 @@ class VacancyController extends Controller
         $vacancy->description = $validatedData['description'];
         $vacancy->salary = $validatedData['salary'];
         $vacancy->model = $validatedData['model'];
-        $vacancy->addreess_id = $validatedData['addreess_id'] ?? 1; 
+        $vacancy->address_id = $validatedData['address_id'] ?? 1; 
         $vacancy->save();
 
  
         if (!empty($validatedData['skills'])) {
        
-            $vacancy->skills()->detach();
+            //$vacancy->Vacancyskills()->detach();
 
             foreach ($validatedData['skills'] as $skillData) {
                 $skill = VacancySkill::updateOrCreate(
                     ['vacancy_id' => $vacancy->id, 'name' => $skillData['name']],
                     ['level' => $skillData['level'], 'curriculum_id' => $skillData['curriculum_id']]
                 );
-                $vacancy->skills()->attach($skill->id);
+                //$vacancy->skills()->attach($skill->id);
             }
         }
 

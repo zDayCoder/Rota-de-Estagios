@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Session;
 
 use App\Http\Controllers\RegisterController;
 
-Route::post('/register', [RegisterController::class, 'registerIntern'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 
 

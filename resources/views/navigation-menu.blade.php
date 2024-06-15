@@ -21,6 +21,8 @@
                     <x-nav-link href="/" >
                         {{ __('Inicio') }}
                     </x-nav-link>
+                 
+                 
                 </div>
             </div>
 
