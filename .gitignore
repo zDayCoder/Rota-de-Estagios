@@ -17,7 +17,11 @@
 # /.fleet
 # /.idea
 # /.vscode
+<<<<<<< HEAD
 # /.history
 
+=======
+.history
+>>>>>>> 8aed25b697d3c835ec15b886c8b602c554f538fc
 vendor
 node_modules
