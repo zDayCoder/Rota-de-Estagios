@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
+use App\Http\Livewire\CurriculoCreate;
+use App\Livewire\CurriculoCreates;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +65,11 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard')
         ->middleware('hasAddress'); // Adicionamos um middleware customizado para verificar se o usuário possui endereço
+
+
 });
+
+
 
 
 require_once __DIR__ . '/jetstream.php';
@@ -74,3 +80,4 @@ require_once __DIR__ . '/coordinator.php';
 require_once __DIR__ . '/address.php';
 require_once __DIR__ . '/register.php';
 require_once __DIR__ . '/company.php';
+require_once __DIR__ . '/vacancy.php';

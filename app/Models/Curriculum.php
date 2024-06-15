@@ -28,6 +28,8 @@ class Curriculum extends Model
     public function certifications()
     {
         return $this->hasMany(Certification::class);
+
+        
     }
 
     public function educations()

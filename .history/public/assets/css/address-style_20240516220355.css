@@ -1,0 +1,65 @@
+:root {
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+
+}
+
+body {
+    background-image: url('/assets/img/background-abstract.png');
+    background-size: cover;
+    overflow: hidden;
+    width: 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: start;
+    margin: 0;
+
+
+}
+
+.card-address {
+
+    display: flex;
+    background-color: #FFF;
+    justify-content: center;
+    width: 900px;
+    height: 100VH;
+    border-radius: 4px;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+    gap: 5px;
+
+}
+.main-content h1{
+    font-size: 60px;
+}
+.conteudo{
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+}
+
+.conteudo input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border-color: #9d1221;
+}
+
+.botao > button{
+    color: #FFF;
+    margin-top: 90px;
+    padding-inline: 80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #000;
+    border-radius: 5px;
+}

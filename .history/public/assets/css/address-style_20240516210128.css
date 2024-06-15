@@ -1,0 +1,41 @@
+:root{
+    padding: 0;
+    margin: 0;
+
+}
+
+body{
+    background-image: url('/assets/img/background-abstract.png');
+    background-size: cover;
+    overflow: hidden;
+    width: 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: start;
+    
+    
+   
+}
+
+.card{
+
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+    width: 400px;
+    height: 100VH;
+    border-radius: 4px;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+
+}
+
+.conteudo input{
+    width: 80%;
+    padding: 5px;
+}

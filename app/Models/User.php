@@ -18,7 +18,16 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    public static function getUserTypeValue(string $type): ?int
+    {
+        $types = [
+            'Intern' => self::TYPE_INTERN,
+            'Enterprise' => self::TYPE_ENTERPRISE,
+            'Coordinator' => self::TYPE_COORDINATOR,
+        ];
 
+        return $types[$type] ?? null;
+    }
     const TYPE_INTERN = 0;
     const TYPE_ENTERPRISE = 1;
     const TYPE_COORDINATOR = 2;

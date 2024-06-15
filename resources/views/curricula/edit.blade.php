@@ -1,7 +1,6 @@
-@extends('curricula.app')
+<x-app-layout>
 
 
-@section('content')
     <div class="container">
         <h2>Editar Currículo</h2>
         @if ($errors->any())
@@ -79,4 +78,4 @@
             <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
     </div>
-@endsection
+    </x-app-layout>
