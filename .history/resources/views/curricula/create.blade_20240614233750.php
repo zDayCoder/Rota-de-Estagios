@@ -71,7 +71,7 @@
                             id ="addExperience">
                             <h3>Experiência</h3>
 
-                            <button type="button" id="addExperience" class="rounded-circle"><span
+                            <button type="button" id="addExperience"><span
                                 class="material-symbols-outlined ">
                                 add
                             </span></button>

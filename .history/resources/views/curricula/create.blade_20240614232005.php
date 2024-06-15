@@ -17,7 +17,7 @@
                             <div class=" dados-basicos ">
                                 <div class="row">
                                     <div class="col-xl-3 image-user" id="view_photo">
-                                        <div class="img-thumbnail">
+                                        <div class="img-thumbnail ">
                                             <div class="image">
                                                 <label for="uploader">click</label>
                                                 <img style="height:100px; width=100px">
@@ -71,10 +71,7 @@
                             id ="addExperience">
                             <h3>Experiência</h3>
 
-                            <button type="button" id="addExperience" class="rounded-circle"><span
-                                class="material-symbols-outlined ">
-                                add
-                            </span></button>
+                            <button type="button" id="addExperience">Adicionar Experiência</button>
                         </div>
                     </div>
                     <div id="experiences"></div>
