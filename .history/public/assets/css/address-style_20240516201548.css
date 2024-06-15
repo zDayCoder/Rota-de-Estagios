@@ -1,0 +1,17 @@
+:root{
+    padding: 0;
+    margin: 0;
+
+}
+
+body{
+    background-image: url('/assets/img/background-abstract.png');
+    background-size: cover;
+    overflow: hidden;
+    width: 100%;
+    background-repeat: no-repeat;
+}
+
+.card{
+    
+}

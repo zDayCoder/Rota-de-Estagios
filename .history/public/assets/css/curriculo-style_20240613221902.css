@@ -1,0 +1,158 @@
+.container-curriculo {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.titulo-curriculo {
+    margin-top: 10px;
+    margin-left: 300px;
+}
+
+.image-user {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.row{
+    width: 100%;
+}
+.img-thumbnail {
+    width: 130px;
+    height: 130px;
+    border: 2px solid #790c0c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.dados-basicos {
+    max-width: 900px;
+    
+}
+
+.resume-form {
+    padding: 20px;
+}
+
+.form-group {
+    width: 500px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: 500;
+}
+
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    display: flex;
+    color: #000;
+    border: none;
+    padding: 5px ;
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+   
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    color: #FFF;
+    background-color: #790c0c;
+}
+
+.alert {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+.conteudo-card{
+    border:#790c0c solid 1px;
+    border-radius: 10px;
+   background-color: #f8d7da;
+   cursor: pointer;
+}
+.conteudo-card h3 {
+    padding: 10px;
+    margin: 0;
+    
+}
+
+.section {
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+.section label{
+    margin-top: 10px;
+}
+.section input{
+    margin-top: 10px;
+}
+.section .removeButton{
+    display: flex;
+    margin: 10px;
+    justify-content: end;
+    color: #721c24;
+}
+
+.section .removeButton:hover{
+    color: #FFF;
+    font-weight: 200;
+}
+
+#skill_level_text_ {
+
+    display: inline-block;
+    width: 100px; /* Define um tamanho fixo para o rótulo da habilidade */
+    text-align: right; /* Alinha o texto à direita */
+    margin-right: 10px;
+
+}
+
+#summary:f
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
