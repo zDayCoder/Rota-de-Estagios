@@ -40,8 +40,6 @@ h6 {
                                 onerror="this.onerror=null; this.style='padding:50px;width:100%';this.src='{{ asset('assets/img/default-user.svg') }}';">
                         </div>
                         <div class="w3-display-topright w3-text-black" style="margin:-15px">
-
-
                             <style>
                             .Btn {
                                 display: flex;
@@ -57,7 +55,7 @@ h6 {
                                 transition-duration: .3s;
                                 box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
                                 background-color: rgb(255, 65, 65);
-                                transition: 0.9s;
+                                transition: 0.4s;
                             }
 
                             /* plus sign */
@@ -77,46 +75,20 @@ h6 {
                                 fill: white;
                             }
 
-                            /* text */
-                            .text {
-                                position: absolute;
-                                right: 0%;
-                                width: 0%;
-                                opacity: 0;
-                                color: white;
-                                font-size: 1.2em;
-                                font-weight: 600;
-                                transition-duration: .3s;
-                            }
                             .Btn:hover {
                                 background-color: rgb(255, 15, 15);
                             }
-/* 
+
                             .Btn:hover {
-                                width: 125px;
+                                rotate: 20deg;
                                 border-radius: 40px;
-                                transition-duration: .3s;
-                            }
-
-                            .Btn:hover .sign {
-                                width: 30%;
-                                transition-duration: .3s;
-                                padding-left: 20px;
-                            }
-
-                            .Btn:hover .text {
-                                opacity: 1;
-                                width: 70%;
-                                transition-duration: .3s;
-                                padding-right: 10px;
                             }
 
                             .Btn:active {
                                 transform: translate(2px, 2px);
-                            } */
+                            }
                             </style>
-                            <button class="Btn">
-
+                            <a href="{{ route('curricula.edit', ['curriculum' => $curriculum->id]) }}" class="Btn">
                                 <div class="sign">
                                     <svg class="edit-svgIcon" viewBox="0 0 512 512">
                                         <path
@@ -125,11 +97,9 @@ h6 {
                                     </svg>
                                 </div>
 
-                                <div class="text">Editar</div>
-                            </button>
-
-
+                            </a>
                         </div>
+
                         <div class="w3-display-bottomleft w3-container w3-text-black"
                             style="background: rgba(255,255,255,.8);border-radius:12px;margin:4px">
                             <h4>{{ $curriculum->name }}</h4>

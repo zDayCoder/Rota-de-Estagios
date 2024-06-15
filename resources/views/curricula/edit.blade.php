@@ -1,5 +1,6 @@
 <x-app-layout>
 
+
     <div class="container">
         <h2>Editar Currículo</h2>
         @if ($errors->any())
@@ -77,4 +78,4 @@
             <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
     </div>
-</x-app-layout>
+    </x-app-layout>

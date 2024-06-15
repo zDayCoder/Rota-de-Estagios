@@ -18,7 +18,6 @@ Route::group(['middleware' => array_values(array_filter([$authMiddleware, $authS
     Route::get('/curriculo/create', [CurriculumController::class, 'create'])->name('curricula.create');
 
     // Rota para salvar um novo currículo no banco de dados
-    
     Route::post('/curriculo', [CurriculumController::class, 'store'])->name('curricula.store');
 
     // Rota para exibir detalhes de um currículo específico
@@ -32,4 +31,11 @@ Route::group(['middleware' => array_values(array_filter([$authMiddleware, $authS
 
     // Rota para excluir um currículo do banco de dados
     Route::delete('/curriculo/{curriculum}', [CurriculumController::class, 'destroy'])->name('curricula.destroy');
+
+    // Rotas para excluir itens específicos de cada seção do currículo
+    Route::delete('/curriculo/{curriculum}/experience/{experience}', [CurriculumController::class, 'deleteExperience'])->name('curricula.deleteExperience');
+    Route::delete('/curriculo/{curriculum}/skill/{skill}', [CurriculumController::class, 'deleteSkill'])->name('curricula.deleteSkill');
+    Route::delete('/curriculo/{curriculum}/language/{language}', [CurriculumController::class, 'deleteLanguage'])->name('curricula.deleteLanguage');
+    Route::delete('/curriculo/{curriculum}/certification/{certification}', [CurriculumController::class, 'deleteCertification'])->name('curricula.deleteCertification');
+    Route::delete('/curriculo/{curriculum}/education/{education}', [CurriculumController::class, 'deleteEducation'])->name('curricula.deleteEducation');
 });

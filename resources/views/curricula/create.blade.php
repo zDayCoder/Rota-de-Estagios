@@ -2,6 +2,9 @@
     <h2 class="titulo-curriculo">Criando Currículo</h2>
     <div class="container-curriculo">
 
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+
         <!-- The Grid -->
         <div class="w3-row-padding">
 
@@ -122,6 +125,13 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                            <!-- Botão de Envio -->
+                            <div class="submit">
+                            @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
 
                     @if (session('error'))
                         <div class="alert alert-danger">
@@ -133,6 +143,13 @@
                     <div class="submit">
                         <button type="submit">Salvar</button>
                     </div>
+                            @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+                                <button type="submit">Salvar</button>
+                            </div>
 
 
                     </form>
@@ -140,20 +157,10 @@
                 </div>
             </div><br>
 
-            <!-- End Left Column -->
         </div>
 
-        <!-- End Grid -->
     </div>
 
-    <!-- End Page Container -->
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
-    <script src="{{ asset('assets/js/curriculum.js') }}"></script>
-    <script>
-        
-    </script>
-</x-app-layout>
+  

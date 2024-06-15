@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('certifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('curriculum_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->date('end_date'); // Data da certificação
-            $table->string('description');
+            $table->date('end_date');
+            $table->text('description')->nullable();
+            $table->foreignId('curriculum_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
