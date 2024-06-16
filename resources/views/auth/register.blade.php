@@ -68,7 +68,14 @@
                     {{ __('Registrar') }}
                 </x-button>
             </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('terms.index') }}">
+                    {{ __('Leia os Termos de Uso e Política de Privacidade. ') }} <span style="color: #28a745;">{{ __('Clique aqui.') }}</span>
+                </a>
+            </div>
         </form>
+
 
         <form id="enterpriseForm" method="POST" action="{{ route('register') }}"
             style="{{ $tipoUser === 'Enterprise' ? '' : 'display: none;' }}">
@@ -102,6 +109,12 @@
                 <x-button class="ms-4">
                     {{ __('Registrar') }}
                 </x-button>
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('terms.index') }}">
+                    {{ __('Leia os Termos de Uso e Política de Privacidade. ') }} <span style="color: #28a745;">{{ __('Clique aqui.') }}</span>
+                </a>
             </div>
         </form>
 
@@ -137,6 +150,12 @@
                 <x-button class="ms-4">
                     {{ __('Registrar') }}
                 </x-button>
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('terms.index') }}">
+                    {{ __('Leia os Termos de Uso e Política de Privacidade. ') }} <span style="color: #28a745;">{{ __('Clique aqui.') }}</span>
+                </a>
             </div>
         </form>
 
