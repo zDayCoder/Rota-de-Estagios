@@ -126,6 +126,9 @@
     </div>
 
     </div>
+<<<<<<< HEAD
+    </x-app-layout>
+=======
 
     <script>
     var files = document.querySelector('input[name="files"]');
@@ -145,3 +148,4 @@
     });
     </script>
 </x-app-layout>
+>>>>>>> 34891a3f33d91e5ad83cde69c0267299ed14209b

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('educational_institution');
             $table->string('current_course');
             $table->string('current_period');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('address_id');
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
