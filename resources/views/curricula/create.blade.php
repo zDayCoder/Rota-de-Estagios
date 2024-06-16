@@ -124,6 +124,14 @@
 
     </div>
 
+<<<<<<< HEAD
+=======
+    </div>
+<<<<<<< HEAD
+    </x-app-layout>
+=======
+
+>>>>>>> db2539a467cf8f7ff198a0d69b6539c6acc65947
     <script>
     var files = document.querySelector('input[name="files"]');
 
@@ -142,3 +150,4 @@
     });
     </script>
 </x-app-layout>
+>>>>>>> 34891a3f33d91e5ad83cde69c0267299ed14209b

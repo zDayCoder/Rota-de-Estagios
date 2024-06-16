@@ -21,6 +21,7 @@ class Intern extends Model
         'educational_institution',
         'current_course',
         'current_period',
+        'user_id',
         'address_id',
     ];
 

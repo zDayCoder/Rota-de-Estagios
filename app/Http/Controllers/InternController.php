@@ -62,6 +62,7 @@ class InternController extends Controller
             'educational_institution' => $request->educational_institution,
             'current_course' => $request->current_course,
             'current_period' => $request->current_period,
+            'user_id' => Auth::id(),
             'address_id' => $address->id,
         ]);
 
@@ -123,6 +124,7 @@ class InternController extends Controller
             'educational_institution' => $request->educational_institution,
             'current_course' => $request->current_course,
             'current_period' => $request->current_period,
+            'user_id' => Auth::id(),
             'address_id' => $address->id,
         ]);
 

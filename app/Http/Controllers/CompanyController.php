@@ -75,10 +75,17 @@ class CompanyController extends Controller
             'state_registration' => $request->state_registration,
             'legal_nature' => $request->legal_nature,
             'branch' => $request->branch,
+            'user_id' => $user->id,
             'address_id' => $address->id,
         ]);
 
         return redirect()->route('company.index')->with('success', 'Company created successfully.');
+    }
+
+    public function show($id)
+    {
+        $company = Company::findOrFail($id);
+        return view('company.show', compact('company'));
     }
 
     public function edit($id)

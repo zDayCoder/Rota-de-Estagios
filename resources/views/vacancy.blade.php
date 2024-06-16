@@ -30,7 +30,7 @@
                         <td>{{ $vacancy->description }}</td>
                         <td>{{ $vacancy->salary }}</td>
                         <td>{{ $vacancy->model }}</td>
-                        <td>{{ $vacancy->addreess_id }}</td>
+                        <td>{{ $vacancy->address_id }}</td>
                         <td>
                          <a href="{{ url("/vacancy/recruiter/$vacancy->id/edit")}}"> Editar Vaga</a>                        
                         </td>
@@ -50,7 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($skills as $skill)
+                @foreach ($vacancy->vacancy_id as $skill)
                     <tr>
                         <td>{{ $skill->id }}</td>
                         <td>{{ $skill->name }}</td>

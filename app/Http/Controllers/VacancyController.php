@@ -24,15 +24,19 @@ class VacancyController extends Controller
 
     public function indexRecruiter()
     {
-        //$vacancies = Vacancy::all();
+    
+    $user = Auth::user(); 
+    $company = DB::table('Company')->where('user_id', $user->id)->first('id');
 
-        //$vacancy = Vacancy::findOrFail($vacancy_id);
-        //$vacancy = DB::table('Vacancy')->where('company_id', '=', $vacancy_id)->get();
-        //$skills = VacancySkill::all();
+    $vacancies = DB::table('Vacancy')->where('company_id', $company->id)->get();
 
-        return view(view: 'vacancy', data: compact('vacancies','skills'));
-        //return response()->json($vacancy);
+
+    foreach ($vacancies as $vacancy) {
+        $vacancy->vacancy_id = DB::table('vacancySkill')->where('vacancy_id', $vacancy->id)->get();
     }
+
+    return view(view: 'vacancy', data: compact('vacancies'));
+}
 
     public function create()
     {
@@ -43,7 +47,7 @@ class VacancyController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'company_id' => 'required|integer',
+            
             'name' => 'required|string|max:35',
             'description' => 'required|string|max:100',
             'salary' => 'required|numeric',
@@ -57,20 +61,25 @@ class VacancyController extends Controller
             'status' => 'nullable|string|in:Aberta,Fechada,Cancelada',
         ]);
 
+        $user = Auth::user();
+
+        
+        
+        $company = DB::table('company')->where('user_id', $user->id)->first('id');
 
         $validatedData['addreess_id'] = $validatedData['addreess_id'] ?? 1;
         $validatedData['trainee_id'] = $validatedData['trainee_id'] ?? 1;
 
         $vacancy = Vacancy::create([
-            'company_id' => $validatedData['company_id'],
+            'company_id' => $company->id,
             'name' => $validatedData['name'],
             'description' => $validatedData['description'],
             'salary' => $validatedData['salary'],
             'model' => $validatedData['model'],
             'address_id' => $validatedData['addreess_id'],
-            'statys'=> "Aberta"
+            'status'=> "Aberta"
         ]);
-        $user = Auth::user();
+        
 
         $address = Address::create([
             'zip_code' => $request->zip_code,
@@ -79,7 +88,6 @@ class VacancyController extends Controller
             'neighborhood' => $request->neighborhood,
             'city' => $request->city,
             'state' => $request->state,
-            'number' => $request->number,
             'user_id' => $user->id,
         ]);
 

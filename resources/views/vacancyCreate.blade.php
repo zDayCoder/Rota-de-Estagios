@@ -22,11 +22,7 @@
         <form action="{{ route('vacancy.store') }}" method="POST">
             @csrf
 
-            <div class="form-group">
-                <label for="company_id">Company ID:</label>
-                <input type="text" class="form-control" id="company_id" name="company_id">
-            </div>
-
+           
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" name="name" maxlength="35">
