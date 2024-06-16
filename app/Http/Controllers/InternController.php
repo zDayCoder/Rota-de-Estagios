@@ -65,7 +65,7 @@ class InternController extends Controller
             'address_id' => $address->id,
         ]);
 
-        return redirect()->route('intern.index')->with('success', 'Intern created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Intern created successfully.');
     }
 
     public function show($id)

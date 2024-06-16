@@ -1,28 +1,4 @@
-@extends('curricula.app')
-
-@section('content')
-<!DOCTYPE html>
-<html>
-<title>{{ config('app.name', 'Rota de Estágios') }}</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-html,
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Roboto", sans-serif
-}
-</style>
-
-<body class="w3-light-grey">
+<x-app-layout>
 
     <!-- Page Container -->
     <div class="w3-content w3-margin-top" style="max-width:1400px;">
@@ -35,9 +11,12 @@ h6 {
                 <div class="w3-white w3-text-grey w3-card-4" style="border-radius:20px;padding:4px">
                     <div class="w3-display-container">
                         <div style="min-height:333px;">
-                            <img src="{{ asset('assets/img/user-1.jpg')}}" style="width:100%;border-radius:15px;"
-                                alt="Avatar"
-                                onerror="this.onerror=null; this.style='padding:50px;width:100%';this.src='{{ asset('assets/img/default-user.svg') }}';">
+                            <div class="photo-frame" style="border: 1.5px solid gray; display: inline-block;border-radius:100%;padding: 4px">
+                                <img src="{{ asset('storage/' . $user->profile_photo_path) }}"
+                                    style="object-fit: cover; width: 100%; height: auto; max-width: 200px;  min-width: 200px; min-height: 200px; border-radius: 100%;"
+                                    alt="Avatar"
+                                    onerror="this.onerror=null; this.src='{{ asset('assets/img/default-user.svg') }}';">
+                            </div>
                         </div>
                         <div class="w3-display-topright w3-text-black" style="margin:-15px">
                             <style>
@@ -224,7 +203,4 @@ h6 {
         <!-- End Page Container -->
     </div>
 
-</body>
-
-</html>
-@endsection
+</x-app-layout>

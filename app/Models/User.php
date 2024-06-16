@@ -43,6 +43,7 @@ class User extends Authenticatable
         'password',
         'address_id',
         'user_type',
+        'profile_photo_path', // Adicione este campo
     ];
     public function address()
     {

@@ -1,6 +1,7 @@
-*{
-    --tw-ring-color:#790c0c!important;
+* {
+    --tw-ring-color: #790c0c!important;
 }
+
 .container-curriculo {
     max-width: 900px;
     margin: 20px auto;
@@ -18,15 +19,16 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    
-    
 }
-.image-user input::after{
+
+.image-user input::after {
     display: none;
 }
-.row{
+
+.row {
     width: 100%;
 }
+
 .img-thumbnail {
     width: 130px;
     height: 130px;
@@ -39,7 +41,6 @@
 
 .dados-basicos {
     max-width: 900px;
-    
 }
 
 .resume-form {
@@ -70,11 +71,10 @@ button {
     display: flex;
     color: #000;
     border: none;
-    padding: 5px ;
+    padding: 5px;
     margin-right: 10px;
     font-size: 16px;
     cursor: pointer;
-   
     align-items: center;
     transition: background-color 0.3s ease;
 }
@@ -100,24 +100,20 @@ button:hover {
     color: #721c24;
 }
 
-
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
 }
-.conteudo-card{
-    border:#790c0c solid 1px;
+
+.conteudo-card {
+    border: #790c0c solid 1px;
     border-radius: 10px;
-   background-color: #f8d7da;
-   cursor: pointer;
+    background-color: #f8d7da;
+    cursor: pointer;
 }
+
 .conteudo-card h3 {
     padding: 10px;
     margin: 0;
-    
 }
 
 .section {
@@ -126,38 +122,41 @@ button:hover {
     animation: fadeIn 0.5s forwards;
 }
 
-.section label{
+.section label {
     margin-top: 10px;
 }
-.section input{
+
+.section input {
     margin-top: 10px;
 }
-.section .removeButton{
+
+.section .removeButton {
     display: flex;
     margin: 10px;
     justify-content: end;
     color: #721c24;
 }
 
-.section .removeButton:hover{
+.section .removeButton:hover {
     color: #FFF;
     font-weight: 200;
 }
 
 #skill_level_text_ {
-
     display: inline-block;
-    width: 100px; /* Define um tamanho fixo para o rótulo da habilidade */
-    text-align: right; /* Alinha o texto à direita */
+    width: 100px;
+    /* Define um tamanho fixo para o rótulo da habilidade */
+    text-align: right;
+    /* Alinha o texto à direita */
     margin-right: 10px;
-
 }
 
-input:focus, .form-control:focus{
+input:focus,
+.form-control:focus {
     border: #790c0c solid 1px!important;
     box-shadow: #790c0c!important;
-    
 }
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -168,6 +167,3 @@ input:focus, .form-control:focus{
         transform: translateY(0);
     }
 }
-
-
- 

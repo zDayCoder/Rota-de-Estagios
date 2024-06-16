@@ -1,14 +1,36 @@
+$.datepicker.regional['pt-BR'] = {
+    closeText: 'Fechar',
+    prevText: 'Anterior',
+    nextText: 'Próximo',
+    currentText: 'Hoje',
+    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+        'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+    ],
+    dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    weekHeader: 'Sm',
+    dateFormat: 'dd/mm/yy',
+    firstDay: 0,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+};
+$.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+
 function toggleEndDate(radio, index) {
     if (radio.value == "1") {
         $(`#label_end_date_${index}`).hide();
-        $(`#end_date_${index}`).hide().prop('disabled', true);
-        $(`input[name="currently_working${index}"]`).prop('disabled', true);
+        $(`#end_date_${index}`).hide().val('');
     } else {
         $(`#label_end_date_${index}`).show();
-        $(`#end_date_${index}`).show().prop('disabled', false);
-        $(`input[name="currently_working${index}"]`).prop('disabled', false);
+        $(`#end_date_${index}`).show();
     }
 }
+
 
 // Função para inicializar a visibilidade correta ao carregar a página
 function initializeEndDate(index) {
@@ -55,12 +77,9 @@ $(document).ready(function() {
                 <label for="location_${experienceIndex}">Localização:</label>
                 <input type="text" id="location_${experienceIndex}" name="locations[]" class="w3-input w3-border">
                 <label for="start_date_${experienceIndex}">Data de Início:</label>
-                <input type="text" id="start_date_${experienceIndex}" name="start_dates[]" class="w3-input w3-border datepicker">
+                <input type="text" autocomplete="off" id="start_date_${experienceIndex}" name="start_dates[]" class="w3-input w3-border datepicker">
                 <label id="label_end_date_${experienceIndex}" for="end_date_${experienceIndex}">Data de Término:</label>
-                <input type="text" id="end_date_${experienceIndex}" name="end_dates[]" class="w3-input w3-border datepicker">
-                <!--label for="currently_working_${experienceIndex}">
-                    <input type="checkbox" id="currently_working_${experienceIndex}" name="currently_working[]" value="1" onclick="toggleEndDate(this, ${experienceIndex})"> Atualmente Trabalhando Aqui
-                </label><br--!>
+                <input type="text" autocomplete="off" id="end_date_${experienceIndex}" name="end_dates[]" class="w3-input w3-border datepicker">
                 <label>Atualmente Trabalhando Aqui:</label><br>
                 <input type="radio" id="currently_working_no_${experienceIndex}" name="currently_working_${experienceIndex}" value="0" onclick="toggleEndDate(this, ${experienceIndex}) " checked>
                 <label for="currently_working_no_${experienceIndex}">Não</label>
@@ -68,11 +87,10 @@ $(document).ready(function() {
                 <label for="currently_working_yes_${experienceIndex}">Sim</label><br>
                 <label for="description_${experienceIndex}">Descrição:</label>
                 <textarea id="description_${experienceIndex}" name="descriptions[]" rows="2" class="w3-input w3-border"></textarea>
-                <button type="button" class="removeButton rounded-full" data-index="${experienceIndex}" data-section="experience"><span class="material-symbols-outlined">
-delete
-</span></button>
-            </div>`
+                <button type="button" class="removeButton rounded-full" data-index="${experienceIndex}" data-section="experience"><span class="material-symbols-outlined">delete</span></button></div>`
         );
+
+
         $('.datepicker').datepicker({
             dateFormat: 'dd/mm/yy'
         }).inputmask({
@@ -95,10 +113,7 @@ delete
                 <label for="skill_level_${skillIndex}">Nível:</label>
                 <span id="skill_level_text_${skillIndex}">Iniciante</span>
                 <input type="range" id="skill_level_${skillIndex}" name="skill_levels[]" min="1" max="5" step="1" value="1" class="w3-input w3-border">
-                <button type="button" class="removeButton rounded-full" data-index="${skillIndex}" data-section="skill"><span class="material-symbols-outlined">
-delete
-</span></button>
-            </div>`
+                <button type="button" class="removeButton rounded-full" data-index="${skillIndex}" data-section="skill"><span class="material-symbols-outlined">delete</span></button></div>`
         );
         $(`#skill_level_${skillIndex}`).on('input', function() {
             updateSkillText(skillIndex);
@@ -115,10 +130,7 @@ delete
                 <label for="language_level_${languageIndex}">Nível:</label>
                 <span id="language_level_text_${languageIndex}">Iniciante</span>
                 <input type="range" id="language_level_${languageIndex}" name="language_levels[]" min="1" max="5" step="1" value="1" class="w3-input w3-border">
-                <button type="button" class="removeButton rounded-full" data-index="${languageIndex}" data-section="language"><span class="material-symbols-outlined">
-delete
-</span></button>
-            </div>`
+                <button type="button" class="removeButton rounded-full" data-index="${languageIndex}" data-section="language"><span class="material-symbols-outlined">delete</span></button></div>`
         );
         $(`#language_level_${languageIndex}`).on('input', function() {
             updateLanguageText(languageIndex);
@@ -133,7 +145,7 @@ delete
                 <label for="certification_${certificationIndex}">Certificação:</label>
                 <input type="text" id="certification_${certificationIndex}" name="certifications[]" class="w3-input w3-border">
                 <label for="certification_end_date_${certificationIndex}">Data de Conclusão:</label>
-                <input type="text" id="certification_end_date_${certificationIndex}" name="certification_end_dates[]" class="w3-input w3-border datepicker">
+                <input type="text" autocomplete="off" id="certification_end_date_${certificationIndex}" name="certification_end_dates[]" class="w3-input w3-border datepicker">
                 <label for="certification_description_${certificationIndex}">Descrição:</label>
                 <textarea id="certification_description_${certificationIndex}" name="certification_descriptions[]" rows="2" class="w3-input w3-border"></textarea>
                 <button type="button" class="removeButton" data-index="${certificationIndex}" data-section="certification">Remover Certificação</button>
@@ -157,9 +169,9 @@ delete
                 <label for="education_${educationIndex}">Formação:</label>
                 <input type="text" id="education_${educationIndex}" name="educations[]" class="w3-input w3-border">
                 <label for="education_start_date_${educationIndex}">Data de Início:</label>
-                <input type="text" id="education_start_date_${educationIndex}" name="education_start_dates[]" class="w3-input w3-border datepicker">
+                <input type="text" autocomplete="off" id="education_start_date_${educationIndex}" name="education_start_dates[]" class="w3-input w3-border datepicker">
                 <label for="education_end_date_${educationIndex}">Data de Término:</label>
-                <input type="text" id="education_end_date_${educationIndex}" name="education_end_dates[]" class="w3-input w3-border datepicker">
+                <input type="text" autocomplete="off" id="education_end_date_${educationIndex}" name="education_end_dates[]" class="w3-input w3-border datepicker">
                 <button type="button" class="removeButton" data-index="${educationIndex}" data-section="education">Remover Formação</button>
             </div>`
         );
