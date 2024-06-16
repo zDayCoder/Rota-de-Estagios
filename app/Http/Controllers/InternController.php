@@ -64,9 +64,10 @@ class InternController extends Controller
             'current_period' => $request->current_period,
             'user_id' => Auth::id(),
             'address_id' => $address->id,
+            'work_contract' => 'a_procura',
         ]);
 
-        return redirect()->route('intern.index')->with('success', 'Intern created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Intern created successfully.');
     }
 
     public function show($id)
