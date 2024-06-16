@@ -17,7 +17,7 @@
 # /.fleet
 # /.idea
 # /.vscode
-# /.history
+.history
 
 vendor
 node_modules
