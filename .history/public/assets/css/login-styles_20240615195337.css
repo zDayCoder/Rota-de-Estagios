@@ -1,0 +1,9 @@
+.card-address {
+
+    display: flex;
+    background-color: #FFF;
+    justify-content: center;
+    width: 900px;
+    height: 100VH;
+    border-radius: 4px;
+}
