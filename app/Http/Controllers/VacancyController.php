@@ -168,10 +168,18 @@ class VacancyController extends Controller
     
     }
 
+    public function applyVacancy(Request $request)
+    {
+
+
+    }
+
 
     public function destroy(Vacancy $vacancy)
     {
         $vacancy->delete();
         return response()->json(null, 204);
     }
+
+
 }
