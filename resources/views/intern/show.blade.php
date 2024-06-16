@@ -1,55 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intern Details</title>
-</head>
-<body>
-    <h1>Intern Details</h1>
+<x-app-layout>
+    <x-authentication-card>
+    <div class="container">
+    <x-label>
+        <h1 style="font-weight:bold">Detalhes do Estagiário</h1>
+    </x-label>
+
+    <x-label>
+      <h3 style="font-weight:bolder; text-decoration: underline">Informações Pessoais</h3>
+    </x-label>
+
 
     <div>
-        <strong>Full Name:</strong>
-        <p>{{ $intern->full_name }}</p>
+        <x-label>Nome Completo:<a style="font-weight:normal">{{ Auth::user()->name }}</a></x-label>
+
     </div>
     <div>
-        <strong>Email:</strong>
-        <p>{{ $intern->email }}</p>
+        <x-label>Data de Nascimento:<a style="font-weight:normal">{{ $intern->birth_date }}</a></x-label>
     </div>
     <div>
-        <strong>Birth Date:</strong>
-        <p>{{ $intern->birth_date }}</p>
+        <x-label>Gênero:<a style="font-weight:normal">{{ $intern->gender }}</a></x-label>
     </div>
     <div>
-        <strong>Gender:</strong>
-        <p>{{ $intern->gender }}</p>
+        <x-label>Data de Nascimento:<a style="font-weight:normal">{{ $intern->birth_date }}</a></x-label>
     </div>
     <div>
-        <strong>CPF:</strong>
-        <p>{{ $intern->cpf }}</p>
+        <x-label>Telefone:<a style="font-weight:normal">{{ $intern->phone }}</a></x-label>
     </div>
     <div>
-        <strong>Phone:</strong>
-        <p>{{ $intern->phone }}</p>
+        <x-label>Instituição de Ensino:<a style="font-weight:normal">{{ $intern->educational_institution }}</a></x-label>
     </div>
     <div>
-        <strong>Educational Institution:</strong>
-        <p>{{ $intern->educational_institution }}</p>
+        <x-label>Curso:<a style="font-weight:normal">{{ $intern->course }}</a></x-label>
     </div>
     <div>
-        <strong>Current Course:</strong>
-        <p>{{ $intern->current_course }}</p>
-    </div>
-    <div>
-        <strong>Current Semester:</strong>
-        <p>{{ $intern->current_semester }}</p>
-    </div>
-    <div>
-        <strong>Address ID:</strong>
-        <p>{{ $intern->address_id }}</p>
+        <x-label>Semestre Atual:<a style="font-weight:normal">{{ $intern->current_period }}</a></x-label>
     </div>
 
-    <a href="{{ route('interns.edit', $intern->id) }}">Edit</a>
-    <a href="{{ route('interns.index') }}">Back to list</a>
-</body>
-</html>
+    <x-label class="mt-3">
+      <h3 style="font-weight:bolder; text-decoration: underline">Endereço</h3>
+    </x-label>
+    <div>
+        <x-label>CEP:<a style="font-weight:normal">{{ $intern->address->zip_code }}</a></x-label>
+    </div>
+    <div>
+        <x-label>Logradouro:<a style="font-weight:normal">{{ $intern->address->street_address }}</a></x-label>
+    </div>
+    <div>
+        <x-label>Complemento:<a style="font-weight:normal">{{ $intern->address->complement }}</a></x-label>
+    </div>
+    <div>
+        <x-label>Bairro:<a style="font-weight:normal">{{ $intern->address->neighborhood }}</a></x-label>
+    </div>
+    <div>
+        <x-label>Cidade:<a style="font-weight:normal">{{ $intern->address->city }}</a></x-label>
+    </div>
+    <div>
+        <x-label>Estado:<a style="font-weight:normal">{{ $intern->address->state }}</a></x-label>
+    </div>
+    <div>
+        <x-label>Número:<a style="font-weight:normal">{{ $intern->address->number }}</a></x-label>
+    </div>
+
+    <x-button class="mt-3 mb-4" type="submit">
+        <a style="color: white; text-decoration: none" href="{{ route('interns.edit', $intern->id) }}">Atualizar dados</a>
+    </x-button>
+
+    </div>
+</x-app-layout>
+</x-authentication-card>

@@ -1,11 +1,12 @@
 <x-guest-layout>
-    <div class="pt-4 bg-gray-100">
-        <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-            <div>
-                <x-authentication-card-logo />
-            </div>
+    <div class="pt-4 bg-white-100" >
+        <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0" >
+        <div class="shrink-0 flex items-center" style="width: 100px;">
+                        <x-application-mark class="block h-9 w-auto" />
+        </div>
 
-            <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+    <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
+
 
         <h1>Termos de Uso e Política de Privacidade</h1>
 
@@ -76,7 +77,7 @@
         <h3>8. Contato</h3>
         <p>Se você tiver dúvidas sobre estes Termos de Uso ou Política de Privacidade, entre em contato conosco através do e-mail: <a href="mailto:example@example.com">example@example.com</a>.</p>
 
-            </div>
+        </div>
         </div>
     </div>
 </x-guest-layout>
