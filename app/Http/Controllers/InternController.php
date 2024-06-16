@@ -62,7 +62,9 @@ class InternController extends Controller
             'educational_institution' => $request->educational_institution,
             'current_course' => $request->current_course,
             'current_period' => $request->current_period,
+            'user_id' => Auth::id(),
             'address_id' => $address->id,
+            'work_contract' => 'a_procura',
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Intern created successfully.');
@@ -123,6 +125,7 @@ class InternController extends Controller
             'educational_institution' => $request->educational_institution,
             'current_course' => $request->current_course,
             'current_period' => $request->current_period,
+            'user_id' => Auth::id(),
             'address_id' => $address->id,
         ]);
 

@@ -23,7 +23,7 @@
 
 <script>
     var rest = 'REST';
-    var rest2 = 'Rota de Estágios';
+    var rest2 = 'ROTA DE ESTÁGIOS';
     var speed = 80;
 
     function typeWriter() {

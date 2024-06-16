@@ -21,7 +21,10 @@ class Intern extends Model
         'educational_institution',
         'current_course',
         'current_period',
+        'user_id',
         'address_id',
+        'work_contract',
+        'internship_approval'
     ];
 
     // Definindo o relacionamento com a tabela addresses

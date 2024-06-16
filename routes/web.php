@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Terms;
 use App\Http\Livewire\CurriculoCreate;
 use App\Livewire\CurriculoCreates;
 
@@ -68,6 +69,8 @@ Route::middleware([
 
 
 });
+
+Route::get('/terms', [Terms::class, 'index'])->name('terms.index');
 
 
 

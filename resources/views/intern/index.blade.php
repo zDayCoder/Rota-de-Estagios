@@ -11,7 +11,7 @@
     <meta name="author" content="QuantumCode" />
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <link rel="shortcut icon" href="/assets/img/logo-removebg.png"type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400" rel="stylesheet">
 

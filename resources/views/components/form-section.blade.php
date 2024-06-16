@@ -19,6 +19,8 @@
                     {{ $actions }}
                 </div>
             @endif
+            
         </form>
+     
     </div>
 </div>
