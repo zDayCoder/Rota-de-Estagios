@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Skill;
 use App\Models\VacancySkill;
 use App\Models\Address;
+use App\Models\applications;
+use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class VacancyController extends Controller
 {
@@ -18,8 +21,8 @@ class VacancyController extends Controller
         $vacancies = Vacancy::all();
         $skills = VacancySkill::all();
 
-        return view(view: 'vacancy', data: compact('vacancies','skills'));
-        //return response()->json($vacancy);
+        return view(view: 'vacancyIntern', data: compact('vacancies','skills'));
+  
     }
 
     public function indexRecruiter()
@@ -27,7 +30,6 @@ class VacancyController extends Controller
     
     $user = Auth::user(); 
     $company = DB::table('Company')->where('user_id', $user->id)->first('id');
-
     $vacancies = DB::table('Vacancy')->where('company_id', $company->id)->get();
 
 
@@ -35,12 +37,12 @@ class VacancyController extends Controller
         $vacancy->vacancy_id = DB::table('vacancySkill')->where('vacancy_id', $vacancy->id)->get();
     }
 
-    return view(view: 'vacancy', data: compact('vacancies'));
+    return view(view: 'vacancyRecruiter', data: compact('vacancies'));
 }
 
     public function create()
     {
-        return view('vacancyCreate');
+        return view('vacancyRecruiterCreate');
     }
 
 
@@ -81,7 +83,7 @@ class VacancyController extends Controller
         ]);
         
 
-        $address = Address::create([
+        /*$address = Address::create([
             'zip_code' => $request->zip_code,
             'street_address' => $request->street_address,
             'complement' => $request->complement,
@@ -89,7 +91,7 @@ class VacancyController extends Controller
             'city' => $request->city,
             'state' => $request->state,
             'user_id' => $user->id,
-        ]);
+        ]);*/
 
         if (!empty($validatedData['skills'])) {
             foreach ($validatedData['skills'] as $skillData) {
@@ -100,11 +102,10 @@ class VacancyController extends Controller
                     'vacancy_id' => $vacancy->id, 
                 ]);
 
-        
             }
         }
 
-        return redirect('vacancy')->with('success', 'Vacancy created successfully.');
+        return redirect('vacancy/recruiter')->with('success', 'Vacancy created successfully.');
     }
 
 
@@ -120,7 +121,7 @@ class VacancyController extends Controller
         $skills = DB::table('VacancySkill')->where('vacancy_id', '=', $vacancy_id)->get();
 
 
-        return view('vacancyEdit', data: compact('vacancy', 'skills'));
+        return view('vacancyRecruiterEdit', data: compact('vacancy', 'skills'));
       
     }
 
@@ -132,6 +133,7 @@ class VacancyController extends Controller
             'description' => 'required|string|max:100',
             'salary' => 'required|numeric',
             'model' => 'required|string|in:presencial,hibrido,homeoffice',
+            'status' => 'required|string|in:Aberta,Fechada,Cancelada',
             'addreess_id' => 'nullable|integer',
             'skills' => 'nullable|array',
             'skills.*.name' => 'required_with:skills|string|max:255',
@@ -153,24 +155,49 @@ class VacancyController extends Controller
  
         if (!empty($validatedData['skills'])) {
        
-            //$vacancy->Vacancyskills()->detach();
+
 
             foreach ($validatedData['skills'] as $skillData) {
                 $skill = VacancySkill::updateOrCreate(
                     ['vacancy_id' => $vacancy->id, 'name' => $skillData['name']],
                     ['level' => $skillData['level'], 'curriculum_id' => $skillData['curriculum_id']]
                 );
-                //$vacancy->skills()->attach($skill->id);
+       
             }
         }
 
-        return redirect('vacancy')->with('success', 'Vacancy editaded successfully.');
+        return redirect('vacancy/recruiter')->with('success', 'Vacancy editaded successfully.');
     
     }
 
-    public function applyVacancy(Request $request)
+    public function applyVacancy($vacancy_id)
     {
+        $vacancy = Vacancy::findOrFail($vacancy_id);
+        $skills = DB::table('VacancySkill')->where('vacancy_id', '=', $vacancy_id)->get();
 
+
+        return view(view: 'VacancyApply', data: compact('vacancy', 'skills'));
+
+
+    }
+
+    public function applyVacancyStore(Request $request)
+    {   
+        $user = Auth::user(); 
+        $intern = DB::table('Interns')->where('user_id', $user->id)->first('id');
+
+        $dataAtual = new Carbon();
+
+        $applications = Applications::create([
+            //'id' => $request->id, 
+            'vacancy_id'=> $request->vacancy_id, 
+            'application_date'=> $dataAtual,
+            'intern_id' => $intern-> id, 
+            'company_id'=> $request->company_id, 
+            'intern_name'=>$request->name,
+        ]);
+
+        return redirect('vacancy/intern')->with('success', 'Vacancy editaded successfully.');
 
     }
 
