@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
 // Importações necessárias no início do arquivo
@@ -100,8 +101,8 @@ class CurriculumController extends Controller
                     return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
                 }, $request->input('start_dates', [])) : [],
             
-                'end_dates' => $request->has('end_dates') ? array_map(function($date) {
-                    return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+                'end_dates' => $request->has('end_dates') ? array_map(function ($date) {
+                    return $date ? \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d') : null;
                 }, $request->input('end_dates', [])) : [],
             
                 'certification_end_dates' => $request->has('certification_end_dates') ? array_map(function($date) {
@@ -126,7 +127,7 @@ class CurriculumController extends Controller
                 'positions.*' => 'nullable|string|max:255',
                 'employers.*' => 'nullable|string|max:255',
                 'locations.*' => 'nullable|string|max:255',
-                // 'currently_working_.*' => 'integer',
+                'currently_working_.*' => 'integer',
                 'descriptions.*' => 'nullable|string',
                 'skills.*' => 'nullable|string|max:255',
                 'skill_levels.*' => 'nullable|integer|between:1,5',
@@ -135,6 +136,7 @@ class CurriculumController extends Controller
                 'certifications.*' => 'nullable|string|max:255',
                 'certification_descriptions.*' => 'nullable|string',
                 'educations.*' => 'nullable|string|max:255',
+                'profile_photo' => 'nullable|max:2048',
             ];
             
             if ($request->has('start_dates')) {
@@ -178,6 +180,30 @@ class CurriculumController extends Controller
              if (!$address) {
                  return back()->withErrors(['message' => 'Endereço do usuário não encontrado.']);
              }
+
+            // Processo de upload da foto de perfil
+            if ($request->hasFile('profile_photo')) {
+                $profilePhoto = $request->file('profile_photo');
+                if ($profilePhoto) {
+                    // Verifica se já existe uma foto de perfil e deleta se existir
+                    if ($user->profile_photo_path) {
+                        Storage::disk('public')->delete($user->profile_photo_path);
+                    }
+
+                    // Armazena a nova foto de perfil
+                    $profilePhotoPath = $profilePhoto->store('profile_photos', 'public');
+                    $user->forceFill([
+                        'profile_photo_path' => $profilePhotoPath,
+                    ])->save();
+
+                } 
+            }
+
+            // Atualiza os dados do usuário usando forceFill
+            $user->forceFill([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+            ])->save();
      
              // Cria um novo currículo com base nos dados recebidos
              $curriculum = new Curriculum();
@@ -199,25 +225,13 @@ class CurriculumController extends Controller
                     !empty($validatedData['locations'][$key]) &&
                     !empty($validatedData['start_dates'][$key]) 
                 ) {
-                    // $isCurrent = isset($validatedData['currently_working'][$key]) ? (bool)$validatedData['currently_working'][$key] : false;
-                    $currentlyWorkingKey = "currently_working_" . ($key + 1);
-                    $isCurrent = isset($request->$currentlyWorkingKey) ? (bool)$request->$currentlyWorkingKey : false;
-            
-                    // Definir endDate como null se isCurrent for verdadeiro, caso contrário, usar o valor de end_dates
-                    $endDate = $isCurrent ? null : (isset($validatedData['end_dates'][$key]) ? $validatedData['end_dates'][$key] : null);
 
-                    // Log para diagnóstico
-                    Log::info('Verificação de experiência', [
-                        'key' => $key,
-                        'currently_working_key' => $currentlyWorkingKey,
-                        'currently_working_exists' => isset($request->$currentlyWorkingKey),
-                        'currently_working_value' => $isCurrent,
-                        'end_date_exists' => isset($validatedData['end_dates'][$key]),
-                        'end_date_value' => $endDate
-                    ]);
-                    
-                    $description = $validatedData['descriptions'][$key] ?? '';
-            
+                    $currentlyWorkingKey = "currently_working_" . ($key + 1);
+                    $isCurrent = $request->input($currentlyWorkingKey, 0);
+
+                    // Definir endDate como null se isCurrent for verdadeiro, caso contrário, usar o valor de end_dates
+                    $endDate = $validatedData['end_dates'][$key];
+
                     $experiences[] = new Experience([
                         'position' => $position,
                         'employer' => $validatedData['employers'][$key],
@@ -225,7 +239,7 @@ class CurriculumController extends Controller
                         'start_date' => $validatedData['start_dates'][$key],
                         'end_date' => $endDate,
                         'is_current' => $isCurrent,
-                        'description' => $description,
+                        'description' => $validatedData['descriptions'][$key] ?? '',
                     ]);
                 }
             }
@@ -317,174 +331,238 @@ class CurriculumController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-    {
-        $curriculum = Curriculum::findOrFail($id);
+{
+    // Recupera o currículo com suas relações
+    $curriculum = Curriculum::with(['experiences', 'skills', 'languages', 'certifications', 'educations'])->findOrFail($id);
 
-        return view('curricula.edit', compact('curriculum'));
-    }
+    // Verifica se o usuário está logado e é o dono do currículo
+    $user = Auth::user();
+    // if (!$user || $curriculum->user_id != $user->id) {
+    //     return redirect()->route('curricula.index')->withErrors(['message' => 'Você não tem permissão para editar este currículo.']);
+    // }
+
+    // Passa o currículo e suas relações para a view
+    return view('curricula.edit', [
+        'user' => $user,
+        'curriculum' => $curriculum,
+    ]);
+}
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
-    try {
-        
-        $request->merge([
-            'start_dates' => array_map(function($date) {
-                return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
-            }, $request->input('start_dates', [])),
-            'end_dates' => array_map(function($date) {
-                return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
-            }, $request->input('end_dates', []))
-        ]);
-        // Validação dos dados do formulário
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:20',
-            'summary' => 'required|string|max:1000',
-            'positions.*' => 'nullable|string|max:255',
-            'employers.*' => 'nullable|string|max:255',
-            'locations.*' => 'nullable|string|max:255',
-            'start_dates.*' => 'nullable|date',
-            'end_dates.*' => 'nullable|date',
-            'currently_working.*' => 'boolean',
-            'descriptions.*' => 'nullable|string',
-            'skills.*' => 'nullable|string|max:255',
-            'skill_levels.*' => 'nullable|integer|between:1,5',
-            'languages.*' => 'nullable|string|max:255',
-            'language_levels.*' => 'nullable|integer|between:1,5',
-            'certifications.*' => 'nullable|string|max:255',
-            'certification_end_dates.*' => 'nullable|date',
-            'certification_descriptions.*' => 'nullable|string',
-            'educations.*' => 'nullable|string|max:255',
-            'education_start_dates.*' => 'nullable|date',
-            'education_end_dates.*' => 'nullable|date',
-        ]);
+    {
+        try {
+            $request->merge([
+                'start_dates' => $request->has('start_dates') ? array_map(function ($date) {
+                    return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+                }, $request->input('start_dates', [])) : [],
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+                'end_dates' => $request->has('end_dates') ? array_map(function ($date) {
+                    return $date ? \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d') : null;
+                }, $request->input('end_dates', [])) : [],
 
-        $validatedData = $validator->validated();
+                'certification_end_dates' => $request->has('certification_end_dates') ? array_map(function ($date) {
+                    return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+                }, $request->input('certification_end_dates', [])) : [],
 
+                'education_start_dates' => $request->has('education_start_dates') ? array_map(function ($date) {
+                    return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+                }, $request->input('education_start_dates', [])) : [],
 
-        // Verifica se o usuário está logado
-        $user = Auth::user();
-        if (!$user) {
-            return back()->withErrors(['message' => 'Usuário não está logado.']);
-        }
+                'education_end_dates' => $request->has('education_end_dates') ? array_map(function ($date) {
+                    return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+                }, $request->input('education_end_dates', [])) : []
+            ]);
 
-        // Recupera o endereço do usuário logado
-        $address = Address::where('user_id', $user->id)->first();
-        if (!$address) {
-            return back()->withErrors(['message' => 'Endereço do usuário não encontrado.']);
-        }
-        // Recupera o currículo pelo ID
-        $curriculum = Curriculum::findOrFail($id);
+            // Validação dos dados do formulário
+            $rules = [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'phone' => 'required|string|max:20',
+                'summary' => 'required|string|max:1000',
+                'positions.*' => 'nullable|string|max:255',
+                'employers.*' => 'nullable|string|max:255',
+                'locations.*' => 'nullable|string|max:255',
+                'currently_working_.*' => 'integer',
+                'descriptions.*' => 'nullable|string',
+                'skills.*' => 'nullable|string|max:255',
+                'skill_levels.*' => 'nullable|integer|between:1,5',
+                'languages.*' => 'nullable|string|max:255',
+                'language_levels.*' => 'nullable|integer|between:1,5',
+                'certifications.*' => 'nullable|string|max:255',
+                'certification_descriptions.*' => 'nullable|string',
+                'educations.*' => 'nullable|string|max:255',
+                'profile_photo' => 'nullable|max:2048',
+            ];
 
-        // Atualiza os dados do currículo
-        $curriculum->name = $validatedData['name'];
-        $curriculum->email = $validatedData['email'];
-        $curriculum->phone = $validatedData['phone'];
-        $curriculum->summary = $validatedData['summary'];
-        $curriculum->city = $address->city;
-        $curriculum->state = $address->state;
-        $curriculum->save();
-
-
-        // Atualiza as experiências do currículo
-        $curriculum->experiences()->delete();
-        $experiences = [];
-        foreach ($validatedData['positions'] as $key => $position) {
-            if (!empty($position) && !empty($validatedData['employers'][$key]) && !empty($validatedData['locations'][$key]) && !empty($validatedData['start_dates'][$key])) {
-                $isCurrent = isset($validatedData['currently_working'][$key]) && $validatedData['currently_working'][$key] == 1;
-                $endDate = $isCurrent ? null : $validatedData['end_dates'][$key];
-
-                $experiences[] = new Experience([
-                    'position' => $position,
-                    'employer' => $validatedData['employers'][$key],
-                    'location' => $validatedData['locations'][$key],
-                    'start_date' => $validatedData['start_dates'][$key],
-                    'end_date' => $endDate,
-                    'is_current' => $isCurrent,
-                    'description' => $validatedData['descriptions'][$key],
-                ]);
+            if ($request->has('start_dates')) {
+                $rules['start_dates.*'] = 'nullable|date';
             }
-        }
-        if (!empty($experiences)) {
-            $curriculum->experiences()->saveMany($experiences);
-        }
 
-        // Atualiza as habilidades do currículo
-        $curriculum->skills()->delete();
-        $skills = [];
-        foreach ($validatedData['skills'] as $key => $skill) {
-            if (!empty($skill) && !empty($validatedData['skill_levels'][$key])) {
-                $skills[] = new Skill([
-                    'name' => $skill,
-                    'level' => $validatedData['skill_levels'][$key],
-                ]);
+            if ($request->has('end_dates')) {
+                $rules['end_dates.*'] = 'nullable|date';
             }
-        }
-        if (!empty($skills)) {
-            $curriculum->skills()->saveMany($skills);
-        }
 
-        // Atualiza os idiomas do currículo
-        $curriculum->languages()->delete();
-        $languages = [];
-        foreach ($validatedData['languages'] as $key => $language) {
-            if (!empty($language) && !empty($validatedData['language_levels'][$key])) {
-                $languages[] = new Language([
-                    'name' => $language,
-                    'level' => $validatedData['language_levels'][$key],
-                ]);
+            if ($request->has('certification_end_dates')) {
+                $rules['certification_end_dates.*'] = 'nullable|date';
             }
-        }
-        if (!empty($languages)) {
-            $curriculum->languages()->saveMany($languages);
-        }
 
-        // Atualiza as certificações do currículo
-        $curriculum->certifications()->delete();
-        $certifications = [];
-        foreach ($validatedData['certifications'] as $key => $certification) {
-            if (!empty($certification) && !empty($validatedData['certification_end_dates'][$key])) {
-                $certifications[] = new Certification([
-                    'name' => $certification,
-                    'end_date' => $validatedData['certification_end_dates'][$key],
-                    'description' => $validatedData['certification_descriptions'][$key],
-                ]);
+            if ($request->has('education_start_dates')) {
+                $rules['education_start_dates.*'] = 'nullable|date';
             }
-        }
-        if (!empty($certifications)) {
-            $curriculum->certifications()->saveMany($certifications);
-        }
 
-        // Atualiza as formações do currículo
-        $curriculum->educations()->delete();
-        $educations = [];
-        foreach ($validatedData['educations'] as $key => $education) {
-            if (!empty($education) && !empty($validatedData['education_start_dates'][$key])) {
-                $educations[] = new Education([
-                    'name' => $education,
-                    'start_date' => $validatedData['education_start_dates'][$key],
-                    'end_date' => $validatedData['education_end_dates'][$key],
-                ]);
+            if ($request->has('education_end_dates')) {
+                $rules['education_end_dates.*'] = 'nullable|date';
             }
-        }
-        if (!empty($educations)) {
-            $curriculum->educations()->saveMany($educations);
-        }
 
-        // Redireciona para a página de exibição do currículo atualizado
-        return redirect()->route('curricula.index')->with('success', 'Currículo atualizado com sucesso.');
-    } catch (\Exception $e) {
-        return back()->withErrors(['message' => 'Ocorreu um erro ao atualizar o currículo: ' . $e->getMessage()])->withInput();
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return redirect()->route('curricula.edit', $id)->withErrors($validator)->withInput();
+            }
+
+            $validatedData = $validator->validated();
+
+            // Verifica se o usuário está logado
+            $user = Auth::user();
+            if (!$user) {
+                return back()->withErrors(['message' => 'Usuário não está logado.']);
+            }
+
+            // Recupera o currículo existente
+            $curriculum = Curriculum::findOrFail($id);
+            
+            // Processo de upload da foto de perfil
+            if ($request->hasFile('profile_photo')) {
+                $profilePhoto = $request->file('profile_photo');
+                if ($profilePhoto) {
+                    // Verifica se já existe uma foto de perfil e deleta se existir
+                    if ($user->profile_photo_path) {
+                        Storage::disk('public')->delete($user->profile_photo_path);
+                    }
+
+                    // Armazena a nova foto de perfil
+                    $profilePhotoPath = $profilePhoto->store('profile_photos', 'public');
+                    $user->forceFill([
+                        'profile_photo_path' => $profilePhotoPath,
+                    ])->save();
+
+                } 
+            }
+
+            // Atualiza os dados do usuário usando forceFill
+            $user->forceFill([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+            ])->save();
+
+            // Atualiza os dados do currículo
+            $curriculum->name = $validatedData['name'];
+            $curriculum->email = $validatedData['email'];
+            $curriculum->phone = $validatedData['phone'];
+            $curriculum->summary = $validatedData['summary'];
+            $curriculum->save();
+
+            // Atualiza as experiências do currículo
+            $curriculum->experiences()->delete(); // Remove as experiências antigas
+            $experiences = [];
+            foreach ($validatedData['positions'] as $key => $position) {
+                if (
+                    !empty($position) &&
+                    !empty($validatedData['employers'][$key]) &&
+                    !empty($validatedData['locations'][$key]) &&
+                    !empty($validatedData['start_dates'][$key])
+                ) {
+                    $currentlyWorkingKey = "currently_working_" . ($key + 1);
+                    $isCurrent = $request->input($currentlyWorkingKey, 0);
+                    $endDate = $validatedData['end_dates'][$key];
+
+                    $experiences[] = new Experience([
+                        'position' => $position,
+                        'employer' => $validatedData['employers'][$key],
+                        'location' => $validatedData['locations'][$key],
+                        'start_date' => $validatedData['start_dates'][$key],
+                        'end_date' => $endDate,
+                        'is_current' => $isCurrent,
+                        'description' => $validatedData['descriptions'][$key] ?? '',
+                    ]);
+                }
+            }
+            if (!empty($experiences)) {
+                $curriculum->experiences()->saveMany($experiences);
+            }
+
+            // Atualiza as habilidades do currículo
+            $curriculum->skills()->delete(); // Remove as habilidades antigas
+            $skills = [];
+            foreach ($validatedData['skills'] as $key => $skill) {
+                if (!empty($skill) && !empty($validatedData['skill_levels'][$key])) {
+                    $skills[] = new Skill([
+                        'name' => $skill,
+                        'level' => $validatedData['skill_levels'][$key],
+                    ]);
+                }
+            }
+            if (!empty($skills)) {
+                $curriculum->skills()->saveMany($skills);
+            }
+
+            // Atualiza os idiomas do currículo
+            $curriculum->languages()->delete(); // Remove os idiomas antigos
+            $languages = [];
+            foreach ($validatedData['languages'] as $key => $language) {
+                if (!empty($language) && !empty($validatedData['language_levels'][$key])) {
+                    $languages[] = new Language([
+                        'name' => $language,
+                        'level' => $validatedData['language_levels'][$key],
+                    ]);
+                }
+            }
+            if (!empty($languages)) {
+                $curriculum->languages()->saveMany($languages);
+            }
+
+            // Atualiza as certificações do currículo
+            $curriculum->certifications()->delete(); // Remove as certificações antigas
+            $certifications = [];
+            foreach ($validatedData['certifications'] as $key => $certification) {
+                if (!empty($certification) && !empty($validatedData['certification_end_dates'][$key])) {
+                    $certifications[] = new Certification([
+                        'name' => $certification,
+                        'end_date' => $validatedData['certification_end_dates'][$key],
+                        'description' => $validatedData['certification_descriptions'][$key],
+                    ]);
+                }
+            }
+            if (!empty($certifications)) {
+                $curriculum->certifications()->saveMany($certifications);
+            }
+
+            // Atualiza as formações do currículo
+            $curriculum->educations()->delete(); // Remove as formações antigas
+            $educations = [];
+            foreach ($validatedData['educations'] as $key => $education) {
+                if (!empty($education) && !empty($validatedData['education_start_dates'][$key])) {
+                    $educations[] = new Education([
+                        'name' => $education,
+                        'start_date' => $validatedData['education_start_dates'][$key],
+                        'end_date' => $validatedData['education_end_dates'][$key],
+                    ]);
+                }
+            }
+            if (!empty($educations)) {
+                $curriculum->educations()->saveMany($educations);
+            }
+
+            // Redireciona para a página de exibição do currículo atualizado
+            return redirect()->route('curricula.index')->with('success', 'Currículo atualizado com sucesso.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => 'Ocorreu um erro ao atualizar o currículo: ' . $e->getMessage()])->withInput();
+        }
     }
-}
 
 
     /**

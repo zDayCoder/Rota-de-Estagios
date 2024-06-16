@@ -37,76 +37,88 @@
         @endif
 
         <!-- Forms for each user type -->
-        <div class="register-login-card">
-            <form id="internForm" method="POST" class="register-size-form" action="{{ route('register') }}"
-                style="{{ $tipoUser === 'Intern' ? '' : 'display: none;' }}">
-                @csrf
-                <h1 class="title-type">SOU ALUNO</h1>
-                <div class="name1">
-                    <x-label for="name" value="{{ __('Nome') }}" />
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                        required autofocus autocomplete="name" />
-                </div>
-                <div class="mt-4 email2">
-                    <x-label for="email" value="{{ __('E-mail') }}" />
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                        required autocomplete="username" />
-                </div>
-                <div class="mt-4 password1">
-                    <x-label for="password" value="{{ __('Senha') }}" />
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="new-password" />
-                </div>
-                <div class="mt-4 password2">
-                    <x-label for="password_confirmation" value="{{ __('Confirmar Senha') }}" />
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                        name="password_confirmation" required autocomplete="new-password" />
-                </div>
-                <div class="flex items-center justify-end mt-4 footer2">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        href="{{ route('login') }}">
-                        {{ __('Já possuí uma conta?') }} <span style="color: #28a745;">{{ __('Entrar.') }}</span>
-                    </a>
-                    <x-button class="ms-4">
-                        {{ __('Registrar') }}
-                    </x-button>
-                </div>
-            </form>
+        <form id="internForm" method="POST" action="{{ route('register') }}"
+            style="{{ $tipoUser === 'Intern' ? '' : 'display: none;' }}">
+            @csrf
+            Intern
+            <div>
+                <x-label for="name" value="{{ __('Nome') }}" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
+                    autofocus autocomplete="name" />
+            </div>
+            <div class="mt-4">
+                <x-label for="email" value="{{ __('E-mail') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
+                    autocomplete="username" />
+            </div>
+            <div class="mt-4">
+                <x-label for="password" value="{{ __('Senha') }}" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    autocomplete="new-password" />
+            </div>
+            <div class="mt-4">
+                <x-label for="password_confirmation" value="{{ __('Confirmar Senha') }}" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                    name="password_confirmation" required autocomplete="new-password" />
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('login') }}">
+                    {{ __('Já possuí uma conta?') }} <span style="color: #28a745;">{{ __('Entrar.') }}</span>
+                </a>
+                <x-button class="ms-4">
+                    {{ __('Registrar') }}
+                </x-button>
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('terms.index') }}">
+                    {{ __('Leia os Termos de Uso e Política de Privacidade. ') }} <span style="color: #28a745;">{{ __('Clique aqui.') }}</span>
+                </a>
+            </div>
+        </form>
 
-            <form id="enterpriseForm" method="POST" action="{{ route('register') }}"
-                style="{{ $tipoUser === 'Enterprise' ? '' : 'display: none;' }}">
-                @csrf
-                <h1 class="title-type">SOU EMPRESA</h1>
-                <div>
-                    <x-label for="name" value="{{ __('Nome') }}" />
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                        required autofocus autocomplete="name" />
-                </div>
-                <div class="mt-4">
-                    <x-label for="email" value="{{ __('E-mail') }}" />
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                        required autocomplete="username" />
-                </div>
-                <div class="mt-4">
-                    <x-label for="password" value="{{ __('Senha') }}" />
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="new-password" />
-                </div>
-                <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirmar Senha') }}" />
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                        name="password_confirmation" required autocomplete="new-password" />
-                </div>
-                <div class="flex items-center justify-end mt-4">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        href="{{ route('login') }}">
-                        {{ __('Já possuí uma conta?') }} <span style="color: #28a745;">{{ __('Entrar.') }}</span>
-                    </a>
-                    <x-button class="ms-4">
-                        {{ __('Registrar') }}
-                    </x-button>
-                </div>
-            </form>
+
+        <form id="enterpriseForm" method="POST" action="{{ route('register') }}"
+            style="{{ $tipoUser === 'Enterprise' ? '' : 'display: none;' }}">
+            @csrf
+            Enterprise
+            <div>
+                <x-label for="name" value="{{ __('Nome') }}" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
+                    autofocus autocomplete="name" />
+            </div>
+            <div class="mt-4">
+                <x-label for="email" value="{{ __('E-mail') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
+                    autocomplete="username" />
+            </div>
+            <div class="mt-4">
+                <x-label for="password" value="{{ __('Senha') }}" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    autocomplete="new-password" />
+            </div>
+            <div class="mt-4">
+                <x-label for="password_confirmation" value="{{ __('Confirmar Senha') }}" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                    name="password_confirmation" required autocomplete="new-password" />
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('login') }}">
+                    {{ __('Já possuí uma conta?') }} <span style="color: #28a745;">{{ __('Entrar.') }}</span>
+                </a>
+                <x-button class="ms-4">
+                    {{ __('Registrar') }}
+                </x-button>
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('terms.index') }}">
+                    {{ __('Leia os Termos de Uso e Política de Privacidade. ') }} <span style="color: #28a745;">{{ __('Clique aqui.') }}</span>
+                </a>
+            </div>
+        </form>
 
             <form id="coordinatorForm" method="POST" action="{{ route('register') }}"
                 style="{{ $tipoUser === 'Coordinator' ? '' : 'display: none;' }}">
@@ -143,6 +155,47 @@
                 </div>
             </form>
         </div>
+        <form id="coordinatorForm" method="POST" action="{{ route('register') }}"
+            style="{{ $tipoUser === 'Coordinator' ? '' : 'display: none;' }}">
+            @csrf
+            Coordinator
+            <div>
+                <x-label for="name" value="{{ __('Nome') }}" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
+                    autofocus autocomplete="name" />
+            </div>
+            <div class="mt-4">
+                <x-label for="email" value="{{ __('E-mail') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
+                    autocomplete="username" />
+            </div>
+            <div class="mt-4">
+                <x-label for="password" value="{{ __('Senha') }}" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    autocomplete="new-password" />
+            </div>
+            <div class="mt-4">
+                <x-label for="password_confirmation" value="{{ __('Confirmar Senha') }}" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                    name="password_confirmation" required autocomplete="new-password" />
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('login') }}">
+                    {{ __('Já possuí uma conta?') }} <span style="color: #28a745;">{{ __('Entrar.') }}</span>
+                </a>
+                <x-button class="ms-4">
+                    {{ __('Registrar') }}
+                </x-button>
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="{{ route('terms.index') }}">
+                    {{ __('Leia os Termos de Uso e Política de Privacidade. ') }} <span style="color: #28a745;">{{ __('Clique aqui.') }}</span>
+                </a>
+            </div>
+        </form>
+
         @if ($tipoUser !== 'Coordinator')
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -219,3 +272,4 @@
         @endif
     </x-authentication-card>
 </x-guest-layout>
+
