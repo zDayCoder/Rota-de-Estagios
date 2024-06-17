@@ -9,6 +9,8 @@ class VacancySkill extends Model
 {
     use HasFactory;
 
+    protected $table = 'VacancySkill';
+
     protected $fillable = [
         'name',
         'level',

@@ -9,12 +9,12 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class CheckCoordinator
 {
-    public function handle(Request $request, Closure $next)
+    /*public function handle(Request $request, Closure $next)
     {
         if (Auth::check() && Auth::user()->user_type == \App\Models\User::TYPE_COORDINATOR) {
             return $next($request);
         }
 
         throw new AuthorizationException('Acesso não autorizado.');
-    }
+    }*/
 }
