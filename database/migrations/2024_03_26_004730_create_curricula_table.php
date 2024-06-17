@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->text('summary');
-            //$table->foreignId('intern_id')->constrained()->onDelete('cascade'); //dando erro
+            // $table->foreignId('intern_id')->constrained()->onDelete('cascade'); //dando erro
             $table->timestamps();
         });
     }
