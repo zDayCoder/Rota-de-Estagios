@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->text('summary');
-            
-            // $table->integer('intern_id');
+            $table->integer('intern_id')->nullable();
             $table->timestamps();
         });
     }
