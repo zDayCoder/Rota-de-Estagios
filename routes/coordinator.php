@@ -15,3 +15,5 @@ Route::group(['middleware' => ['auth', 'check.coordinator']], function () {
 Route::get('/coordinator', [CoordinatorController::class, 'index'])->name('coordinator.index');
 
 Route::get('/coordinator/list/intern', [CoordinatorController::class, 'internResourceView'])->name('coordinator.internView');
+
+Route::get('/coordinator/intern/{id}/aprove',[CoordinatorController::class, 'approveIntern'])->name('coordinator.internAprove');
