@@ -56,7 +56,8 @@ class CurriculumController extends Controller
                     }
                 } else {
                     // Se o Intern não foi encontrado, lance uma exceção 403
-                    abort(403, 'Estagiário não encontrado.');
+                    //abort(403, 'Estagiário não encontrado.');
+                    return redirect()->route('interns.create');
                 }
             } else {
                 // Se o usuário não for um estagiário, lance uma exceção 403
