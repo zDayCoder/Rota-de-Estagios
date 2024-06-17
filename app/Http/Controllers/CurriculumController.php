@@ -33,19 +33,25 @@ class CurriculumController extends Controller
 
             // Verifica se o usuário é um estagiário (Intern)
             if ($user->user_type == User::TYPE_INTERN) {
+
+
                 // Recupera o Intern associado ao usuário
-                $intern = Intern::where('user_id', $user->id)->first();
+                $intern = Intern::where('user_id', $user->id);//->first();
 
                 // Verifica se o Intern foi encontrado
                 if ($intern) {
                     // Verifica se o Intern tem um endereço associado
-                    if ($intern->address) {
+                    if ($user->address) {
                         // Recupera o currículo associado ao Intern
-                        $curriculum = Curriculum::where('intern_id', $intern->id)->first();
+                        
+                        $curriculum = Curriculum::where('intern_id', $user->id)->first();
+                        
 
                         if (!$curriculum) {
                             // Se não existir currículo, redirecione para a rota de criação
                             return redirect()->route('curricula.create');
+                        }else{
+                            
                         }
 
                         // Se existir currículo, carregue a view de index com os dados necessários
@@ -59,6 +65,11 @@ class CurriculumController extends Controller
                     //abort(403, 'Estagiário não encontrado.');
                     return redirect()->route('interns.create');
                 }
+
+
+
+
+
             } else {
                 // Se o usuário não for um estagiário, lance uma exceção 403
                 abort(403, 'Acesso não autorizado.');
@@ -221,9 +232,9 @@ class CurriculumController extends Controller
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
             ])->save();
-     
              // Cria um novo currículo com base nos dados recebidos
              $curriculum = new Curriculum();
+             $curriculum->intern_id = $user->id;
              $curriculum->name = $validatedData['name'];
              $curriculum->email = $validatedData['email'];
              $curriculum->phone = $validatedData['phone'];

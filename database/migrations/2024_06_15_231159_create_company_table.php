@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('state_registration')->nullable();
             $table->string('legal_nature');
             $table->string('branch');
-            $table->integer('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('address_id');
             $table->timestamps();
         });

@@ -18,6 +18,7 @@ class Intern extends Model
         'current_period',
         'user_id',
         'address_id',
+        'curriculum_id',
         'work_contract',
         'internship_approval'
     ];
@@ -29,6 +30,6 @@ class Intern extends Model
 
     public function curriculum()
     {
-        return $this->hasOne(Curriculum::class);
+        return $this->belongsTo(Curriculum::class);
     }
 }
