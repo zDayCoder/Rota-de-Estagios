@@ -11,6 +11,9 @@
             case \App\Models\User::TYPE_COORDINATOR:
                 $navbarClass = 'navbar-coordinator';
                 $logUser = 'Coordenador';
+                $linksType ='';
+                $linkName ='curricula.index';
+                
                 break;
             case \App\Models\User::TYPE_INTERN:
                 $navbarClass = 'navbar-intern';
