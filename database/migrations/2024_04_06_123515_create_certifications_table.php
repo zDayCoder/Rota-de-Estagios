@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->date('end_date');
             $table->text('description')->nullable();
-            $table->integer('curriculum_id');
+            //$table->integer('curriculum_id');
+            $table->foreignId('curriculum_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
