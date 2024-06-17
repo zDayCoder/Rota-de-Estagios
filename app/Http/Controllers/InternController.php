@@ -131,4 +131,6 @@ class InternController extends Controller
 
         return redirect()->route('intern.index')->with('success', 'Intern updated successfully.');
     }
+
+    
 }

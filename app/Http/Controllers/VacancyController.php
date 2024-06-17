@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Skill;
 use App\Models\VacancySkill;
 use App\Models\Address;
+use App\Models\Intern;
+use App\Models\User;
 use App\Models\applications;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
@@ -22,15 +24,14 @@ class VacancyController extends Controller
         $skills = VacancySkill::all();
 
         return view(view: 'vacancyIntern', data: compact('vacancies','skills'));
-  
     }
 
     public function indexRecruiter()
     {
     
-    $user = Auth::user(); 
-    $company = DB::table('Company')->where('user_id', $user->id)->first('id');
-    $vacancies = DB::table('Vacancy')->where('company_id', $company->id)->get();
+        $user = Auth::user(); 
+        $company = DB::table('Company')->where('user_id', $user->id)->first('id');
+        $vacancies = DB::table('Vacancy')->where('company_id', $company->id)->get();
 
 
     foreach ($vacancies as $vacancy) {
@@ -44,7 +45,6 @@ class VacancyController extends Controller
     {
         return view('vacancyRecruiterCreate');
     }
-
 
     public function store(Request $request)
     {
@@ -64,9 +64,6 @@ class VacancyController extends Controller
         ]);
 
         $user = Auth::user();
-
-        
-        
         $company = DB::table('company')->where('user_id', $user->id)->first('id');
 
         $validatedData['addreess_id'] = $validatedData['addreess_id'] ?? 1;
@@ -200,6 +197,40 @@ class VacancyController extends Controller
         return redirect('vacancy/intern')->with('success', 'Vacancy editaded successfully.');
 
     }
+
+    public function finishVacancy($vacancy_id)
+    {
+        $vacancy = Vacancy::findOrFail($vacancy_id); 
+        $applications = DB::table('applications')->where('vacancy_id', $vacancy->id)->get();
+
+        $interns = []; 
+        $users = []; 
+
+        foreach ($applications as $application) {
+            $intern = Intern::findOrFail($application->intern_id);
+            $user = User::findOrFail($intern->user_id);
+            $interns[] = $intern;
+            $users[] = $user;
+            
+        }
+
+        return view(view: 'VacancyFinish', data: compact('vacancy','interns', 'users'));
+    }
+
+    public function finishVacancyStore(Request $request)
+    {
+        $intern = Intern::findOrFail($request->intern_id);
+        $vacancy = Vacancy::findOrFail($request->vacancy_id);
+
+        $vacancy->status = 'Fechada';
+        $intern->work_contract = 'contratado';
+        $intern->save();
+        $vacancy->save();
+
+        return redirect('vacancy/recruiter')->with('success', 'Vacancy finished successfully.');
+
+    }
+
 
 
     public function destroy(Vacancy $vacancy)

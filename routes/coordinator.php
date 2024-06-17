@@ -10,3 +10,6 @@ Route::post('coordinators', [CoordinatorController::class, 'store'])->name('coor
 Route::get('coordinators/{coordinator}', [CoordinatorController::class, 'show'])->name('coordinators.show');
 Route::get('coordinators/{coordinator}/edit', [CoordinatorController::class, 'edit'])->name('coordinators.edit');
 Route::put('coordinators/{coordinator}', [CoordinatorController::class, 'update'])->name('coordinators.update');
+
+Route::get('/cordenador/intern',[CoordinatorController::class,'internResourceView'])->name('coordinators.internView');
+

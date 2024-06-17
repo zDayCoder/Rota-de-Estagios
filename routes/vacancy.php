@@ -13,5 +13,8 @@ Route::put('/vacancy/recruiter/{id}',[VacancyController::class,'update'])->name(
 
 Route::get('/vacancy/intern/{id}/apply',[VacancyController::class,'applyVacancy'])->name('vacancy.apply');
 Route::post('/vacancy/intern/apply',[VacancyController::class,'applyVacancyStore'])->name('vacancy.applyStore'); 
+Route::get('/vacancy/recruiter/{id}/finish',[VacancyController::class,'finishVacancy'])->name('vacancy.finish'); 
+Route::post('/vacancy/recruiter/finish',[VacancyController::class,'finishVacancyStore'])->name('vacancy.finishStore'); 
+
 Route::get('/application/intern',[ApplicationController::class,'indexIntern'])->name('application.intern'); 
 Route::delete('/application/intern/{id}/delete',[ApplicationController::class,'destroy'])->name('application.destroy'); 
