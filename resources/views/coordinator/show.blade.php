@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-authentication-card>
+   
         <div class="container">
 
             <x-label>
@@ -31,5 +31,6 @@
         <a style="color: white; text-decoration: none" href="{{ route('coordinator.edit', $coordinator->id) }}">Atualizar dados</a>
     </x-button>
     </div>
-</x-app-layout>
+
 </x-authentication-card>
+</x-app-layout>
