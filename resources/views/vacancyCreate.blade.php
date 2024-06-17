@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Vacancy</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-</head>
-<body>
+<x-guest-layout>
     <div class="container">
         <h1>Create Vacancy</h1>
         
@@ -87,5 +81,4 @@
             skillIndex++;
         }
     </script>
-</body>
-</html>
+</x-guest-layout>
