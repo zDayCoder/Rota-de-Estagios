@@ -17,3 +17,5 @@ Route::get('/coordinator', [CoordinatorController::class, 'index'])->name('coord
 
 Route::get('/cordenador/intern',[CoordinatorController::class,'internResourceView'])->name('coordinators.internView');
 Route::get('/coordinator/create', [CoordinatorController::class, 'create'])->name('coordinators.create');
+
+

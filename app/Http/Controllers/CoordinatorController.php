@@ -77,6 +77,9 @@ class CoordinatorController extends Controller
 
     public function approveIntern($id)
     {
+        
+        $intern = Intern::findOrFail($id);
+        dd($intern);
 
     }
 
