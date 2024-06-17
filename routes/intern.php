@@ -6,9 +6,6 @@ use App\Http\Controllers\InternController;
 use App\Http\Controllers\AddressController;
 
 Route::group(['middleware' => array_values(array_filter([$authMiddleware, $authSessionMiddleware, 'check.intern']))], function () {
-
-Route::post('/address/get-address-by-cep', [AddressController::class, 'getAddressByCep'])->name('address.get-address-by-cep');
-
 // Rota para exibir o formulário de criação de um novo estagiário
 Route::get('interns/create', [InternController::class, 'create'])->name('interns.create');
 

@@ -7,8 +7,6 @@ use App\Http\Controllers\AddressController;
 
 Route::group(['middleware' => ['auth', 'check.enterprise']], function () {
 Route::resource('company', CompanyController::class);
-Route::resource('address', AddressController::class);
-Route::post('/address/get-address-by-cep', [AddressController::class, 'getAddressByCep'])->name('address.get-address-by-cep');
 
 Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
 Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
