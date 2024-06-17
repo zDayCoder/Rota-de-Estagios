@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
 // Importações necessárias no início do arquivo
+use App\Models\User;
+use App\Models\Intern;
 use App\Models\Curriculum;
  use App\Models\Experience;
  use App\Models\Skill;
@@ -22,38 +24,51 @@ class CurriculumController extends Controller
     /**
      * Display a listing of the resource.
      */
-        public function index()
-    {
-        // Verifica se o usuário está autenticado
-        if (Auth::check()) {
-            // Acessa todos os dados do usuário autenticado
-            $user = Auth::user();
+    public function index()
+{
+    // Verifica se o usuário está autenticado
+    if (Auth::check()) {
+        // Acessa todos os dados do usuário autenticado
+        $user = Auth::user();
 
-            // Verifica se o usuário tem um endereço associado
-            if ($user->address) {
-                // O usuário tem um endereço
-                $address = $user->address;
+        // Verifica se o usuário é um estagiário (Intern)
+        if ($user->user_type == User::TYPE_INTERN) {
+            // Recupera o Intern associado ao usuário
+            $intern = Intern::where('user_id', $user->id)->first();
 
-                // Recupera o currículo mais recente associado ao usuário logado
-                $curriculum = $user->curriculum()->latest()->first();
+            // Verifica se o Intern foi encontrado
+            if ($intern) {
+                // Verifica se o Intern tem um endereço associado
+                if ($intern->address) {
+                    // Recupera o currículo associado ao Intern
+                    $curriculum = Curriculum::where('intern_id', $intern->id)->first();
 
+                    if (!$curriculum) {
+                        // Se não existir currículo, redirecione para a rota de criação
+                        return redirect()->route('curricula.create');
+                    }
 
-                if (!$curriculum) {
-                    // Se não existir currículo, redirecione para a rota de criação
-                    return redirect()->route('curricula.create');
+                    // Se existir currículo, carregue a view de index com os dados necessários
+                    return view('curricula.index', compact('user', 'intern', 'curriculum'));
+                } else {
+                    // Se o Intern não tiver um endereço, redirecione para criar o endereço
+                    return redirect()->route('address.create');
                 }
-
-                // Se existir currículo, carregue a view de index com os dados necessários
-                return view('curricula.index', compact('user', 'address', 'curriculum'));
             } else {
-                // Se o usuário não tiver um endereço, redirecione para criar o endereço
-                return redirect()->route('address.create');
+                // Se o Intern não foi encontrado, lance uma exceção 403
+                abort(403, 'Estagiário não encontrado.');
             }
         } else {
-            // Se o usuário não estiver autenticado, redirecione para a página de login
-            return redirect()->route('login')->withErrors(['message' => 'Faça login para acessar esta página.']);
+            // Se o usuário não for um estagiário, lance uma exceção 403
+            abort(403, 'Acesso não autorizado.');
         }
+    } else {
+        // Se o usuário não estiver autenticado, redirecione para a página de login
+        return redirect()->route('login')->withErrors(['message' => 'Faça login para acessar esta página.']);
     }
+}
+
+    
 
 
 
