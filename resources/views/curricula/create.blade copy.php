@@ -1,97 +1,103 @@
-@extends('curricula.app') {{-- Se você estiver utilizando um layout padrão --}}
-
-@section('content')
-<!DOCTYPE html>
-<html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-html,
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Roboto", sans-serif
-}
-</style>
-
-<body class="w3-light-grey">
-
-    <!-- Page Container -->
-    <div class="w3-content w3-margin-top" style="max-width:1400px;">
-
-        <!-- The Grid -->
+<x-app-layout>
+    <h2 class="titulo-curriculo">Criando Currículo</h2>
+    <div class="container-curriculo">
         <div class="w3-row-padding">
-
-            <!-- Left Column -->
             <div class="w3-third">
-                <div class="w3-white w3-text-grey w3-card-4">
+                <div class="w3-white w3-text-grey w3-card-4" style="border-radius:20px;padding:4px">
                     <div class="w3-container">
-                        <h2>Criar Novo Currículo</h2>
                         <!-- Formulário de Criação -->
                         <form action="{{ route('curricula.store') }}" method="POST">
                             @csrf
-                            <!-- Informações Pessoais -->
-                            <h3>Informações Pessoais</h3>
-                            Endereço: {{ $address->city }} <br>
-                            <label for="name">Nome:</label>
-                            <input type="text" id="name" name="name" value="{{ $user->name }}"
-                                class="w3-input w3-border">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email"  value="{{ $user->email }}"
-                                class="w3-input w3-border">
-                            <label for="phone">Telefone:</label>
-                            <input type="tel" id="phone" name="phone" class="w3-input w3-border">
+                            <div class="dados-basicos">
+                                <div class="row">
+                                    <div class="col-xl-3 image-user" id="view_photo">
+                                        <div class="img-thumbnail">
+                                            <div class="image">
+                                                <label for="uploader">click</label>
+                                                <img style="height:100px; width=100px">
+                                            </div>
+                                            <input type="file" id='uploader'>
+                                            <div class="zoom">
+                                                <div class="minus"></div>
+                                                <div class="close"></div>
+                                            </div>
+                                        </div>
 
-                            <!-- Resumo -->
-                            <h3>Resumo</h3>
-                            <label for="summary">Resumo:</label>
-                            <textarea id="summary" name="summary" rows="4" class="w3-input w3-border"></textarea>
-                            <!-- Experiência -->
-                            <!-- Experiência -->
-                            <h3>Experiência</h3>
-                            <div id="experiences">
-                                <div class="experience">
-                                    <label for="position_1">Posição:</label>
-                                    <input type="text" id="position_1" name="positions[]" class="w3-input w3-border">
-                                    <label for="location_1">Localização:</label>
-                                    <input type="text" id="location_1" name="locations[]" class="w3-input w3-border">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="name">Nome:</label>
+                                            <input type="text" id="name" name="name" value="{{ $user->name }}"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex">
+                                        <div class="col-8">
+                                            <label for="email">Email:</label>
+                                            <input type="email" id="email" name="email" value="{{ $user->email }}"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="phone">Telefone:</label>
+                                            <input type="tel" id="phone" name="phone" class="form-control"
+                                                placeholder="(XX) XXXXX-XXXX">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <button type="button" id="addExperience">Adicionar Experiência</button>
+                            <div class="dados-pessoais p-3">
+                                <h3>Resumo</h3>
+                                <textarea id="summary" name="summary" rows="4" class="w3-input w3-border"></textarea>
+                            </div>
+                            <div class="dados-pessoais p-3">
+                                <!-- Experiência -->
+                                <div class="d-flex justify-content-between align-items-center conteudo-card"
+                                    id="addExperience">
+                                    <h3>Experiência</h3>
 
+                                    <button type="button" id="addExperience" class="rounded-circle">
+                                        <span class="material-symbols-outlined ">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="experiences"></div>
                             <!-- Habilidades -->
-                            <h3>Habilidades</h3>
-                            <div id="skills">
-                                <div class="skill">
-                                    <input type="text" id="skill_1" name="skills[]" class="w3-input w3-border">
+                            <div class="dados-pessoais p-3">
+                                <div class="d-flex justify-content-between align-items-center conteudo-card"
+                                    id="addSkill">
+                                    <h3>Habilidades</h3>
+                                    <button type="button" id="addSkill" class="rounded-circle">
+                                        <span class="material-symbols-outlined ">add</span>
+                                    </button>
                                 </div>
-                            </div>
-                            <button type="button" id="addSkill">Adicionar Habilidade</button>
+                                <div id="skills"></div>
 
-                            <!-- Idiomas -->
-                            <h3>Idiomas</h3>
-                            <div id="languages">
-                                <div class="language">
-                                    <input type="text" id="language_1" name="languages[]" class="w3-input w3-border">
-                                </div>
                             </div>
-                            <button type="button" id="addLanguage">Adicionar Idioma</button>
+                            <!-- Idiomas -->
+                            <div class="dados-pessoais p-3">
+                                <div class="d-flex justify-content-between align-items-center conteudo-card"
+                                    id="addLanguage">
+                                    <h3>Idiomas</h3>
+
+                                    <button type="button" id="addLanguage" class="rounded-circle">
+                                        <span class="material-symbols-outlined ">add</span>
+                                    </button>
+                                </div>
+                                <div id="languages"></div>
+                            </div>
 
                             <!-- Certificações -->
                             <h3>Certificações</h3>
-                            <div id="certifications">
-                                <div class="certification">
-                                    <input type="text" id="certification_1" name="certifications[]"
-                                        class="w3-input w3-border">
-                                </div>
-                            </div>
+                            <div id="certifications"></div>
+                            <button type="button" id="addCertification">Adicionar Certificação</button>
+
+                            <!-- Escolaridade/Formações -->
+                            <h3>Escolaridade/Formações</h3>
+                            <div id="educations"></div>
+                            <button type="button" id="addEducation">Adicionar Formação</button>
+
                             @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -104,85 +110,35 @@ h6 {
                             </div>
                             @endif
 
-                            <button type="button" id="addCertification">Adicionar Certificação</button>
-
-                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script>
-                            $(document).ready(function() {
-                                let experienceIndex = 1;
-                                let skillIndex = 1;
-                                let languageIndex = 1;
-                                let certificationIndex = 1;
-
-                                // Adicionar Experiência
-                                $('#addExperience').click(function() {
-                                    experienceIndex++;
-                                    $('#experiences').append(
-                                        `<div class="experience">
-                    <label for="position_${experienceIndex}">Posição:</label>
-                    <input type="text" id="position_${experienceIndex}" name="positions[]" class="w3-input w3-border">
-                    <label for="location_${experienceIndex}">Localização:</label>
-                    <input type="text" id="location_${experienceIndex}" name="locations[]" class="w3-input w3-border">
-                </div>`
-                                    );
-                                });
-
-                                // Adicionar Habilidade
-                                $('#addSkill').click(function() {
-                                    skillIndex++;
-                                    $('#skills').append(
-                                        `<div class="skill">
-                    <input type="text" id="skill_${skillIndex}" name="skills[]" class="w3-input w3-border">
-                </div>`
-                                    );
-                                });
-
-                                // Adicionar Idioma
-                                $('#addLanguage').click(function() {
-                                    languageIndex++;
-                                    $('#languages').append(
-                                        `<div class="language">
-                    <input type="text" id="language_${languageIndex}" name="languages[]" class="w3-input w3-border">
-                </div>`
-                                    );
-                                });
-
-                                // Adicionar Certificação
-                                $('#addCertification').click(function() {
-                                    certificationIndex++;
-                                    $('#certifications').append(
-                                        `<div class="certification">
-                    <input type="text" id="certification_${certificationIndex}" name="certifications[]" class="w3-input w3-border">
-                </div>`
-                                    );
-                                });
-                            });
-                            </script>
-
                             <!-- Botão de Envio -->
-                            <button type="submit" class="w3-button w3-teal w3-margin-top">Salvar Currículo</button>
+                            <div class="submit">
+                                <button type="submit">Salvar</button>
+                            </div>
                         </form>
 
                     </div>
                 </div><br>
 
-                <!-- End Left Column -->
             </div>
 
-            <!-- Right Column -->
-            <div class="w3-twothird">
-                <!-- Conteúdo opcional para a coluna direita -->
-            </div>
-
-            <!-- End Grid -->
         </div>
 
-        <!-- End Page Container -->
-    </div>
+        <script>
+        var files = document.querySelector('input[name="files"]');
 
+        files.addEventListener("change", function(file) {
+            var input = file.target;
 
-</body>
+            var reader = new FileReader();
 
-</html>
+            reader.onload = function() {
+                var dataURL = reader.result;
+                var output = document.getElementById('output');
+                output.src = dataURL;
+            };
 
-@endsection
+            reader.readAsDataURL(input.files[0]);
+
+        });
+        </script>
+</x-app-layout>

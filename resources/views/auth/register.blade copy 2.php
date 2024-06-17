@@ -120,6 +120,7 @@
                     {{ __('Registrar') }}
                 </x-button>
             </div>
+
         </form>
         @endif
 

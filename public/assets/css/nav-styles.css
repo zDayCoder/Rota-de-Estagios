@@ -1,0 +1,138 @@
+.navbar-enterprise{
+    background-color: rgb(36, 36, 36)!important;
+    z-index: -1;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.logo-index{
+    z-index: 1;
+    
+}
+
+.link-active-enterprise {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0.25rem; 
+    padding-right: 0.25rem; 
+    padding-top: 0.25rem; 
+    border-bottom-width: 4px;
+    border-bottom-color: #9f1212; 
+    font-size: 0.875rem; 
+    font-weight: 500; 
+    line-height: 1.25rem; 
+    color: #ffffff;
+    outline: none; 
+    text-decoration: none;
+    transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out; 
+}
+.link-active-enterprise:hover{
+    font-size: 0.875rem;
+}
+.link-active-enterprise:focus {
+    border-bottom-color: #ffffff; 
+    
+}
+
+.link-inative-enterprise {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0.25rem; 
+    padding-right: 0.25rem;
+    padding-top: 0.25rem; 
+    border-bottom-width: 5px; 
+    border-bottom-color: transparent; 
+    font-size: 0.875rem; 
+    font-weight: 500; 
+    line-height: 1.25rem;
+    color: #f09e8e;
+    outline: none; 
+    transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out; 
+}
+
+
+.link-inative-enterprise:hover {
+    color: #d2d2d2; 
+    border-bottom-color: #d1d5db; 
+}
+
+.link-inative-enterprise:focus {
+    color: #ffffff; 
+    border-bottom-color: #0066ff; 
+}
+
+
+
+
+
+.navbar-intern{
+    background-color: rgb(255, 255, 255)!important;
+
+}
+
+
+.navbar-coordinator{
+    background-color: #510101!important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.link-config-active {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0.25rem; 
+    padding-right: 0.25rem; 
+    padding-top: 0.25rem; 
+    border-bottom-width: 2px;
+    border-bottom-color: #d85a5a; 
+    font-size: 0.875rem; 
+    font-weight: 500; 
+    line-height: 1.25rem; 
+    color: #1a202c;
+    outline: none; 
+    transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out; 
+}
+
+.link-config-active:focus {
+    border-bottom-color: #892222; 
+}
+
+.link-config-inative {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0.25rem; 
+    padding-right: 0.25rem;
+    padding-top: 0.25rem; 
+    border-bottom-width: 2px; 
+    border-bottom-color: transparent; 
+    font-size: 0.875rem; 
+    font-weight: 500; 
+    line-height: 1.25rem;
+    color: #6b7280;
+    outline: none; 
+    transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out; 
+}
+.link-config-inative:hover {
+    color: #374151; 
+    border-bottom-color: #d1d5db; 
+}
+
+.link-config-inative:focus {
+    color: #374151; 
+    border-bottom-color: #d1d5db; 
+}

@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Coordinator;
+use App\Models\User;
+use App\Models\Intern;
+use App\Models\Vacancy;
+use App\Models\Company;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CoordinatorController extends Controller
 {
@@ -68,5 +73,36 @@ class CoordinatorController extends Controller
         $coordinator->save();
 
         return redirect()->route('dashboard');
+    }
+
+    public function approveIntern($id)
+    {
+
+    }
+
+    public function internResourceView()
+    {
+        $interns = Intern::all();
+        $users = [];
+        $applications = [];
+        $vacancies = [];
+        $companies = [];
+
+
+            $interns = DB::table('interns')
+            ->join('users', 'interns.user_id', '=', 'users.id')
+            ->join('applications', 'applications.intern_id', '=', 'interns.id')
+            ->join('vacancy', 'vacancy.id', '=', 'applications.vacancy_id')
+            ->join('company', 'company.id', '=', 'applications.company_id')
+            ->select('applications.*', 'interns.*', 'vacancy.name as vacancy_name', 'vacancy.description', 
+            'vacancy.model', 'vacancy.status', 'users.name', 'company.company_name as company_name')->get();
+            
+
+
+        return view(view: 'InternCordinatorView', data: compact('interns'));
+
+
+
+
     }
 }

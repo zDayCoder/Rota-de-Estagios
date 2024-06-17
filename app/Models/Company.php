@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Company extends Model
 {
-    protected $table='company';
+    use HasFactory;
+    protected $table = 'company';
     protected $fillable = [
         'company_name', 'fancy_name', 'cnpj', 'email', 'contact',
         'municipal_registration', 'state_registration', 'legal_nature',
@@ -15,6 +18,6 @@ class Company extends Model
 
     public function address()
     {
-        return $this->belongsTo(Address::class);
+        return $this->hasOne(Address::class);
     }
 }
