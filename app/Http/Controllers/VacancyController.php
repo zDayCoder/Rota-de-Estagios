@@ -27,9 +27,15 @@ class VacancyController extends Controller
     }
 
     public function indexRecruiter()
-    {
-    
+    {   
         $user = Auth::user(); 
+        $company = DB::table('Company')->where('user_id', $user->id)->first('id');
+        
+        if (!$company) {
+        // Se não houver registro na tabela 'Company', redirecione ou mostre uma mensagem de erro
+        return view(view: 'company.form');
+    }
+        
         $company = DB::table('Company')->where('user_id', $user->id)->first('id');
         $vacancies = DB::table('Vacancy')->where('company_id', $company->id)->get();
 
