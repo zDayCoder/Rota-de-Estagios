@@ -1,5 +1,4 @@
 <x-app-layout>
-    <x-dash-coordinator>
         <style>
             .skills-row {
                 display: none;
@@ -85,5 +84,4 @@
                 }
             }
         </script>
-    </x-dash-coordinator>
 </x-app-layout>
