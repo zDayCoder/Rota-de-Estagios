@@ -1,18 +1,8 @@
-<<<<<<< HEAD:resources/views/vacancyCreate.blade.php
-<x-guest-layout>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Vacancy</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<x-app-layout>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-        }
+    
+    
         .container {
             margin-top: 50px;
         }
@@ -23,9 +13,7 @@
             margin-bottom: 15px;
         }
     </style>
-</head>
-<body>
->>>>>>> dcad7e0968f77d9af26dd22b4b83281dda6ab01b:resources/views/vacancyRecruiterCreate.blade.php
+
     <div class="container">
         <h1 class="text-center">Create Vacancy</h1>
         
@@ -115,4 +103,5 @@
             skillIndex++;
         }
     </script>
-</x-guest-layout>
+</x-app-layout>
+

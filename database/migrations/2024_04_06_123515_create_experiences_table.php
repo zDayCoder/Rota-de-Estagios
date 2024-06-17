@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->boolean('is_current')->default(false);
             $table->text('description')->nullable();
-            $table->foreignId('curriculum_id')->constrained()->onDelete('cascade');
+            $table->integer('curriculum_id');
             $table->timestamps();
         });
     }

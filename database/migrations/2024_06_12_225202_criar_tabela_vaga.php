@@ -12,11 +12,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('vacancy', function (Blueprint $table) {
-            $table->increments('id'); // Primary key with auto-increment
+            $table->increments('id'); 
             $table->integer('company_id');
             $table->string('name', 35);
             $table->string('description', 100);
-            $table->decimal('salary', 8, 2); // Adjust precision and scale as needed
+            $table->decimal('salary', 8, 2); 
             $table->integer('skills_id');
             $table->enum('model', ['presencial', 'hibrido', 'homeoffice']);
             $table->integer('trainee_id');

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('coordinator_registration');
             $table->string('contact');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
