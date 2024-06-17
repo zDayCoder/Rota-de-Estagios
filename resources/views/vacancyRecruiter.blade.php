@@ -1,36 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Vacancies List</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<x-app-layout>
     <style>
         .skills-row {
             display: none;
         }
+
         .btn-toggle {
             cursor: pointer;
             color: blue;
             text-decoration: underline;
         }
+
         .btn-toggle:hover {
             text-decoration: none;
         }
+
         .container {
             margin-top: 50px;
         }
+
         h1 {
             margin-bottom: 30px;
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             vertical-align: middle;
         }
+
         .mt-3 {
             margin-top: 1rem;
         }
     </style>
-</head>
-<body>
+
     <div class="container">
         <h1 class="text-center">Vacancies List</h1>
         <div class="text-right mb-4">
@@ -59,10 +60,12 @@
                         <td>{{ $vacancy->salary }}</td>
                         <td>{{ $vacancy->model }}</td>
                         <td>{{ $vacancy->status }}</td>
-                        
+
                         <td>
-                            <a href="{{ url("/vacancy/recruiter/$vacancy->id/edit")}}" class="btn btn-warning btn-sm">Editar Vaga</a>
-                            <a href="{{ url("/vacancy/recruiter/$vacancy->id/finish")}}" class="btn btn-warning btn-sm">Fechar Vaga</a>
+                            <a href="{{ url("/vacancy/recruiter/$vacancy->id/edit") }}"
+                                class="btn btn-warning btn-sm">Editar Vaga</a>
+                            <a href="{{ url("/vacancy/recruiter/$vacancy->id/finish") }}"
+                                class="btn btn-warning btn-sm">Fechar Vaga</a>
                             <span class="btn-toggle" onclick="toggleSkills({{ $vacancy->id }})">Ver Skills</span>
                         </td>
                     </tr>
@@ -93,19 +96,17 @@
             </tbody>
         </table>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        function toggleSkills(vacancyId) {
-            var skillsRow = document.getElementById('skills-' + vacancyId);
-            if (skillsRow.style.display === 'none' || skillsRow.style.display === '') {
-                skillsRow.style.display = 'table-row';
-            } else {
-                skillsRow.style.display = 'none';
-            }
+</x-app-layout>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function toggleSkills(vacancyId) {
+        var skillsRow = document.getElementById('skills-' + vacancyId);
+        if (skillsRow.style.display === 'none' || skillsRow.style.display === '') {
+            skillsRow.style.display = 'table-row';
+        } else {
+            skillsRow.style.display = 'none';
         }
-    </script>
-</body>
-</html>
+    }
+</script>
