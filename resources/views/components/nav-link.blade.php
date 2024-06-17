@@ -8,12 +8,12 @@
     if ($user) {
         switch ($user->user_type) {
             case \App\Models\User::TYPE_COORDINATOR:
-                $navLinkActive = '';
-                $navLinkInative = '';
+            $navLinkActive = 'link-config-active';
+            $navLinkInative = 'link-config-inative';
                 break;
             case \App\Models\User::TYPE_INTERN:
-                $navLinkActive = '';
-                $navLinkInative = '';
+                $navLinkActive = 'link-config-active';
+                $navLinkInative = 'link-config-inative';
                 break;
             case \App\Models\User::TYPE_ENTERPRISE:
                 $navLinkActive = 'link-active-enterprise';
