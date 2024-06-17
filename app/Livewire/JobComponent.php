@@ -10,4 +10,5 @@ class JobComponent extends Component
     {
         return view('job-component');
     }
+    
 }
