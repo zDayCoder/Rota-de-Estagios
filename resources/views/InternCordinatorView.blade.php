@@ -49,6 +49,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if($interns)
                 @foreach ($interns as $intern)
                     <tr>
                         <td>{{ $intern->id }}</td>
@@ -64,6 +65,7 @@
                         </td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>

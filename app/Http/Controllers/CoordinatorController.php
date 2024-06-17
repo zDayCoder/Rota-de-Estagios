@@ -40,7 +40,7 @@ class CoordinatorController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return redirect()->route('coordinators.show');
+        return redirect()->route('coordinator.show');
     }
 
     public function show($id)
@@ -94,10 +94,6 @@ class CoordinatorController extends Controller
             
 
 
-        return view(view: 'InternCordinatorView', data: compact('interns'));
-
-
-
-
+        return view('InternCordinatorView', compact('interns'));
     }
 }
