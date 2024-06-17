@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('level');
-            $table->integer('curriculum_id');
+            $table->foreignId('curriculum_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             //$table->unsignedTinyInteger('level'); // Nível da habilidade (1 a 5)
         });

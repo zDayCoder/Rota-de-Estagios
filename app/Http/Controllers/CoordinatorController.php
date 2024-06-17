@@ -18,8 +18,8 @@ class CoordinatorController extends Controller
     public function index()
     {
         // Retornar a view 'empresa.index'
-        //Session::put('tipo_user', 'Coordinator');
-        //return view('dashboard');
+        Session::put('tipo_user', 'Coordinator');
+        return view('coordinator.index');
     }
 
     public function create()

@@ -1,25 +1,38 @@
 @php
     $user = Auth::user();
     $navbarClass = '';
-    $navLinkActive ='link-config-active';
-    $navLinkInative ='link-config-inative' ;
+    $navLinkActive = 'link-config-active';
+    $navLinkInative = 'link-config-inative';
+    $logUser = '';
+    $linksType = '';
+    $linkName = '';
     if ($user) {
         switch ($user->user_type) {
             case \App\Models\User::TYPE_COORDINATOR:
                 $navbarClass = 'navbar-coordinator';
-
+                $logUser = 'Coordenador';
                 break;
             case \App\Models\User::TYPE_INTERN:
                 $navbarClass = 'navbar-intern';
+                $logUser = 'Estágiario';
+                $linksType = 'Curriculo';
+                $linkName = 'curricula.index';
+
                 break;
             case \App\Models\User::TYPE_ENTERPRISE:
                 $navbarClass = 'navbar-enterprise';
+                $logUser = 'Empresa';
+                $linksType = 'Criar Vaga';
+                $linkName = 'vacancy.create';
                 break;
             default:
                 $navbarClass = 'navbar-default';
                 break;
         }
     }
+
+    $userType = Auth::user()->type;
+
 @endphp
 
 <nav x-data="{ open: false }" class="border-b border-gray-100 {{ $navbarClass }}">
@@ -39,12 +52,19 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('curricula.index') }}">
-                        {{ __('Currículo') }}
+
+                    <x-nav-link href="{{ route($linkName) }}">
+                        {{ $linksType }}
                     </x-nav-link>
+
                     <x-nav-link href="/">
-                        {{ __('Inicio') }}
+                        {{ $logUser }}
                     </x-nav-link>
+                    @if ($user && $user->user_type == \App\Models\User::TYPE_ENTERPRISE)
+                        <x-nav-link href="{{ route('vacancyRecruiter') }}">
+                            {{ __('Ver Vagas') }}
+                        </x-nav-link>
+                    @endif
 
 
                 </div>

@@ -7,7 +7,7 @@ use App\Http\Controllers\CoordinatorController;
 //Route::group(['middleware' => ['auth', 'check.coordinator']], function () {
 
 
-Route::get('/coordinator', [CoordinatorController::class, 'store'])->name('coordinators.store');
+Route::get('/coordinators', [CoordinatorController::class, 'store'])->name('coordinators.store');
 Route::get('/coordinator/{coordinator}', [CoordinatorController::class, 'show'])->name('coordinators.show');
 Route::get('/coordinator/{coordinator}/edit', [CoordinatorController::class, 'edit'])->name('coordinators.edit');
 Route::put('/coordinator/{coordinator}', [CoordinatorController::class, 'update'])->name('coordinators.update');
