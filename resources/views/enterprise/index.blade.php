@@ -1046,6 +1046,14 @@
                     </form>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="assets/img/logo-sp.jpeg" alt="Logo SP" style="width: 100px; filter: grayscale(100%);">
+                    <p>Em parceria com CPS e SP</p>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <p class="copy-right">&copy;Todos Os Direitos Reservados. <br> Desenvolvido por <a
