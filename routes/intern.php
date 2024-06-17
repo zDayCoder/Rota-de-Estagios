@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternController;
 use App\Http\Controllers\AddressController;
 
-Route::post('/address/get-address-by-cep', [AddressController::class, 'getAddressByCep'])->name('address.get-address-by-cep');
+Route::group(['middleware' => array_values(array_filter([$authMiddleware, $authSessionMiddleware, 'check.intern']))], function () {
 
-Route::get('/intern', [InternController::class, 'index'])->name('interns.index');
+Route::post('/address/get-address-by-cep', [AddressController::class, 'getAddressByCep'])->name('address.get-address-by-cep');
 
 // Rota para exibir o formulário de criação de um novo estagiário
 Route::get('interns/create', [InternController::class, 'create'])->name('interns.create');
@@ -23,5 +23,8 @@ Route::get('interns/{intern}/edit', [InternController::class, 'edit'])->name('in
 
 // Rota para atualizar os dados de um estagiário específico
 Route::put('interns/{intern}', [InternController::class, 'update'])->name('interns.update');
+
+});
+Route::get('/intern', [InternController::class, 'index'])->name('interns.index');
 
 Route::get('/', [InternController::class, 'index'])->name('intern.index');
