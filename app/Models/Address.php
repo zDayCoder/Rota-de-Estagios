@@ -13,7 +13,12 @@ class Address extends Model
 
     public function company()
     {
-        return $this->hasMany(Company::class);
+        return $this->belongsTo(Company::class);
+    }
+
+    public function intern()
+    {
+        return $this->belongsTo(Intern::class);
     }
 
     public function user()

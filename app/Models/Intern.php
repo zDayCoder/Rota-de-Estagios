@@ -30,6 +30,6 @@ class Intern extends Model
     // Definindo o relacionamento com a tabela addresses
     public function address()
     {
-        return $this->belongsTo(Address::class);
+        return $this->hasOne(Address::class);
     }
 }

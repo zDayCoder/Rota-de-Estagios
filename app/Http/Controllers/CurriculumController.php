@@ -23,38 +23,37 @@ class CurriculumController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+{
+    // Verifica se o usuário está autenticado
+    if (Auth::check()) {
+        // Acessa todos os dados do usuário autenticado
+        $user = Auth::user();
 
-        $curriculum = Curriculum::latest()->first();
+        // Verifica se o usuário tem um endereço associado
+        if ($user->address) {
+            // O usuário tem um endereço
+            $address = $user->address;
 
-        if (!$curriculum) {
-            // Se não existir currículo, redirecione para a rota de criação
-            return redirect()->route('curricula.create');
-        }else{
+            // Recupera o currículo mais recente
+            $curriculum = Curriculum::latest()->first();
 
-        if (Auth::check()) {
-            // Acessa todos os dados do usuário autenticado
-            $user = Auth::user();
+            if (!$curriculum) {
+                // Se não existir currículo, redirecione para a rota de criação
+                return redirect()->route('curricula.create');
+            }
 
-            // Verifica se o usuário tem um endereço associado
-            if ($user->address) {
-                // O usuário tem um endereço, você pode acessá-lo assim
-                $address = $user->address;
-
-                // Faça o que precisar com o endereço e o usuário
-                return view('curricula.index', [
-                    'user' => $user,
-                    'address' => $address,
-                    'curriculum' => $curriculum,
-                ]);
-            }   
-
+            // Se existir currículo, carregue a view de index com os dados necessários
+            return view('curricula.index', compact('user', 'address', 'curriculum'));
+        } else {
+            // Se o usuário não tiver um endereço, redirecione para criar o endereço
+            return redirect()->route('address.create');
         }
+    } else {
+        // Se o usuário não estiver autenticado, redirecione para a página de login
+        return redirect()->route('login')->withErrors(['message' => 'Faça login para acessar esta página.']);
     }
-        
-        // Se existir currículo, carregue a view de index com o currículo
+}
 
-    }
 
     /**
      * Show the form for creating a new resource.

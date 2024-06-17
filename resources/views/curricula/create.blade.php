@@ -33,7 +33,7 @@
                                             style="border: 1.5px solid gray; display: inline-block; border-radius: 100%; padding: 4px; position: relative;">
                                             <img id="profile_photo_preview"
                                                 src="{{ asset('storage/' . $user->profile_photo_path) }}"
-                                                style="object-fit: cover; width: 100%; height: auto; max-width:200px; min-width: 200px; min-height: 200px; border-radius: 100%;"
+                                                style="object-fit: cover; width: 100%; height: auto; max-width:200px;max-height:200px; min-width: 200px; min-height: 200px; border-radius: 100%;"
                                                 alt="Avatar"
                                                 onerror="this.onerror=null; this.src='{{ asset('assets/img/default-user.svg') }}';">
                                                 <button type="button"
@@ -83,77 +83,6 @@
                                     </div>
                                 </div>
                             </div>
-<<<<<<< HEAD
-                                <div class="dados-pessoais p-3">
-                                    <h3>Resumo</h3>
-                                    <textarea id="summary" name="summary" rows="4" class="w3-input w3-border"></textarea>
-                                </div>
-                                <div class="dados-pessoais p-3">
-                                    <!-- Experiência -->
-                                    <div class="d-flex justify-content-between align-items-center conteudo-card" id="addExperience">
-                                        <h3>Experiência</h3>
-
-                                        <button type="button" id="addExperience" class="rounded-circle"><span
-                                                class="material-symbols-outlined ">
-                                                add
-                                            </span></button>
-                                    </div>
-                                </div>
-                                <div id="experiences"></div>
-                                <!-- Habilidades -->
-                                <div class="dados-pessoais p-3">
-                                    <div class="d-flex justify-content-between align-items-center conteudo-card" id="addSkill">
-                                        <h3>Habilidades</h3>
-                                        <button type="button" id="addSkill" class="rounded-circle"><span
-                                                class="material-symbols-outlined ">
-                                                add
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div id="skills"></div>
-
-                                </div>
-                                <!-- Idiomas -->
-                                <div class="dados-pessoais p-3">
-                                    <div class="d-flex justify-content-between align-items-center conteudo-card" id="addLanguage">
-                                        <h3>Idiomas</h3>
-
-                                        <button type="button" id="addLanguage" class="rounded-circle"><span
-                                                class="material-symbols-outlined ">
-                                                add
-                                            </span></button>
-                                    </div>
-                                    <div id="languages"></div>
-                                </div>
-
-                                <!-- Certificações -->
-                                <h3>Certificações</h3>
-                                <div id="certifications"></div>
-                                <button type="button" id="addCertification">Adicionar Certificação</button>
-
-                                <!-- Escolaridade/Formações -->
-                                <h3>Escolaridade/Formações</h3>
-                                <div id="educations"></div>
-                                <button type="button" id="addEducation">Adicionar Formação</button>
-
-                                @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                                @endif
-
-                                @if (session('error'))
-                                <div class="alert alert-danger">
-                                    {{ session('error') }}
-                                </div>
-                                @endif
-
-                                <!-- Botão de Envio -->
-                                <div class="submit">
-                                    <button type="submit">Salvar</button>
-                                </div>
-                    </form>
-=======
                             <div class="dados-pessoais p-3">
                                 <h3>Resumo</h3>
                                 <textarea id="summary" name="summary" rows="4" class="w3-input w3-border"></textarea>
@@ -225,32 +154,16 @@
 
                     </div>
                 </div><br>
->>>>>>> c5008b488249aa026f9830ece67e15ce88aa4ab2
 
             </div>
 
         </div>
 
-<<<<<<< HEAD
-    </div>
-
-<<<<<<< HEAD
-=======
-    </div>
-<<<<<<< HEAD
-    </x-app-layout>
-=======
-
->>>>>>> db2539a467cf8f7ff198a0d69b6539c6acc65947
-    <script>
-    var files = document.querySelector('input[name="files"]');
-=======
         <script>
         var files = document.querySelector('input[name="files"]');
 
         files.addEventListener("change", function(file) {
             var input = file.target;
->>>>>>> c5008b488249aa026f9830ece67e15ce88aa4ab2
 
             var reader = new FileReader();
 

@@ -13,7 +13,7 @@
                         <div style="min-height:333px;">
                             <div class="photo-frame" style="border: 1.5px solid gray; display: inline-block;border-radius:100%;padding: 4px">
                                 <img src="{{ asset('storage/' . $user->profile_photo_path) }}"
-                                    style="object-fit: cover; width: 100%; height: auto; max-width: 200px;  min-width: 200px; min-height: 200px; border-radius: 100%;"
+                                    style="object-fit: cover; width: 100%; height: auto; max-width: 200px;max-height:200px; min-width: 200px; min-height: 200px; border-radius: 100%;"
                                     alt="Avatar"
                                     onerror="this.onerror=null; this.src='{{ asset('assets/img/default-user.svg') }}';">
                             </div>
