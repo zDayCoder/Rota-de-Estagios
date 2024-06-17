@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,15 +14,15 @@ return new class extends Migration
             $table->id();
             $table->date('birth_date');
             $table->string('gender');
-            $table->string('cpf');
+            $table->string('cpf')->unique();
             $table->string('phone');
             $table->string('educational_institution');
             $table->string('current_course');
             $table->string('current_period');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('address_id');
-            $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('address_id')->constrained()->onDelete('cascade');
+            $table->enum('work_contract', ['a_procura', 'contratado']);
+            $table->enum('internship_approval', ['aprovado', 'reprovado'])->nullable();
             $table->timestamps();
         });
     }
@@ -33,10 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('interns', function (Blueprint $table) {
-            $table->dropForeign(['address_id']);
-        });
-
         Schema::dropIfExists('interns');
     }
 };
