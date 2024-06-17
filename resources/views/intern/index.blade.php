@@ -993,50 +993,59 @@
             <div class="row">
                 <div class="col-md-4 animate-box">
                     <h3 class="section-title">{{ config('app.name', 'Rota de Estágios') }}</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics.
+                    <p>REST - Rota de Estágios é sua ponte para oportunidades na área de TI. 
+			Conectamos talentos emergentes com empresas inovadoras, criando trajetórias de sucesso. 
+			Se você é um estudante à procura de um estágio ou uma empresa em busca de novos talentos, 
+			nosso site é o lugar ideal para você. 
+			Junte-se a nós e transforme o futuro do mercado de tecnologia!
                     </p>
 
                 </div>
 
                 <div class="col-md-4 animate-box">
-                    <h3 class="section-title">Our Address</h3>
+                    <h3 class="section-title">Nossos Endereços</h3>
                     <ul class="contact-info">
-                        <li><i class="icon-map"></i>198 West 21th Street, Suite 721 New York NY 10016</li>
-                        <li><i class="icon-phone"></i>+ 1235 2355 98</li>
-                        <li><i class="icon-envelope"></i><a href="javascript:void()">info@yoursite.com</a></li>
-                        <li><i class="icon-globe"></i><a href="javascript:void()">www.yoursite.com</a></li>
+                        <li><i class="icon-map"></i>Praça 19 de janeiro, 144 - Praia Grande(SP)</li>
+                        <li><i class="icon-phone"></i>(13)999887766</li>
+                        <li><i class="icon-envelope"></i><a href="javascript:void()">contatorest@gmail.com</a></li>
                     </ul>
-                    <h3 class="section-title">Connect with Us</h3>
+                    <h3 class="section-title">Nos siga nas redes</h3>
                     <ul class="social-media">
-                        <li><a href="javascript:void()" class="facebook"><i class="icon-facebook"></i></a></li>
-                        <li><a href="javascript:void()" class="twitter"><i class="icon-twitter"></i></a></li>
-                        <li><a href="javascript:void()" class="dribbble"><i class="icon-dribbble"></i></a></li>
-                        <li><a href="javascript:void()" class="github"><i class="icon-github-alt"></i></a></li>
+                        <li><a href="https://www.facebook.com/restcom/" class="facebook"><i class="icon-facebook"></i>Facebook</a></li>
+                        <li><a href="https://www.instagram.com/restofficial/" class="twitter"><i class="icon-twitter"></i>Instagram</a></li>
+                        <li><a href="https://github.com/aple" class="github"><i class="icon-github-alt"></i>Github</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 animate-box">
-                    <h3 class="section-title">Drop us a line</h3>
+                    <h3 class="section-title">Nos envie uma mensagem</h3>
                     <form class="contact-form">
                         <div class="form-group">
-                            <label for="name" class="sr-only">Name</label>
-                            <input type="name" class="form-control" id="name" placeholder="Name">
+                            <label for="name" class="sr-only">Nome</label>
+                            <input type="name" class="form-control" id="name" placeholder="Nome">
                         </div>
                         <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <label for="message" class="sr-only">Message</label>
-                            <textarea class="form-control" id="message" rows="7" placeholder="Message"></textarea>
+                            <label for="message" class="sr-only">Mensagem</label>
+                            <textarea class="form-control" id="message" rows="7" placeholder="Mensagem"></textarea>
                         </div>
                         <div class="form-group">
                             <input type="submit" id="btn-submit" class="btn btn-send-message btn-md"
-                                value="Send Message">
+                                value="Enviar Mensagem">
                         </div>
                     </form>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="./../public/assets/img/logo-sp.jpeg" alt="Logo SP" style="width: 100px; filter: grayscale(100%);">
+                    <p>Em parceria com CPS e SP</p>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <p class="copy-right">&copy;Todos Os Direitos Reservados. <br> Desenvolvido por <a

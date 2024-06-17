@@ -32,40 +32,38 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Minhas Candidaturas</h1>
+        <h1 class="text-center">Lista de Alunos </h1>
         
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
+                    <th>Nome</th>
+                    <th>Faculdade</th>
+                    <th>Vaga</th>
                     <th>Empresa</th>
-                    <th>Nome da vaga</th>
-                    <th>Descrição</th>
-                    <th>Modelo</th>
-                    <th>Status da vaga</th>
                     <th>Data da Candidatura</th>
-                    <th>Action</th>
+                    <th>Modelo</th>
+                    <th>Status</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach ($applications as $application)
-        <tr>
-        <td>{{ $application->id }}</td>
-        <td>{{ $companies[$loop->index]->company_name }}</td>
-        <td>{{ $vacancies[$loop->index]->name }}</td>
-        <td>{{ $vacancies[$loop->index]->description }}</td>
-        <td>{{ $vacancies[$loop->index]->model }}</td>
-        <td>{{ $vacancies[$loop->index]->status }}</td>
-        <td>{{ $application->application_date }}</td>
-        <td>
-            <form action="{{ url("/application/intern/$application->id/delete") }}" method="DELETE" onsubmit="return confirmDeletion()">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm">Remover</button>
-            </form>
-        </td>
-    </tr>
-@endforeach
+                @foreach ($interns as $intern)
+                    <tr>
+                        <td>{{ $intern->id }}</td>
+                        <td>{{ $intern->name }}</td>
+                        <td>{{ $intern->educational_institution}}</td>
+                        <td>{{ $intern->name }}</td>
+                        <td>{{ $intern->name }}</td>
+                        <td>{{ $intern->application_date }}</td>
+                        <td>{{ $intern->model }}</td>
+                        <td>{{ $intern->work_contract }}</td>
+                        <td>
+                            <a href="{{ url("/vacancy/intern/$intern->id/apply")}}" class="btn btn-success btn-sm">Validar Estágio</a>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -74,11 +72,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-
-function confirmDeletion() {
-        return confirm('Você tem certeza que deseja apagar esta aplicação?');
-    }
-        
+        function toggleSkills(vacancyId) {
+            var skillsRow = document.getElementById('skills-' + vacancyId);
+            if (skillsRow.style.display === 'none' || skillsRow.style.display === '') {
+                skillsRow.style.display = 'table-row';
+            } else {
+                skillsRow.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>

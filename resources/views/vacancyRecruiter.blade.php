@@ -45,7 +45,7 @@
                     <th>Description</th>
                     <th>Salary</th>
                     <th>Model</th>
-                    <th>Address ID</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -58,9 +58,11 @@
                         <td>{{ $vacancy->description }}</td>
                         <td>{{ $vacancy->salary }}</td>
                         <td>{{ $vacancy->model }}</td>
-                        <td>{{ $vacancy->address_id }}</td>
+                        <td>{{ $vacancy->status }}</td>
+                        
                         <td>
                             <a href="{{ url("/vacancy/recruiter/$vacancy->id/edit")}}" class="btn btn-warning btn-sm">Editar Vaga</a>
+                            <a href="{{ url("/vacancy/recruiter/$vacancy->id/finish")}}" class="btn btn-warning btn-sm">Fechar Vaga</a>
                             <span class="btn-toggle" onclick="toggleSkills({{ $vacancy->id }})">Ver Skills</span>
                         </td>
                     </tr>

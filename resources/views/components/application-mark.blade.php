@@ -1,1 +1,1 @@
-<img src="\assets\img\logo.jpg" class="logo" >
+<img src="\assets\img\logo-removebg.png" class="logo" >
