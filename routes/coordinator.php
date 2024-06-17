@@ -8,9 +8,6 @@ Route::group(['middleware' => ['auth', 'check.coordinator']], function () {
 
 // Routse::get('/coordinators/{coordinator}', [CoordinatorController::class, 'show'])->name('coordinators.show');
 
-
-
-
     Route::get('coordinator/create', [CoordinatorController::class, 'create'])->name('coordinator.create');
     Route::post('coordinator', [CoordinatorController::class, 'store'])->name('coordinator.store');
     Route::get('coordinator/{coordinator}/edit', [CoordinatorController::class, 'edit'])->name('coordinator.edit');
@@ -20,7 +17,6 @@ Route::group(['middleware' => ['auth', 'check.coordinator']], function () {
 Route::get('/coordinator', [CoordinatorController::class, 'index'])->name('coordinator.index');
 
 Route::get('/cordenador/intern',[CoordinatorController::class,'internResourceView'])->name('coordinators.internView');
-Route::get('/coordinator/create', [CoordinatorController::class, 'create'])->name('coordinators.create');
 
 Route::get('/cordenador/intern/{id}/aprove',[CoordinatorController::class, 'approveIntern'])->name('coordinators.internAprove');
 

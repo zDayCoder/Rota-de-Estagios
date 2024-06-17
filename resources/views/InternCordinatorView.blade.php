@@ -62,7 +62,7 @@
                             <td>{{ $intern->model }}</td>
                             <td>{{ $intern->work_contract }}</td>
                             <td>
-                                <a href="{{ url("/vacancy/intern/$intern->id/apply") }}"
+                                <a href="{{ url("/cordenador/intern/$intern->id/aprove") }}"
                                     class="btn btn-success btn-sm">Validar
                                     Estágio</a>
                             </td>
