@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,10 +8,6 @@ class Intern extends Model
 {
     use HasFactory;
 
-    // Definindo o nome da tabela
-    protected $table = 'interns';
-
-    // Permitir que essas colunas sejam preenchíveis em massa
     protected $fillable = [
         'birth_date',
         'gender',
@@ -27,9 +22,13 @@ class Intern extends Model
         'internship_approval'
     ];
 
-    // Definindo o relacionamento com a tabela addresses
     public function address()
     {
         return $this->hasOne(Address::class);
+    }
+
+    public function curriculum()
+    {
+        return $this->hasOne(Curriculum::class);
     }
 }

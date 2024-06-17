@@ -22,37 +22,39 @@ class CurriculumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-{
-    // Verifica se o usuário está autenticado
-    if (Auth::check()) {
-        // Acessa todos os dados do usuário autenticado
-        $user = Auth::user();
+        public function index()
+    {
+        // Verifica se o usuário está autenticado
+        if (Auth::check()) {
+            // Acessa todos os dados do usuário autenticado
+            $user = Auth::user();
 
-        // Verifica se o usuário tem um endereço associado
-        if ($user->address) {
-            // O usuário tem um endereço
-            $address = $user->address;
+            // Verifica se o usuário tem um endereço associado
+            if ($user->address) {
+                // O usuário tem um endereço
+                $address = $user->address;
 
-            // Recupera o currículo mais recente
-            $curriculum = Curriculum::latest()->first();
+                // Recupera o currículo mais recente associado ao usuário logado
+                $curriculum = $user->curriculum()->latest()->first();
 
-            if (!$curriculum) {
-                // Se não existir currículo, redirecione para a rota de criação
-                return redirect()->route('curricula.create');
+
+                if (!$curriculum) {
+                    // Se não existir currículo, redirecione para a rota de criação
+                    return redirect()->route('curricula.create');
+                }
+
+                // Se existir currículo, carregue a view de index com os dados necessários
+                return view('curricula.index', compact('user', 'address', 'curriculum'));
+            } else {
+                // Se o usuário não tiver um endereço, redirecione para criar o endereço
+                return redirect()->route('address.create');
             }
-
-            // Se existir currículo, carregue a view de index com os dados necessários
-            return view('curricula.index', compact('user', 'address', 'curriculum'));
         } else {
-            // Se o usuário não tiver um endereço, redirecione para criar o endereço
-            return redirect()->route('address.create');
+            // Se o usuário não estiver autenticado, redirecione para a página de login
+            return redirect()->route('login')->withErrors(['message' => 'Faça login para acessar esta página.']);
         }
-    } else {
-        // Se o usuário não estiver autenticado, redirecione para a página de login
-        return redirect()->route('login')->withErrors(['message' => 'Faça login para acessar esta página.']);
     }
-}
+
 
 
     /**
