@@ -27,17 +27,9 @@
                 <x-label>Contato:<a style="font-weight:normal">{{ $coordinator->contact }}</a></x-label>
             </div>
 
-<<<<<<< HEAD
-            <x-button class="mt-3 mb-4" type="submit">
-                <a style="color: white; text-decoration: none"
-                    href="{{ route('coordinators.edit', $coordinator->id) }}">Atualizar dados</a>
-            </x-button>
-        </div>
-=======
     <x-button class="mt-3 mb-4" type="submit">
         <a style="color: white; text-decoration: none" href="{{ route('coordinator.edit', $coordinator->id) }}">Atualizar dados</a>
     </x-button>
     </div>
->>>>>>> a51c49da54450940e46908b4b0f0965f033262d9
 </x-app-layout>
 </x-authentication-card>
