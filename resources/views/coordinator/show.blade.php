@@ -27,7 +27,7 @@
     </div>
 
     <x-button class="mt-3 mb-4" type="submit">
-        <a style="color: white; text-decoration: none" href="{{ route('coordinators.edit', $coordinator->id) }}">Atualizar dados</a>
+        <a style="color: white; text-decoration: none" href="{{ route('coordinator.edit', $coordinator->id) }}">Atualizar dados</a>
     </x-button>
     </div>
 </x-app-layout>

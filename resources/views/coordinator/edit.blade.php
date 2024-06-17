@@ -1,15 +1,10 @@
-
         <div class="container">
             <x-label>
-                <h1>{{ isset($coordinator) ? 'Editar cadastro' : 'Cadastrar Coordenador' }}</h1>
+                <h1>Editar cadastro</h1>
             </x-label>
-            <form
-                action="{{ isset($coordinator) ? route('coordinators.update', $coordinator->id) : route('coordinators.store') }}"
-                method="POST">
+            <form action="{{ route('coordinator.update', $coordinator->id) }}" method="POST">
                 @csrf
-                @if(isset($coordinator))
                 @method('PUT')
-                @endif
 
                 <div>
                     <x-label>
@@ -26,18 +21,15 @@
                     <div class="form-group">
                         <x-label for="coordinator_registration">Registro do Coordenador</x-label>
                         <input type="text" class="form-control" id="coordinator_registration"
-                            name="coordinator_registration"
-                            value="{{ isset($coordinator) ? $coordinator->coordinator_registration : '' }}">
+                            name="coordinator_registration" value="{{ $coordinator->coordinator_registration }}">
                     </div>
 
                     <div class="form-group">
                         <x-label for="contact">Contato</x-label>
                         <input type="text" class="form-control" id="contact" name="contact"
-                            value="{{ isset($coordinator) ? $coordinator->contact : '' }}">
+                            value="{{ $coordinator->contact }}">
                     </div>
 
-                    <x-button type="submit" class="btn btn-primary">
-                        {{ isset($coordinator) ? 'Atualizar' : 'Cadastrar' }}
-                    </x-button>
+                    <x-button type="submit" class="btn btn-primary">Atualizar</x-button>
             </form>
         </div>
