@@ -26,8 +26,7 @@ class CompanyController extends Controller
 
     public function create()
     {
-        $address = new Address();
-        return view('company.form', ['company' => null, 'address' => $address]);
+        return view('company.form', ['company' => null]);
     }
 
     public function store(Request $request)
@@ -42,28 +41,11 @@ class CompanyController extends Controller
             'state_registration' => 'nullable|string|max:255',
             'legal_nature' => 'required|string|max:255',
             'branch' => 'required|string|max:255',
-            'zip_code' => 'required|string|max:255',
-            'street_address' => 'required|string|max:255',
-            'complement' => 'nullable|string|max:255',
-            'neighborhood' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
-            'number' => 'required|string|max:255',
         ]);
 
         $user = Auth::user();
         //dd($user -> id);
 
-        $address = Address::create([
-            'zip_code' => $request->zip_code,
-            'street_address' => $request->street_address,
-            'complement' => $request->complement,
-            'neighborhood' => $request->neighborhood,
-            'city' => $request->city,
-            'state' => $request->state,
-            'number' => $request->number,
-            'user_id' => $user->id,
-        ]);
 
         Company::create([
             'company_name' => $request->company_name,
@@ -76,10 +58,9 @@ class CompanyController extends Controller
             'legal_nature' => $request->legal_nature,
             'branch' => $request->branch,
             'user_id' => $user->id,
-            'address_id' => $address->id,
         ]);
 
-        return redirect()->route('company.index')->with('success', 'Company created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Company created successfully.');
     }
 
     public function show($id)
@@ -109,27 +90,9 @@ class CompanyController extends Controller
             'state_registration' => 'nullable|string|max:255',
             'legal_nature' => 'required|string|max:255',
             'branch' => 'required|string|max:255',
-            'zip_code' => 'required|string|max:255',
-            'street_address' => 'required|string|max:255',
-            'complement' => 'nullable|string|max:255',
-            'neighborhood' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
-            'number' => 'required|string|max:255',
         ]);
 
         $user = Auth::user();
-
-        $company->address->update([
-            'zip_code' => $request->zip_code,
-            'street_address' => $request->street_address,
-            'complement' => $request->complement,
-            'neighborhood' => $request->neighborhood,
-            'city' => $request->city,
-            'state' => $request->state,
-            'number' => $request->number,
-            'user_id' => $user->id,
-        ]);
 
         $company->update([
             'company_name' => $request->company_name,

@@ -14,6 +14,8 @@ use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use App\Models\Company; // Importe o modelo da empresa
+
 
 class VacancyController extends Controller
 {
@@ -27,33 +29,46 @@ class VacancyController extends Controller
     }
 
     public function indexRecruiter()
-    {   
+    {
         $user = Auth::user(); 
         $company = DB::table('Company')->where('user_id', $user->id)->first('id');
         
         if (!$company) {
-
-        return view(view: 'company.form');
+            return view(view: 'company.form');
         }
-        else
-        {
+        else{
         
-        $company = DB::table('Company')->where('user_id', $user->id)->first('id');
-        $vacancies = DB::table('Vacancy')->where('company_id', $company->id)->get();
-
+            $company = DB::table('Company')->where('user_id', $user->id)->first('id');
+            $vacancies = DB::table('Vacancy')->where('company_id', $company->id)->get();
 
             foreach ($vacancies as $vacancy) {
-            $vacancy->vacancy_id = DB::table('vacancySkill')->where('vacancy_id', $vacancy->id)->get();
+                $vacancy->vacancy_id = DB::table('vacancySkill')->where('vacancy_id', $vacancy->id)->get();
             }
 
-                return view(view: 'vacancyRecruiter', data: compact('vacancies'));
+            return view(view: 'vacancyRecruiter', data: compact('vacancies'));
         }
-}
+    }
 
     public function create()
-    {
-        return view('vacancyRecruiterCreate');
+{
+    // Verifica se o usuário está autenticado
+    if (Auth::check()) {
+        // Obtém o ID do usuário autenticado
+        $userId = Auth::id();
+
+        // Verifica se o usuário tem um registro na tabela de empresas
+        if (Company::where('user_id', $userId)->exists()) {
+            // Se sim, retorne a view para criar a vaga
+            return view('vacancyRecruiterCreate');
+        } else {
+            // Se não, redirecione para alguma rota de erro ou página inicial
+            return redirect()->route('company.create');
+        }
+    } else {
+        // Se o usuário não estiver autenticado, redirecione para a página de login
+        return redirect()->route('login');
     }
+}
 
     public function store(Request $request)
     {
@@ -63,12 +78,8 @@ class VacancyController extends Controller
             'description' => 'required|string|max:100',
             'salary' => 'required|numeric',
             'model' => 'required|string|in:presencial,hibrido,homeoffice',
-            'addreess_id' => 'nullable|integer', 
             'skills' => 'nullable|array', 
-            'skills.*.name' => 'required_with:skills|string|max:255',
-            'skills.*.level' => 'required_with:skills|string|max:255',
-            'skills.*.curriculum_id' => 'required_with:skills|integer',
-            'trainee_id' => 'nullable|integer', 
+            
             'status' => 'nullable|string|in:Aberta,Fechada,Cancelada',
         ]);
 
@@ -82,30 +93,15 @@ class VacancyController extends Controller
 
         else
         {
-            $validatedData['addreess_id'] = $validatedData['addreess_id'] ?? 1;
-            $validatedData['trainee_id'] = $validatedData['trainee_id'] ?? 1;
-
-            
             $vacancy = Vacancy::create([
                 'company_id' => $company->id,
                 'name' => $validatedData['name'],
                 'description' => $validatedData['description'],
                 'salary' => $validatedData['salary'],
                 'model' => $validatedData['model'],
-                'address_id' => $validatedData['addreess_id'],
-                'status'=> "Aberta"
+                'status'=> "Aberta",
             ]);
-            
-
-            /*$address = Address::create([
-                'zip_code' => $request->zip_code,
-                'street_address' => $request->street_address,
-                'complement' => $request->complement,
-                'neighborhood' => $request->neighborhood,
-                'city' => $request->city,
-                'state' => $request->state,
-                'user_id' => $user->id,
-            ]);*/
+        
 
             if (!empty($validatedData['skills'])) {
                 foreach ($validatedData['skills'] as $skillData) {
@@ -113,7 +109,6 @@ class VacancyController extends Controller
                     $vacancySkill = VacancySkill::create([
                         'name' => $skillData['name'],
                         'level' => $skillData['level'],
-                        'vacancy_id' => $vacancy->id, 
                     ]);
 
                 }

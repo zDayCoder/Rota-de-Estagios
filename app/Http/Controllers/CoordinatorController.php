@@ -74,7 +74,12 @@ class CoordinatorController extends Controller
     {
         
         $intern = Intern::findOrFail($id);
-        dd($intern);
+
+        $intern->internship_approval = "aprovado";
+        $intern->save();
+
+        return redirect()->route('coordinator.internView');
+        //dd($intern);
 
     }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Vacancies List</title>
+    <title>Lista de Vagas</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -32,19 +32,18 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Vacancies List</h1>
+        <h1 class="text-center">Lista de Vagas</h1>
         
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Company ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Salary</th>
-                    <th>Model</th>
-                    <th>Address ID</th>
-                    <th>Actions</th>
+                    <th>ID da Empresa</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Salário</th>
+                    <th>Modelo</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,21 +55,20 @@
                         <td>{{ $vacancy->description }}</td>
                         <td>{{ $vacancy->salary }}</td>
                         <td>{{ $vacancy->model }}</td>
-                        <td>{{ $vacancy->address_id }}</td>
                         <td>
                             <a href="{{ url("/vacancy/intern/$vacancy->id/apply")}}" class="btn btn-success btn-sm">Aplicar</a>
-                            <span class="btn-toggle" onclick="toggleSkills({{$vacancy->id}})">Ver Skills</span>
+                            <span class="btn-toggle" onclick="toggleSkills({{$vacancy->id}})">Ver Habilidades</span>
                         </td>
                     </tr>
                     <tr id="skills-{{ $vacancy->id }}" class="skills-row">
                         <td colspan="8">
-                            <h4>Skills List</h4>
+                            <h4>Lista de Habilidades</h4>
                             <table class="table table-sm table-bordered">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Level</th>
+                                        <th>Nome</th>
+                                        <th>Nível</th>
                                     </tr>
                                 </thead>
                                 <tbody>

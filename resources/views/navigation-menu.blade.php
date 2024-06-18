@@ -1,8 +1,6 @@
 @php
     $user = Auth::user();
     $navbarClass = '';
-    $navLinkActive = 'link-config-active';
-    $navLinkInative = 'link-config-inative';
     $logUser = '';
     $linksType = '';
     $linkName = '';

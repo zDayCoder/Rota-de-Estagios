@@ -32,26 +32,8 @@ class InternController extends Controller
             'educational_institution' => 'required|string|max:255',
             'current_course' => 'required|string|max:255',
             'current_period' => 'required|string|max:255',
-            'zip_code' => 'required|string|max:10',
-            'street_address' => 'required|string|max:255',
-            'complement' => 'nullable|string|max:255',
-            'neighborhood' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'state' => 'required|string|max:2',
-            'number' => 'required|string|max:10',
         ]);
 
-        // Criar endereço
-        $address = Address::create([
-            'zip_code' => $request->zip_code,
-            'street_address' => $request->street_address,
-            'complement' => $request->complement,
-            'neighborhood' => $request->neighborhood,
-            'city' => $request->city,
-            'state' => $request->state,
-            'number' => $request->number,
-            'user_id' => Auth::id(), // ID do usuário logado
-        ]);
 
         // Criar estagiário
         Intern::create([
@@ -63,7 +45,6 @@ class InternController extends Controller
             'current_course' => $request->current_course,
             'current_period' => $request->current_period,
             'user_id' => Auth::id(),
-            'address_id' => $address->id,
             'work_contract' => 'a_procura',
         ]);
 
@@ -92,29 +73,10 @@ class InternController extends Controller
             'educational_institution' => 'required|string|max:255',
             'current_course' => 'required|string|max:255',
             'current_period' => 'required|string|max:255',
-            'zip_code' => 'required|string|max:10',
-            'street_address' => 'required|string|max:255',
-            'complement' => 'nullable|string|max:255',
-            'neighborhood' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'state' => 'required|string|max:2',
-            'number' => 'required|string|max:10',
         ]);
 
         $intern = Intern::findOrFail($id);
-        $address = $intern->address;
-
-        // Atualizar endereço
-        $address->update([
-            'zip_code' => $request->zip_code,
-            'street_address' => $request->street_address,
-            'complement' => $request->complement,
-            'neighborhood' => $request->neighborhood,
-            'city' => $request->city,
-            'state' => $request->state,
-            'number' => $request->number,
-            'user_id' => Auth::id(), // ID do usuário logado
-        ]);
+        
 
         // Atualizar estagiário
         $intern->update([
@@ -126,7 +88,6 @@ class InternController extends Controller
             'current_course' => $request->current_course,
             'current_period' => $request->current_period,
             'user_id' => Auth::id(),
-            'address_id' => $address->id,
         ]);
 
         return redirect()->route('intern.index')->with('success', 'Intern updated successfully.');

@@ -3,8 +3,9 @@
     margin: 0;
     padding: 20px;
     display: flex;
+    width: 900px;
     flex-wrap: wrap;
-    height: 80vh;
+    height: 70vh;
 
 }
 .job-card {
@@ -12,6 +13,8 @@
     border: 1px solid #ccc;
     margin-bottom: 20px;
     padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+
 }
 .job h2 {
     margin-top: 0;
@@ -26,14 +29,17 @@
 .resume-job-card{
     flex: 1;
     margin-right: 10px;
-    height: 75vh;
+    height: 65vh;
     overflow-y: scroll;
     border: none;
-
 }
 .detalhes-container {
     border: solid 1px #ccc;
     flex: 1;
+    overflow-y:scroll;
+    height: 65vh;
+
+
 }
 
 .detalhes-container{
@@ -45,4 +51,52 @@
     width: 50px;
     height: 50px;
     mix-blend-mode: multiply;
+}
+
+.container-vagas2 {
+    margin-top:40px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 800px;
+    flex-wrap: wrap;
+    height: 50vh;
+
+}
+
+.title-vagas {
+    color:#FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.container-vagas2 > .card{
+    background-color: #252525;
+}
+
+.container-vagas2 > .card > .card-body button  {
+    background-color: #FFF;
+    color:#000!important;
+    border-radius: 10px;
+}
+
+.title-vagas2 {
+    color:#272727;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+
+    height: 50px;
+}
+
+
+.detalhes-container > p {
+    font-weight: 399;;
 }

@@ -1,5 +1,5 @@
 <x-app-layout>
- 
-    <x-livewire-dinamyc />
-
+    <div class="d-flex justify-center">
+        <x-livewire-dinamyc />
+    </div>
 </x-app-layout>

@@ -1,107 +1,101 @@
 <x-app-layout>
-
     <style>
-    
-    
-        .container {
-            margin-top: 50px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .skill {
-            margin-bottom: 15px;
-        }
+    .container {
+        margin-top: 50px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .skill {
+        margin-bottom: 15px;
+    }
     </style>
 
     <div class="container">
-        <h1 class="text-center">Create Vacancy</h1>
-        
-        <!-- Display Validation Errors -->
+        <h2 class="text-center">Criar Uma Nova Vaga</h2>
+
+        <!-- Exibir Erros de Validação -->
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
 
         <form action="{{ route('vacancy.store') }}" method="POST">
             @csrf
 
             <div class="form-group">
-                <label for="name">Name:</label>
+                <label for="name">Nome:</label>
                 <input type="text" class="form-control" id="name" name="name" maxlength="35" required>
             </div>
 
             <div class="form-group">
-                <label for="description">Description:</label>
+                <label for="description">Descrição:</label>
                 <input type="text" class="form-control" id="description" name="description" maxlength="100" required>
             </div>
 
             <div class="form-group">
-                <label for="salary">Salary:</label>
+                <label for="salary">Salário:</label>
                 <input type="text" class="form-control" id="salary" name="salary" required>
             </div>
 
             <div class="form-group">
-                <label for="model">Model:</label>
+                <label for="model">Modelo:</label>
                 <select class="form-control" id="model" name="model" required>
                     <option value="presencial">Presencial</option>
                     <option value="hibrido">Híbrido</option>
                     <option value="homeoffice">Home Office</option>
                 </select>
-            </div>
+            </div>            
 
             <div class="form-group">
-                <label for="addreess_id">Address ID:</label>
-                <input type="text" class="form-control" id="addreess_id" name="addreess_id" required>
-            </div>
-
-            <div class="form-group">
-                <label for="skills">Skills:</label>
+                <label for="skills">Habilidades:</label>
                 <div id="skills">
                     <div class="skill row">
                         <div class="col-md-4">
-                            <input type="text" class="form-control" name="skills[0][name]" placeholder="Skill Name" required>
+                            <input type="text" class="form-control" name="skills[0][name]"
+                                placeholder="Nome da Habilidade" required>
                         </div>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" name="skills[0][level]" placeholder="Skill Level" required>
+                        <div class="col-md-6">
+                            <label for="skill_level">Nível da Habilidade:</label>
+                            <input type="range" class="form-range" id="skill_level" name="skills[0][level]"
+                                min="0" value="0" max="10" step="1" required>
                         </div>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" name="skills[0][curriculum_id]" placeholder="Curriculum ID" required>
-                        </div>
+
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary mt-2" onclick="addSkill()">Add Skill</button>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addSkill()">Adicionar Habilidade</button>
             </div>
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Criar</button>
         </form>
     </div>
 
     <script>
-        let skillIndex = 1;
-        function addSkill() {
-            const skillsDiv = document.getElementById('skills');
-            const newSkillDiv = document.createElement('div');
-            newSkillDiv.classList.add('skill', 'row');
-            newSkillDiv.innerHTML = `
+    let skillIndex = 1;
+
+    function addSkill() {
+        const skillsDiv = document.getElementById('skills');
+        const newSkillDiv = document.createElement('div');
+        newSkillDiv.classList.add('skill', 'row');
+        newSkillDiv.innerHTML = `
                 <div class="col-md-4">
-                    <input type="text" class="form-control" name="skills[${skillIndex}][name]" placeholder="Skill Name" required>
+                    <input type="text" class="form-control" name="skills[${skillIndex}][name]" placeholder="Nome da Habilidade" required>
                 </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="skills[${skillIndex}][level]" placeholder="Skill Level" required>
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="skills[${skillIndex}][curriculum_id]" placeholder="Curriculum ID" required>
+                <div class="col-md-6">
+                    <label for="skill_level">Nível da Habilidade:</label>
+                    <input type="range" class="form-range" id="skill_level" name="skills[${skillIndex}][level]"
+                        min="0" value="0" max="10" step="1" required>
                 </div>
             `;
-            skillsDiv.appendChild(newSkillDiv);
-            skillIndex++;
-        }
+        skillsDiv.appendChild(newSkillDiv);
+        skillIndex++;
+    }
     </script>
 </x-app-layout>
-
