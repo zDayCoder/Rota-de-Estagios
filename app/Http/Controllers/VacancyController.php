@@ -141,12 +141,7 @@ class VacancyController extends Controller
             'description' => 'required|string|max:100',
             'salary' => 'required|numeric',
             'model' => 'required|string|in:presencial,hibrido,homeoffice',
-            'status' => 'required|string|in:Aberta,Fechada,Cancelada',
-            'addreess_id' => 'nullable|integer',
-            'skills' => 'nullable|array',
-            'skills.*.name' => 'required_with:skills|string|max:255',
-            'skills.*.level' => 'required_with:skills|string|max:255',
-            'skills.*.curriculum_id' => 'required_with:skills|integer',
+            'status' => 'required|string|in:Aberta,Fechada,Cancelada',            
         ]);
 
         $vacancy = Vacancy::findOrFail($id);
@@ -157,7 +152,6 @@ class VacancyController extends Controller
         $vacancy->description = $validatedData['description'];
         $vacancy->salary = $validatedData['salary'];
         $vacancy->model = $validatedData['model'];
-        $vacancy->address_id = $validatedData['address_id'] ?? 1; 
         $vacancy->save();
 
  
