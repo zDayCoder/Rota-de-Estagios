@@ -45,7 +45,8 @@
                         <th>Vaga</th>
                         <th>Empresa</th>
                         <th>Data da Candidatura</th>
-                        <th>Modelo</th>
+                        <th>Condição</th>
+                        <th>Tipo</th>
                         <th>Status</th>
                         <th>Ações</th>
                     </tr>
@@ -57,8 +58,9 @@
                         <td>{{ $intern->name }}</td>
                         <td>{{ $intern->educational_institution }}</td>
                         <td>{{ $intern->name }}</td>
-                        <td>{{ $intern->name }}</td>
+                        <td>{{ $intern->company_name }}</td>
                         <td>{{ $intern->application_date }}</td>
+                        <td>{{ $intern->internship_approval }}</td>
                         <td>{{ $intern->model }}</td>
                         <td>{{ $intern->work_contract }}</td>
                         <td>
