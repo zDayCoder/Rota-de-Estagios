@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('current_course');
             $table->string('current_period');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('address_id');
             $table->enum('work_contract', ['a_procura', 'contratado']);
             $table->enum('internship_approval', ['aprovado', 'reprovado'])->nullable();
             $table->timestamps();

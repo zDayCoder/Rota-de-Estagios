@@ -3,7 +3,7 @@
 
 <div class="container">
     <x-label>
-        <h1>{{ isset($company->id) ? 'Editar cadastro' : 'Cadastrar da Empresa' }}</h1>
+        <h1>{{ isset($company->id) ? 'Editar dados' : 'Hora de completar seus dados' }}</h1>
     </x-label>
     @if ($errors->any())
         <div>
@@ -56,69 +56,11 @@
             <x-input type="text" id="branch" name="branch" value="{{ old('branch', $company->branch ?? '') }}" required/>
         </div>
 
-        <!-- Address fields -->
-        <div>
-            <x-label for="zip_code">CEP:</x-label>
-            <x-input type="text" id="zip_code" name="zip_code" value="{{ old('zip_code', $company->address->zip_code ?? '') }}" required/>
-        </div>
-        <div>
-            <x-label for="street_address">Logradouro:</x-label>
-            <x-input type="text" id="street_address" name="street_address" value="{{ old('street_address', $company->address->street_address ?? '') }}" required/>
-        </div>
-        <div>
-            <x-label for="complement">Complemento:</x-label>
-            <x-input type="text" id="complement" name="complement" value="{{ old('complement', $company->address->complement ?? '') }}"/>
-        </div>
-        <div>
-            <x-label for="neighborhood">Bairro:</x-label>
-            <x-input type="text" id="neighborhood" name="neighborhood" value="{{ old('neighborhood', $company->address->neighborhood ?? '') }}" required/>
-        </div>
-        <div>
-            <x-label for="city">Localidade:</x-label>
-            <x-input type="text" id="city" name="city" value="{{ old('city', $company->address->city ?? '') }}" required/>
-        </div>
-        <div>
-            <x-label for="state">UF:</x-label>
-            <x-input type="text" id="state" name="state" value="{{ old('state', $company->address->state ?? '') }}" required/>
-        </div>
-        <div>
-            <x-label for="number">Número:</x-label>
-            <x-input type="text" id="number" name="number" value="{{ old('number', $company->address->number ?? '') }}" required/>
-        </div>
-
         <x-button class="mt-3 mb-4" type="submit">
             {{ isset($company->id) ? 'Atualizar' : 'Cadastrar' }}
         </x-button>
     </form>
     </div>
-    <script>
-        document.getElementById('zip_code').addEventListener('input', function() {
-            const cep = this.value.replace(/\D/g, '');
-            if (cep.length !== 8) {
-                return;
-            }
-
-            fetch('{{ route('address.get-address-by-cep') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ cep: cep })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('street_address').value = data.logradouro || '';
-                document.getElementById('complement').value = data.complemento || '';
-                document.getElementById('neighborhood').value = data.bairro || '';
-                document.getElementById('city').value = data.localidade || '';
-                document.getElementById('state').value = data.uf || '';
-            })
-            .catch(error => {
-                console.error('Erro ao buscar endereço:', error);
-            });
-        });
-    </script>
     </x-authentication-card>
 
    </x-app-layout>

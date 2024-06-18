@@ -17,19 +17,8 @@ class Intern extends Model
         'current_course',
         'current_period',
         'user_id',
-        'address_id',
-        'curriculum_id',
         'work_contract',
         'internship_approval'
     ];
 
-    public function address()
-    {
-        return $this->hasOne(Address::class);
-    }
-
-    public function curriculum()
-    {
-        return $this->belongsTo(Curriculum::class);
-    }
 }

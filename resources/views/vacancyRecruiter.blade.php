@@ -33,21 +33,21 @@
     </style>
 
     <div class="container">
-        <h1 class="text-center">Vacancies List</h1>
+        <h1 class="text-center">Lista de Vagas</h1>
         <div class="text-right mb-4">
-            <a href="{{ route('vacancy.create') }}" class="btn btn-primary">Create New Vacancy</a>
+            <a href="{{ route('vacancy.create') }}" class="btn btn-primary">Criar Nova Vaga</a>
         </div>
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Company ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Salary</th>
-                    <th>Model</th>
+                    <th>ID da Empresa</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Salário</th>
+                    <th>Modelo</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,22 +66,22 @@
                                 class="btn btn-warning btn-sm">Editar Vaga</a>
                             <a href="{{ url("/vacancy/recruiter/$vacancy->id/finish") }}"
                                 class="btn btn-warning btn-sm">Fechar Vaga</a>
-                            <span class="btn-toggle" onclick="toggleSkills({{ $vacancy->id }})">Ver Skills</span>
+                            <span class="btn-toggle" onclick="toggleSkills({{ $vacancy->id }})">Ver Habilidades</span>
                         </td>
                     </tr>
                     <tr id="skills-{{ $vacancy->id }}" class="skills-row">
                         <td colspan="8">
-                            <h4>Skills List</h4>
+                            <h4>Lista de Habilidades</h4>
                             <table class="table table-sm table-bordered">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Level</th>
+                                        <th>Nome</th>
+                                        <th>Nível</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($vacancy->vacancy_id as $skill)
+                                    @foreach ($vacancy->skills as $skill)
                                         <tr>
                                             <td>{{ $skill->id }}</td>
                                             <td>{{ $skill->name }}</td>

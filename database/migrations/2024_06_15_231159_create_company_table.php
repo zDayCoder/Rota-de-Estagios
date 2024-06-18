@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('legal_nature');
             $table->string('branch');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('address_id');
             $table->timestamps();
         });
     }
