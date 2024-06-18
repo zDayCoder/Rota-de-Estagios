@@ -1,5 +1,12 @@
 <x-app-layout>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+    .fa {
+        color: rgb(220, 53, 69);
+        margin-right: 12px;
+        /* Margem à direita de 5 pixels */
+    }
+    </style>
     <!-- Page Container -->
     <div class="container mt-5">
         <!-- The Grid -->
@@ -16,7 +23,8 @@
                                 alt="Avatar"
                                 onerror="this.onerror=null; this.src='{{ asset('assets/img/default-user.svg') }}';">
                         </div>
-                        <div class="w3-display-topright w3-text-black" style="position: absolute; top: 10px; right: 10px;">
+                        <div class="w3-display-topright w3-text-black"
+                            style="position: absolute; top: 10px; right: 10px;">
                             <style>
                             .Btn {
                                 display: flex;
@@ -31,7 +39,7 @@
                                 overflow: hidden;
                                 transition-duration: .3s;
                                 box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-                                background-color: rgb(255, 65, 65);
+                                background-color: rgb(220, 53, 69);
                                 transition: 0.4s;
                             }
 
@@ -53,7 +61,7 @@
                             }
 
                             .Btn:hover {
-                                background-color: rgb(255, 15, 15);
+                                background-color: rgb(220, 23, 39);
                             }
 
                             .Btn:hover {
@@ -101,7 +109,7 @@
                         @foreach($curriculum->skills as $skill)
                         <p>{{ $skill->name }}</p>
                         <div class="progress mb-2">
-                            <div class="progress-bar bg-teal" role="progressbar"
+                            <div class="progress-bar bg-danger" role="progressbar"
                                 style="width: {{ $skill->level * 20 }}%" aria-valuenow="{{ $skill->level * 20 }}"
                                 aria-valuemin="0" aria-valuemax="100">{{ $skill->level * 20 }}%</div>
                         </div>
@@ -115,7 +123,7 @@
                         @foreach($curriculum->languages as $language)
                         <p>{{ $language->name }}</p>
                         <div class="progress mb-2">
-                            <div class="progress-bar bg-teal" role="progressbar"
+                            <div class="progress-bar bg-danger" role="progressbar"
                                 style="width: {{ $language->level * 20 }}%" aria-valuenow="{{ $language->level * 20 }}"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -139,15 +147,19 @@
                         <div class="mb-3">
                             <h4 class="card-text"><i
                                     class="fa fa-building fa-fw w3-margin-right"></i>{{ $experience->employer }}</h4>
-                            <p class="card-subtitle mb-2 text-muted">{{ $experience->position }}</p>
+                            <p class="card-subtitle mb-2 text-muted">{{ $experience->position }}
                             <p class="card-text"><i
                                     class="fa fa-map-marker fa-fw w3-margin-right"></i>{{ $experience->location }}</p>
-                            <p class="card-text"><i
-                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $experience->start_date }} -
-                                @if($experience->is_current) Atual @else {{ $experience->end_date }} @endif</p>
+                            </p>
                             <p>{{ $experience->description }}</p>
+                            <p class="card-text"><i
+                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ date('d/m/Y', strtotime($experience->start_date)) }}
+                                -
+                                @if($experience->is_current) Atual @else
+                                {{ date('d/m/Y', strtotime($experience->end_date)) }} @endif</p>
                             <hr>
                         </div>
+
                         @endforeach
                     </div>
                 </div>
@@ -161,9 +173,11 @@
                         @foreach($curriculum->certifications as $certification)
                         <div class="mb-3">
                             <h6 class="card-subtitle mb-2 text-muted">{{ $certification->name }}</h6>
-                            <p class="card-text"><i
-                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $certification->end_date }}</p>
                             <p>{{ $certification->description }}</p>
+                            <p class="card-text"><i
+                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ date('d/m/Y', strtotime($certification->end_date)) }}
+                            </p>
+
                             <hr>
                         </div>
                         @endforeach
@@ -180,8 +194,9 @@
                         <div class="mb-3">
                             <h6 class="card-subtitle mb-2 text-muted">{{ $education->name }}</h6>
                             <p class="card-text"><i
-                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $education->start_date }} -
-                                {{ $education->end_date }}</p>
+                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ date('d/m/Y', strtotime($education->start_date)) }}
+                                - {{ date('d/m/Y', strtotime($education->end_date)) }}</p>
+
                             <hr>
                         </div>
                         @endforeach
