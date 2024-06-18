@@ -8,95 +8,127 @@
     height: 70vh;
 
 }
+
 .job-card {
-    
+
     border: 1px solid #ccc;
     margin-bottom: 20px;
     padding: 20px;
     font-family: 'Courier New', Courier, monospace;
 
 }
+
 .job h2 {
     margin-top: 0;
 }
+
 .job p {
     margin-bottom: 5px;
 }
+
 .job .description {
     margin-top: 10px;
 }
 
-.resume-job-card{
+.resume-job-card {
     flex: 1;
     margin-right: 10px;
     height: 65vh;
     overflow-y: scroll;
     border: none;
 }
+
 .detalhes-container {
     border: solid 1px #ccc;
     flex: 1;
-    overflow-y:scroll;
+    overflow-y: scroll;
     height: 65vh;
 
 
 }
 
-.detalhes-container{
+.detalhes-container {
     color: rgb(39, 39, 39);
 
 }
 
-.logo{
+.logo {
     width: 50px;
     height: 50px;
     mix-blend-mode: multiply;
 }
 
 .container-vagas2 {
-    margin-top:40px;
+    margin-top: 60px!important;
+    gap: 80px;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 800px;
+    justify-content: start;
+    
+    width: 1200px;
     flex-wrap: wrap;
-    height: 50vh;
+    height: 100%;
+    animation: scaleup 0.5s forwards cubic-bezier(0.25, 0.8, 0.25, 1);
 
+}
+a >.card:hover{
+    transform: scale(1.1);
+}
+
+
+
+@keyframes scaleup {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1.0); 
+    }
+}
+.container-vagas2 h1{
+    font-size: 30px;
 }
 
 .title-vagas {
-    color:#FFF;
+    color: #FFF;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
+    
 }
-
-.container-vagas2 > .card{
-    background-color: #252525;
-}
-
-.container-vagas2 > .card > .card-body button  {
-    background-color: #FFF;
-    color:#000!important;
+.container-vagas2>a{
+    height: 80%;
     border-radius: 10px;
+}
+.container-vagas2>a>.card {
+    background-color: #790c0c;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.container-vagas2>.card>.card-body button {
+    background-color: #FFF;
+    color: #000 !important;
+    border-radius: 15px;
 }
 
 .title-vagas2 {
-    color:#272727;
+    color: #272727;
     padding-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Courier New', Courier, monospace;
-
+  
     height: 50px;
 }
 
 
-.detalhes-container > p {
-    font-weight: 399;;
+.detalhes-container>p {
+    font-weight: 399;
+    ;
 }
