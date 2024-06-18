@@ -86,4 +86,6 @@
         }
         </script>
     <!-- </ax-dash-coordinator-->
+    <x-authentication-card>
+
 </x-app-layout>
