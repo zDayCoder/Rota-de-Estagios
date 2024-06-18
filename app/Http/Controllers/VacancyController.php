@@ -79,7 +79,6 @@ class VacancyController extends Controller
             'salary' => 'required|numeric',
             'model' => 'required|string|in:presencial,hibrido,homeoffice',
             'skills' => 'nullable|array', 
-            
             'status' => 'nullable|string|in:Aberta,Fechada,Cancelada',
         ]);
 
@@ -87,7 +86,6 @@ class VacancyController extends Controller
         $company = DB::table('Company')->where('user_id', $user->id)->first('id');
         
         if (!$company) {
-
             return view(view: 'company.form');
         }
 

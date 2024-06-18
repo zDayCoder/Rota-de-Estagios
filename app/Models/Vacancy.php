@@ -19,7 +19,10 @@ class Vacancy extends Model
     ];
 
     
-
+    public function skills()
+    {
+        return $this->hasMany(Skill::class);
+    }
     public function relacSkills()
     {
         return $this->hasOne('App\Models\VacancySkill', 'id', 'skills_id');
@@ -30,3 +33,4 @@ class Vacancy extends Model
         return $this->hasOne('App\Models\Address', 'id', 'address_id');
     }
 }
+

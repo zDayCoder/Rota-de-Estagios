@@ -81,7 +81,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($vacancy->skills as $skill)
+                                    @foreach ($vacancy->vacancy_id as $skill)
                                         <tr>
                                             <td>{{ $skill->id }}</td>
                                             <td>{{ $skill->name }}</td>

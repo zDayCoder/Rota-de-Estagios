@@ -13,12 +13,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Endereço</title>
 </head>
-
+<style>
+    body{
+        font-family: 'Courier New', Courier, monospace !important;
+    }
+</style>
 <body>
     <div class="card-address">
         <div class="main-content">
             
-            <h1>Cadastro de Endereço</h1>
+            <h2>Vamos criar seu endereço</h2>
 
             <div class="container">
                 <form id="addressForm" action="{{ route('address.store') }}" method="POST">

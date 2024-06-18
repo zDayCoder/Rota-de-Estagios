@@ -21,7 +21,6 @@ return new class extends Migration
             $table->enum('model', ['presencial', 'hibrido', 'homeoffice']);
             $table->integer('trainee_id');
             $table->enum('status',['Aberta','Fechada','Cancelada']);
-            $table->integer('address_id');
             $table->timestamps();
         });
     }

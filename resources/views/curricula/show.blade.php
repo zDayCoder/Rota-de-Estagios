@@ -18,8 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Roboto", sans-serif
-}
+    font-family: 'Courier New', Courier, monospace;}
 </style>
 
 <body class="w3-light-grey">

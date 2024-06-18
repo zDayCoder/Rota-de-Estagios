@@ -1,4 +1,4 @@
- <x-app-layout>
+<x-app-layout>
     <!--ax-dash-coordinator> -->
         <style>
         .skills-row {
@@ -34,7 +34,7 @@
         </style>
 
         <div class="container">
-            <h1 class="text-center">Lista de Alunos </h1>
+            <h1 class="text-center">Lista de Estagiários </h1>
 
             <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
@@ -88,6 +88,4 @@
         }
         </script>
     <!-- </ax-dash-coordinator-->
-    <x-authentication-card>
-
 </x-app-layout>

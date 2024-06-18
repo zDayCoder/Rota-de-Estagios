@@ -54,19 +54,25 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route($linkName) }}">
-                        {{ $linksType }}
-                    </x-nav-link>
-
-                    <x-nav-link href="/">
-                        {{ $logUser }}
-                    </x-nav-link>
-                    @if ($user && $user->user_type == \App\Models\User::TYPE_ENTERPRISE)
+                    @if (auth()->user() && auth()->user()->user_type == \App\Models\User::TYPE_INTERN)
+                        <x-nav-link href="{{ route('curricula.index') }}">
+                            {{ __('Curriculo') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('vacancyIntern') }}">
+                            {{ __('Vagas Disponíveis') }}
+                        </x-nav-link>
+                    @elseif (auth()->user() && auth()->user()->user_type == \App\Models\User::TYPE_ENTERPRISE)
+                        <x-nav-link href="{{ route('vacancy.create') }}">
+                            {{ __('Criar Vagas') }}
+                        </x-nav-link>
                         <x-nav-link href="{{ route('vacancyRecruiter') }}">
-                            {{ __('Ver Vagas') }}
+                            {{ __('Visualizar Vagas') }}
+                        </x-nav-link>
+                    @elseif (auth()->user() && auth()->user()->user_type == \App\Models\User::TYPE_COORDINATOR)
+                        <x-nav-link href="{{ route('intern.index') }}">
+                            {{ __('Ver Estagiários') }}
                         </x-nav-link>
                     @endif
-
 
                 </div>
             </div>
@@ -102,11 +108,11 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('Configurações da conta') }}
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('Perfil') }}
                             </x-dropdown-link>
 
 
@@ -118,7 +124,7 @@
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('Sair') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>

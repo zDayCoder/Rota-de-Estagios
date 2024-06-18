@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Vagas</title>
+<x-app-layout>
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -29,8 +27,6 @@
             vertical-align: middle;
         }
     </style>
-</head>
-<body>
     <div class="container">
         <h1 class="text-center">Lista de Vagas</h1>
         
@@ -101,5 +97,5 @@
             }
         }
     </script>
-</body>
-</html>
+</x-app-layout>
+
