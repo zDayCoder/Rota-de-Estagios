@@ -109,6 +109,7 @@ class VacancyController extends Controller
                     $vacancySkill = VacancySkill::create([
                         'name' => $skillData['name'],
                         'level' => $skillData['level'],
+                        'vacancy_id' => $vacancy->id, 
                     ]);
 
                 }
