@@ -1,4 +1,6 @@
 <x-app-layout>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <h2 class="titulo-curriculo">Criando Currículo</h2>
     <div class="container-curriculo">
         <div class="w3-row-padding">
@@ -6,22 +8,56 @@
                 <div class="w3-white w3-text-grey w3-card-4" style="border-radius:20px;padding:4px">
                     <div class="w3-container">
                         <!-- Formulário de Criação -->
-                        <form action="{{ route('curricula.store') }}" method="POST">
+                        <form action="{{ route('curricula.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="dados-basicos">
                                 <div class="row">
                                     <div class="col-xl-3 image-user" id="view_photo">
-                                        <div class="img-thumbnail">
+                                        <!-- <div class="img-thumbnail">
                                             <div class="image">
-                                                <label for="uploader">click</label>
-                                                <img style="height:100px; width=100px">
+                                                <label for="profile_photo">Adicionar Foto</label>
+                                                <img id="profile_photo_preview" style="height:100px; width:100px"
+                                                    src="{{ asset('assets/img/default-user.svg') }}"
+                                                    alt="Foto de perfil">
                                             </div>
-                                            <input type="file" id='uploader'>
+                                            <input type="file" id="profile_photo" name="profile_photo" accept="image/*"
+                                                style="display: none;">
                                             <div class="zoom">
                                                 <div class="minus"></div>
                                                 <div class="close"></div>
                                             </div>
+                                        </div> -->
+
+
+                                        <div class="photo-frame"
+                                            style="border: 1.5px solid gray; display: inline-block; border-radius: 100%; padding: 4px; position: relative;">
+                                            <img id="profile_photo_preview"
+                                                src="{{ asset('storage/' . $user->profile_photo_path) }}"
+                                                style="object-fit: cover; width: 100%; height: auto; max-width:200px;max-height:200px; min-width: 200px; min-height: 200px; border-radius: 100%;"
+                                                alt="Avatar"
+                                                onerror="this.onerror=null; this.src='{{ asset('assets/img/default-user.svg') }}';">
+                                                <button type="button"
+                                                onclick="document.getElementById('profile_photo').click();"
+                                                style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); padding: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; border: none; border-radius: 50%; cursor: pointer;">
+                                                <i class="fas fa-camera"></i>
+                                            </button>
                                         </div>
+                                        <input type="file" id="profile_photo" name="profile_photo" accept="image/*"
+                                            style="display: none;">
+
+                                        <script>
+                                        document.getElementById('profile_photo').addEventListener('change', function() {
+                                            const [file] = this.files;
+                                            if (file) {
+                                                document.getElementById('profile_photo_preview').src = URL
+                                                    .createObjectURL(file);
+                                            }
+                                        });
+
+                                        document.querySelector('.upload-label').addEventListener('click', function() {
+                                            document.getElementById('profile_photo').click();
+                                        });
+                                        </script>
 
                                     </div>
                                 </div>

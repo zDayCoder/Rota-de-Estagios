@@ -111,7 +111,7 @@ $(document).ready(function() {
                 <label for="skill_${skillIndex}">Habilidade:</label>
                 <input type="text" id="skill_${skillIndex}" name="skills[]" class="w3-input w3-border">
                 <label for="skill_level_${skillIndex}">Nível:</label>
-                <span id="skill_level_text_${skillIndex}">Iniciante</span>
+                <span id="skill_level_text_${skillIndex}">Iniciante</span><br>
                 <input type="range" id="skill_level_${skillIndex}" name="skill_levels[]" min="1" max="5" step="1" value="1" class="w3-input w3-border">
                 <button type="button" class="removeButton rounded-full" data-index="${skillIndex}" data-section="skill"><span class="material-symbols-outlined">delete</span></button></div>`
         );
@@ -128,7 +128,7 @@ $(document).ready(function() {
                 <label for="language_${languageIndex}">Idioma:</label>
                 <input type="text" id="language_${languageIndex}" name="languages[]" class="w3-input w3-border">
                 <label for="language_level_${languageIndex}">Nível:</label>
-                <span id="language_level_text_${languageIndex}">Iniciante</span>
+                <span id="language_level_text_${languageIndex}">Iniciante</span><br>
                 <input type="range" id="language_level_${languageIndex}" name="language_levels[]" min="1" max="5" step="1" value="1" class="w3-input w3-border">
                 <button type="button" class="removeButton rounded-full" data-index="${languageIndex}" data-section="language"><span class="material-symbols-outlined">delete</span></button></div>`
         );
@@ -148,7 +148,7 @@ $(document).ready(function() {
                 <input type="text" autocomplete="off" id="certification_end_date_${certificationIndex}" name="certification_end_dates[]" class="w3-input w3-border datepicker">
                 <label for="certification_description_${certificationIndex}">Descrição:</label>
                 <textarea id="certification_description_${certificationIndex}" name="certification_descriptions[]" rows="2" class="w3-input w3-border"></textarea>
-                <button type="button" class="removeButton" data-index="${certificationIndex}" data-section="certification">Remover Certificação</button>
+                <button type="button" class="removeButton rounded-full" data-index="${certificationIndex}" data-section="certification"><span class="material-symbols-outlined">delete</span></button></div>
             </div>`
         );
         $('.datepicker').datepicker({
@@ -172,7 +172,7 @@ $(document).ready(function() {
                 <input type="text" autocomplete="off" id="education_start_date_${educationIndex}" name="education_start_dates[]" class="w3-input w3-border datepicker">
                 <label for="education_end_date_${educationIndex}">Data de Término:</label>
                 <input type="text" autocomplete="off" id="education_end_date_${educationIndex}" name="education_end_dates[]" class="w3-input w3-border datepicker">
-                <button type="button" class="removeButton" data-index="${educationIndex}" data-section="education">Remover Formação</button>
+                <button type="button" class="removeButton rounded-full" data-index="${educationIndex}" data-section="education"><span class="material-symbols-outlined">delete</span></button></div>
             </div>`
         );
         $('.datepicker').datepicker({

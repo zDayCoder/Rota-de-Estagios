@@ -36,31 +36,6 @@
         <x-label>Semestre Atual:<a style="font-weight:normal">{{ $intern->current_period }}</a></x-label>
     </div>
 
-    <x-label class="mt-3">
-      <h3 style="font-weight:bolder; text-decoration: underline">Endereço</h3>
-    </x-label>
-    <div>
-        <x-label>CEP:<a style="font-weight:normal">{{ $intern->address->zip_code }}</a></x-label>
-    </div>
-    <div>
-        <x-label>Logradouro:<a style="font-weight:normal">{{ $intern->address->street_address }}</a></x-label>
-    </div>
-    <div>
-        <x-label>Complemento:<a style="font-weight:normal">{{ $intern->address->complement }}</a></x-label>
-    </div>
-    <div>
-        <x-label>Bairro:<a style="font-weight:normal">{{ $intern->address->neighborhood }}</a></x-label>
-    </div>
-    <div>
-        <x-label>Cidade:<a style="font-weight:normal">{{ $intern->address->city }}</a></x-label>
-    </div>
-    <div>
-        <x-label>Estado:<a style="font-weight:normal">{{ $intern->address->state }}</a></x-label>
-    </div>
-    <div>
-        <x-label>Número:<a style="font-weight:normal">{{ $intern->address->number }}</a></x-label>
-    </div>
-
     <x-button class="mt-3 mb-4" type="submit">
         <a style="color: white; text-decoration: none" href="{{ route('interns.edit', $intern->id) }}">Atualizar dados</a>
     </x-button>

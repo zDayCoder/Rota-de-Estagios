@@ -1,31 +1,29 @@
 <x-app-layout>
 
     <!-- Page Container -->
-    <div class="w3-content w3-margin-top" style="max-width:1400px;">
-
+    <div class="container mt-5">
         <!-- The Grid -->
-        <div class="w3-row-padding">
+        <div class="row justify-content-center">
             @if ($curriculum)
             <!-- Left Column -->
-            <div class="w3-third">
-                <div class="w3-white w3-text-grey w3-card-4" style="border-radius:20px;padding:4px">
-                    <div class="w3-display-container">
-                        <div style="min-height:333px;">
-                            <div class="photo-frame" style="border: 1.5px solid gray; display: inline-block;border-radius:100%;padding: 4px">
-                                <img src="{{ asset('storage/' . $user->profile_photo_path) }}"
-                                    style="object-fit: cover; width: 100%; height: auto; max-width: 200px;max-height:200px; min-width: 200px; min-height: 200px; border-radius: 100%;"
-                                    alt="Avatar"
-                                    onerror="this.onerror=null; this.src='{{ asset('assets/img/default-user.svg') }}';">
-                            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm" style="border-radius:20px;">
+                    <div class="card-body text-center">
+                        <div class="photo-frame mb-3"
+                            style="border: 1.5px solid gray; display: inline-block;border-radius:100%;padding: 4px">
+                            <img src="{{ asset('storage/' . $user->profile_photo_path) }}"
+                                style="object-fit: cover; width: 100%; height: auto; max-width: 200px; max-height: 200px; min-width: 200px; min-height: 200px; border-radius: 100%;"
+                                alt="Avatar"
+                                onerror="this.onerror=null; this.src='{{ asset('assets/img/default-user.svg') }}';">
                         </div>
-                        <div class="w3-display-topright w3-text-black" style="margin:-15px">
+                        <div class="w3-display-topright w3-text-black" style="position: absolute; top: 10px; right: 10px;">
                             <style>
                             .Btn {
                                 display: flex;
-                                align-items: center;
-                                justify-content: flex-start;
                                 width: 45px;
                                 height: 45px;
+                                align-items: center;
+                                justify-content: center;
                                 border: none;
                                 border-radius: 50%;
                                 cursor: pointer;
@@ -75,17 +73,13 @@
                                         </path>
                                     </svg>
                                 </div>
-
                             </a>
                         </div>
 
-                        <div class="w3-display-bottomleft w3-container w3-text-black"
-                            style="background: rgba(255,255,255,.8);border-radius:12px;margin:4px">
-                            <h4>{{ $curriculum->name }}</h4>
-                        </div>
+                        <h4>{{ $curriculum->name }}</h4>
                     </div>
-                    <div class="w3-container">
-                        <!--Resumo/Objetivo -->
+                    <div class="card-body">
+                        <!-- Resumo/Objetivo -->
                         <p>{{ $curriculum->summary }}</p>
                         <hr>
                         <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ $curriculum->city }}
@@ -103,12 +97,13 @@
 
                         <!-- Habilidades -->
                         @if ($curriculum->skills->count() > 0)
-                        <h3>Habilidades</h3>
+                        <h5>Habilidades</h5>
                         @foreach($curriculum->skills as $skill)
                         <p>{{ $skill->name }}</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small">
-                            <div class="w3-container w3-center w3-round-xlarge w3-teal"
-                                style="width: {{ $skill->level * 20 }}%">{{ $skill->level * 20 }}%</div>
+                        <div class="progress mb-2">
+                            <div class="progress-bar bg-teal" role="progressbar"
+                                style="width: {{ $skill->level * 20 }}%" aria-valuenow="{{ $skill->level * 20 }}"
+                                aria-valuemin="0" aria-valuemax="100">{{ $skill->level * 20 }}%</div>
                         </div>
                         @endforeach
                         <br>
@@ -116,91 +111,92 @@
 
                         <!-- Idiomas -->
                         @if ($curriculum->languages->count() > 0)
-                        <p class="w3-large w3-text-theme"><b><i
-                                    class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Idiomas</b></p>
+                        <h5><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Idiomas</h5>
                         @foreach($curriculum->languages as $language)
                         <p>{{ $language->name }}</p>
-                        <div class="w3-light-grey w3-round-xlarge">
-                            <div class="w3-round-xlarge w3-teal"
-                                style="height:24px; width: {{ $language->level * 20 }}%"></div>
+                        <div class="progress mb-2">
+                            <div class="progress-bar bg-teal" role="progressbar"
+                                style="width: {{ $language->level * 20 }}%" aria-valuenow="{{ $language->level * 20 }}"
+                                aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         @endforeach
                         <br>
                         @endif
                     </div>
                 </div>
-
-                <!-- End Left Column -->
             </div>
 
             <!-- Right Column -->
-            <div class="w3-twothird">
+            <div class="col-md-8">
                 @if ($curriculum->experiences->count() > 0)
-                <div class="w3-container w3-card w3-white w3-margin-bottom">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Experiência
-                        Profissional</h2>
-                    @foreach($curriculum->experiences as $experience)
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>{{ $experience->position }}</b></h5>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-building fa-fw w3-margin-right"></i>{{ $experience->employer }}</h6>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-map-marker fa-fw w3-margin-right"></i>{{ $experience->location }}</h6>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $experience->start_date }} -
-                            @if($experience->is_current) Atual @else {{ $experience->end_date }} @endif</h6>
-                        <p>{{ $experience->description }}</p>
-                        <hr>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title"><i
+                                class="fa fa-suitcase fa-fw w3-margin-right w3-text-teal"></i>Experiência Profissional
+                        </h2>
+                        <hr />
+                        @foreach($curriculum->experiences as $experience)
+                        <div class="mb-3">
+                            <h4 class="card-text"><i
+                                    class="fa fa-building fa-fw w3-margin-right"></i>{{ $experience->employer }}</h4>
+                            <p class="card-subtitle mb-2 text-muted">{{ $experience->position }}</p>
+                            <p class="card-text"><i
+                                    class="fa fa-map-marker fa-fw w3-margin-right"></i>{{ $experience->location }}</p>
+                            <p class="card-text"><i
+                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $experience->start_date }} -
+                                @if($experience->is_current) Atual @else {{ $experience->end_date }} @endif</p>
+                            <p>{{ $experience->description }}</p>
+                            <hr>
+                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
                 @endif
 
                 @if ($curriculum->certifications->count() > 0)
-                <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Certificações
-                    </h2>
-                    @foreach($curriculum->certifications as $certification)
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>{{ $certification->name }}</b></h5>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $certification->end_date }}</h6>
-                        <p>{{ $certification->description }}</p>
-                        <hr>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title"><i
+                                class="fa fa-certificate fa-fw w3-margin-right w3-text-teal"></i>Certificações</h2>
+                        @foreach($curriculum->certifications as $certification)
+                        <div class="mb-3">
+                            <h6 class="card-subtitle mb-2 text-muted">{{ $certification->name }}</h6>
+                            <p class="card-text"><i
+                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $certification->end_date }}</p>
+                            <p>{{ $certification->description }}</p>
+                            <hr>
+                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
                 @endif
 
                 @if ($curriculum->educations->count() > 0)
-                <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i
-                            class="fa fa-graduation-cap fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Educação</h2>
-                    @foreach($curriculum->educations as $education)
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>{{ $education->name }}</b></h5>
-                        <h6 class="w3-text-teal"><i
-                                class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $education->start_date }} -
-                            {{ $education->end_date }}</h6>
-                        <hr>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title"><i
+                                class="fa fa-graduation-cap fa-fw w3-margin-right w3-text-teal"></i>Educação</h2>
+                        @foreach($curriculum->educations as $education)
+                        <div class="mb-3">
+                            <h6 class="card-subtitle mb-2 text-muted">{{ $education->name }}</h6>
+                            <p class="card-text"><i
+                                    class="fa fa-calendar fa-fw w3-margin-right"></i>{{ $education->start_date }} -
+                                {{ $education->end_date }}</p>
+                            <hr>
+                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
                 @endif
-
-                <!-- End Right Column -->
             </div>
+
             @else
-            <h1> Sem Currículo </h1>
-            <button type="button" class="btn btn-primary"
-                onclick="window.location='{{ route('curricula.create') }}'">Crie um agora mesmo</button>
+            <div class="col-md-8 text-center">
+                <h1>Sem Currículo</h1>
+                <button type="button" class="btn btn-primary"
+                    onclick="window.location='{{ route('curricula.create') }}'">Crie um agora mesmo</button>
+            </div>
             @endif
-            <!-- End Grid -->
         </div>
-
-        <!-- End Page Container -->
     </div>
-
 </x-app-layout>

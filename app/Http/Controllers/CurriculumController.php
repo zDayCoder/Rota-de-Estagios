@@ -90,28 +90,59 @@ class CurriculumController extends Controller
     public function create()
     {
 
+        
         if (Auth::check()) {
             // Acessa todos os dados do usuário autenticado
             $user = Auth::user();
 
-            // Verifica se o usuário tem um endereço associado
-            if ($user->address) {
-                // O usuário tem um endereço, você pode acessá-lo assim
-                $address = $user->address;
+            // Verifica se o usuário é um estagiário (Intern)
+            if ($user->user_type == User::TYPE_INTERN) {
 
-                // Faça o que precisar com o endereço e o usuário
-                return view('curricula.create', [
-                    'user' => $user,
-                    'address' => $address,
-                ]);
+
+                // Recupera o Intern associado ao usuário
+                $intern = Intern::where('user_id', $user->id);//->first();
+
+                // Verifica se o Intern foi encontrado
+                if ($intern->exists()) {
+                    // Verifica se o Intern tem um endereço associado
+                    if ($user->address) {
+                        // Recupera o currículo associado ao Intern
+                        $address = $user->address;
+                        $curriculum = Curriculum::where('intern_id', $user->id)->first();
+                        
+
+                        if (!$curriculum) {
+                            // Se não existir currículo, redirecione para a rota de criação
+                            return view('curricula.create', [
+                                'user' => $user,
+                                'address' => $address,
+                            ]);
+                        }else{
+                            return redirect()->route('curricula.index');
+                        }
+
+                        // Se existir currículo, carregue a view de index com os dados necessários
+                    } else {
+                        // Se o Intern não tiver um endereço, redirecione para criar o endereço
+                        return redirect()->route('address.create');
+                    }
+                } else {
+                    // Se o Intern não foi encontrado, lance uma exceção 403
+                    //abort(403, 'Estagiário não encontrado.');
+                    return redirect()->route('interns.create');
+                }
+
+
+
+
+
             } else {
-                // O usuário não tem um endereço registrado
-                $address = null; // Ou qualquer outra ação que você deseja tomar
-
-                // Passa apenas os dados do usuário para a view
-                // return view('curricula.create', ['user' => $user]);
-                return view('dashboard');
+                // Se o usuário não for um estagiário, lance uma exceção 403
+                abort(403, 'Acesso não autorizado.');
             }
+        } else {
+            // Se o usuário não estiver autenticado, redirecione para a página de login
+            return redirect()->route('login')->withErrors(['message' => 'Faça login para acessar esta página.']);
         }
     }
 
